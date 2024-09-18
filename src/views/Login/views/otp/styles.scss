@@ -1,0 +1,21 @@
+.otp-input {
+  direction: ltr;
+  width: 100%;
+  input {
+    width: 54px;
+    height: 54px;
+    min-width: 54px;
+    max-width: 54px;
+    background: transparent;
+    outline: 1px solid transparent;
+    outline-color: var(--mui-palette-primary-main);
+    transition: 200ms;
+    border-radius: 8px;
+    color: var(--mui-palette-primary-contrastText);
+    font-size: 32px;
+    text-align: center;
+    &.has-content {
+      background: var(--mui-palette-primary-main);
+    }
+  }
+}

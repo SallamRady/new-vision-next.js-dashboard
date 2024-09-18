@@ -1,0 +1,41 @@
+.rounded-background-box {
+  display: grid;
+  place-content: center;
+  --border-angle: 0turn;
+  --main-bg: conic-gradient(
+    from var(--border-angle),
+    var(--mui-palette-background-default),
+    var(--mui-palette-background-default) 5%,
+    var(--mui-palette-background-default) 60%,
+    var(--mui-palette-background-default) 95%
+  );
+  border: solid 2px transparent;
+  border-radius: 100%;
+  opacity: 0.7;
+
+  --gradient-border: conic-gradient(from var(--border-angle), transparent 25%, #08f, #f03 99%, transparent);
+  background:
+    // padding-box clip this background in to the overall element except the border.
+    var(--main-bg) padding-box,
+    // border-box extends this background to the border space
+    var(--gradient-border) border-box,
+    // Duplicate main background to fill in behind the gradient border. You can remove this if you want the border to extend "outside" the box background.
+    var(--main-bg) border-box;
+  background-position: center center;
+  animation: bg-spin 5s linear infinite;
+  @keyframes bg-spin {
+    to {
+      --border-angle: 1turn;
+    }
+  }
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+@property --border-angle {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0turn;
+}
