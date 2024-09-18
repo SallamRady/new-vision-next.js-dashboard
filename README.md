@@ -15,8 +15,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Before Start Working with our project you must know
 
 - Learn React Well
-- Learn React MUI
+- Learn React MUI/Tailwind CSS
 - Learn Context API / Redux
+- Learn Next JS
+- Learn Typescript (TS)
 - Learn Materialize you can see [Link](https://demos.pixinvent.com/materialize-nextjs-admin-template/documentation/docs/guide/overview/getting-started)
 - Dont make any change in any file in these directories (src/@core, src/@layout and src/@menu)
 - Dont write code for component and it exist in project or There is an alternative available in template

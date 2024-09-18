@@ -19,7 +19,7 @@ import type { MenuItemExactMatchUrlProps } from '@menu/types'
 // Vertical Menu Data
 export type VerticalMenuItemDataType = Omit<
   VerticalMenuItemProps,
-  'children' | 'exactMatch' | 'activeUrl' | 'icon' | 'prefix' | 'suffix'
+  'children' | 'exactMatch' | 'activeUrl' | 'icon' | 'prefix' | 'suffix' | 'href'
 > &
   MenuItemExactMatchUrlProps & {
     label: ReactNode

@@ -1,7 +1,7 @@
 // Type Imports
 import type { HorizontalMenuDataType } from '@/types/menuTypes'
 
-const horizontalMenuData = (): HorizontalMenuDataType[] => [
+const SidebarMenuData = (): HorizontalMenuDataType[] => [
   {
     label: 'Home',
     href: '/home',
@@ -14,4 +14,4 @@ const horizontalMenuData = (): HorizontalMenuDataType[] => [
   }
 ]
 
-export default horizontalMenuData
+export default SidebarMenuData

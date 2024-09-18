@@ -19,6 +19,8 @@ import StyledVerticalNavExpandIcon from '@menu/styles/vertical/StyledVerticalNav
 // Style Imports
 import menuItemStyles from '@core/styles/vertical/menuItemStyles'
 import menuSectionStyles from '@core/styles/vertical/menuSectionStyles'
+import SidebarMenuData from '@/data/navigation/SidebarMenuData'
+import NavbarFooter from '../shared/NavbarFooter'
 
 type RenderExpandIconProps = {
   open?: boolean
@@ -58,6 +60,7 @@ const VerticalMenu = ({ scrollMenu }: Props) => {
             options: { wheelPropagation: false, suppressScrollX: true },
             onScrollY: container => scrollMenu(container, true)
           })}
+      style={{ display: 'flex', height: '100%', flexDirection: 'column', justifyContent: 'space-between' }}
     >
       {/* Incase you also want to scroll NavHeader to scroll with Vertical Menu, remove NavHeader from above and paste it below this comment */}
       {/* Vertical Menu */}
@@ -68,22 +71,13 @@ const VerticalMenu = ({ scrollMenu }: Props) => {
         renderExpandedMenuItemIcon={{ icon: <i className='ri-circle-fill' /> }}
         menuSectionStyles={menuSectionStyles(verticalNavOptions, theme)}
       >
-        <MenuItem href='/home' icon={<i className='ri-home-smile-line' />}>
-          Home
-        </MenuItem>
-        <MenuItem href='/about' icon={<i className='ri-information-line' />}>
-          About
-        </MenuItem>
+        {SidebarMenuData().map((link, index) => (
+          <MenuItem key={`${link.href}-${index}`} href={link.href} icon={<i className={link.icon} />}>
+            {link.label}
+          </MenuItem>
+        ))}
       </Menu>
-      {/* <Menu
-        popoutMenuOffset={{ mainAxis: 17 }}
-        menuItemStyles={menuItemStyles(verticalNavOptions, theme)}
-        renderExpandIcon={({ open }) => <RenderExpandIcon open={open} transitionDuration={transitionDuration} />}
-        renderExpandedMenuItemIcon={{ icon: <i className='ri-circle-fill' /> }}
-        menuSectionStyles={menuSectionStyles(verticalNavOptions, theme)}
-      >
-        <GenerateVerticalMenu menuData={menuData(dictionary, params)} />
-      </Menu> */}
+      <NavbarFooter />
     </ScrollWrapper>
   )
 }

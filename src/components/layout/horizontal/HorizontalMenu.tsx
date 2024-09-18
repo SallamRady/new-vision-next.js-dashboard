@@ -20,6 +20,7 @@ import menuItemStyles from '@core/styles/horizontal/menuItemStyles'
 import menuRootStyles from '@core/styles/horizontal/menuRootStyles'
 import verticalMenuItemStyles from '@core/styles/vertical/menuItemStyles'
 import verticalNavigationCustomStyles from '@core/styles/vertical/navigationCustomStyles'
+import SidebarMenuData from '@/data/navigation/SidebarMenuData'
 
 type RenderExpandIconProps = {
   level?: number
@@ -76,12 +77,11 @@ const HorizontalMenu = () => {
           renderExpandedMenuItemIcon: { icon: <i className='ri-circle-fill' /> }
         }}
       >
-        <MenuItem href='/' icon={<i className='ri-home-smile-line' />}>
-          Home
-        </MenuItem>
-        <MenuItem href='/about' icon={<i className='ri-information-line' />}>
-          About
-        </MenuItem>
+        {SidebarMenuData().map((link, index) => (
+          <MenuItem key={`${link.href}-${index}`} href={link.href} icon={<i className={link.icon} />}>
+            {link.label}
+          </MenuItem>
+        ))}
       </Menu>
       {/* <Menu
         rootStyles={menuRootStyles(theme)}
