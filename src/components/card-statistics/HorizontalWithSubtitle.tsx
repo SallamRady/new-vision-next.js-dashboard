@@ -20,28 +20,45 @@ export type UserDataType = {
   trend: string
   trendNumber: string
   subtitle: string
+  cardWidth?: string
 }
 
 const HorizontalWithSubtitle = (props: UserDataType) => {
   // Props
-  const { title, stats, avatarIcon, avatarColor, trend: trend, trendNumber: trendNumber, subtitle: subtitle } = props
+  const {
+    title,
+    stats,
+    avatarIcon,
+    avatarColor,
+    trend: trend,
+    trendNumber: trendNumber,
+    subtitle: subtitle,
+    cardWidth
+  } = props
 
   return (
-    <Card>
-      <CardContent className='flex justify-between gap-1'>
-        <div className='flex flex-col gap-1 flex-grow'>
-          <Typography color='text.primary'>{title}</Typography>
-          <div className='flex items-center gap-2 flex-wrap'>
-            <Typography variant='h4'>{stats}</Typography>
-            <Typography color={trend === 'negative' ? 'error.main' : 'success.main'}>
-              {`(${trend === 'negative' ? '-' : '+'}${trendNumber})`}
-            </Typography>
-          </div>
-          <Typography variant='body2'>{subtitle}</Typography>
-        </div>
+    <Card sx={{ width: cardWidth ?? '275px' }}>
+      <CardContent className='flex justify-between gap-2'>
         <CustomAvatar color={avatarColor} skin='light' variant='rounded' size={42}>
           <i className={classnames(avatarIcon, 'text-[26px]')} />
         </CustomAvatar>
+        <div className='flex flex-col gap-1 flex-grow'>
+          <Typography variant='body2' fontSize={'0.9rem'}>
+            {title}
+          </Typography>
+          <div className='flex items-center gap-2 flex-wrap'>
+            <Typography variant='body2' fontSize={'1rem'} color='text.primary'>
+              {stats}
+            </Typography>
+            <Typography
+              variant='body2'
+              fontSize={'0.7rem'}
+              color={trend === 'negative' ? 'error.main' : 'success.main'}
+            >
+              {`(${trendNumber}${trend === 'negative' ? '-' : '+'})`}
+            </Typography>
+          </div>
+        </div>
       </CardContent>
     </Card>
   )
