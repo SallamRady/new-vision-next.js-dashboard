@@ -1,17 +1,5 @@
 import React, { useState } from 'react'
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Button,
-  Card,
-  CardHeader,
-  Checkbox,
-  FormControlLabel,
-  Stack,
-  TextField,
-  Typography
-} from '@mui/material'
+import { Button, Card, CardHeader, Checkbox, FormControlLabel, Stack, TextField, Typography } from '@mui/material'
 import {
   ColumnDef,
   flexRender,
@@ -47,8 +35,8 @@ type GenericDataTableProps<T> = {
   columns: ColumnDef<T, any>[]
   globalFilterPlaceholder?: string
   addButtonLabel?: string
+  addDialogContent?: React.ReactNode
   exportButtonLabel?: string
-  onAdd?: () => void
   onExport?: () => void
 }
 
@@ -57,8 +45,8 @@ export default function GenericDataTable<T>({
   columns,
   globalFilterPlaceholder = 'Search...',
   addButtonLabel = 'Add Item',
+  addDialogContent = <>Add Dialog</>,
   exportButtonLabel = 'Export',
-  onAdd,
   onExport
 }: GenericDataTableProps<T>) {
   // ** declare and define component state and variables
@@ -67,6 +55,7 @@ export default function GenericDataTable<T>({
   const [columnVisibility, setColumnVisibility] = useState({})
   const [columnsVisibilityFilters, setColumnsVisibilityFilters] = useState('')
   const [openColumnVisibilityControlDialog, setOpenColumnVisibilityControlDialog] = useState(false)
+  const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // ** declare the table instance
   const table = useReactTable({
@@ -108,8 +97,8 @@ export default function GenericDataTable<T>({
                 size='small'
                 sx={{ width: '80%' }}
               />
-              {onAdd && (
-                <Button variant='contained' onClick={onAdd}>
+              {Boolean(addButtonLabel) && (
+                <Button variant='contained' onClick={() => setOpenAddDialog(true)}>
                   {addButtonLabel}
                 </Button>
               )}
@@ -140,7 +129,11 @@ export default function GenericDataTable<T>({
       <LeftSlideInDialog
         open={openColumnVisibilityControlDialog}
         setOpen={setOpenColumnVisibilityControlDialog}
-        title='التنقية'
+        title={
+          <Typography variant='body1' fontSize={'1.2rem'} color={'#fff'}>
+            التنقية
+          </Typography>
+        }
         dialogContent={
           <Stack spacing={1}>
             <TextField
@@ -226,6 +219,17 @@ export default function GenericDataTable<T>({
           </tbody>
         </table>
       </div>
+      {/* Add Dialog */}
+      <LeftSlideInDialog
+        open={openAddDialog}
+        setOpen={setOpenAddDialog}
+        title={
+          <Typography variant='body1' fontSize={'1.2rem'} color={'#fff'}>
+            {addButtonLabel}
+          </Typography>
+        }
+        dialogContent={addDialogContent}
+      />
     </Card>
   )
 }

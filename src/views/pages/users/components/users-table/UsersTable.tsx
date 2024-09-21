@@ -130,17 +130,14 @@ export default function UsersDataTable() {
 
   // ** return component ui
   return (
-    <div>
-      <GenericDataTable
-        data={mockData}
-        columns={columns}
-        addButtonLabel='أضافة مستخدم'
-        exportButtonLabel='تصدير'
-        globalFilterPlaceholder='بحث...'
-        onAdd={() => console.log('Add user clicked')}
-        onExport={() => console.log('Export users clicked')}
-      />
-    </div>
+    <GenericDataTable
+      data={mockData}
+      columns={columns}
+      addButtonLabel='أضافة مستخدم'
+      exportButtonLabel='تصدير'
+      globalFilterPlaceholder='بحث...'
+      onExport={() => console.log('Export users clicked')}
+    />
   )
 }
 
