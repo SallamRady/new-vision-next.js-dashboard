@@ -8,7 +8,7 @@ export default function UsersSearchFilters() {
   // ** return component ui
   return (
     <Stack spacing={3} p={4}>
-      <Typography variant='body2' fontSize={20} fontWeight={500}>
+      <Typography variant='body2' fontSize={22} fontWeight={500}>
         فلتر البحث
       </Typography>
       <div className='flex gap-4'>
