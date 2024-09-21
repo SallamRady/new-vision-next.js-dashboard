@@ -7,8 +7,10 @@ export default function SelectControlField(props: SelectControlFieldProps) {
   // ** return component UI
   return (
     <FormControl fullWidth>
-      <InputLabel id='demo-basic-select-outlined-label'>{label}</InputLabel>
-      <Select label={label} defaultValue=''>
+      <InputLabel id='demo-basic-select-outlined-label' size='small'>
+        {label}
+      </InputLabel>
+      <Select label={label} defaultValue='' size='small'>
         {addNoneOption === true && (
           <MenuItem value={'none'}>
             <em>None</em>
