@@ -42,6 +42,6 @@ export default function LeftSlideInDialog(props: LeftSlideInDialogProps) {
 type LeftSlideInDialogProps = {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  title: string
+  title: React.ReactNode
   dialogContent: React.ReactNode
 }
