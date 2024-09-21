@@ -34,6 +34,149 @@ const mockData: UsersTableRowType[] = [
     company: 'XYZ Inc',
     userType: 'Employee',
     completionStatus: true
+  },
+  {
+    id: 3,
+    name: 'User3',
+    email: 'User3@example.com',
+    title: 'Software Engineer',
+    phone: '987-654-3210',
+    branch: 'HR',
+    company: 'XYZ Inc',
+    userType: 'Employee',
+    completionStatus: true
+  },
+  {
+    id: 4,
+    name: 'User3',
+    email: 'User3@example.com',
+    title: 'Software Engineer',
+    phone: '987-654-3210',
+    branch: 'HR',
+    company: 'XYZ Inc',
+    userType: 'Employee',
+    completionStatus: true
+  },
+  {
+    id: 5,
+    name: 'User3',
+    email: 'User3@example.com',
+    title: 'Software Engineer',
+    phone: '987-654-3210',
+    branch: 'HR',
+    company: 'XYZ Inc',
+    userType: 'Employee',
+    completionStatus: true
+  },
+  {
+    id: 6,
+    name: 'User3',
+    email: 'User3@example.com',
+    title: 'Software Engineer',
+    phone: '987-654-3210',
+    branch: 'HR',
+    company: 'XYZ Inc',
+    userType: 'Employee',
+    completionStatus: true
+  },
+  {
+    id: 7,
+    name: 'User3',
+    email: 'User3@example.com',
+    title: 'Software Engineer',
+    phone: '987-654-3210',
+    branch: 'HR',
+    company: 'XYZ Inc',
+    userType: 'Employee',
+    completionStatus: true
+  },
+  {
+    id: 8,
+    name: 'User3',
+    email: 'User3@example.com',
+    title: 'Software Engineer',
+    phone: '987-654-3210',
+    branch: 'HR',
+    company: 'XYZ Inc',
+    userType: 'Employee',
+    completionStatus: true
+  },
+  {
+    id: 9,
+    name: 'User3',
+    email: 'User3@example.com',
+    title: 'Software Engineer',
+    phone: '987-654-3210',
+    branch: 'HR',
+    company: 'XYZ Inc',
+    userType: 'Employee',
+    completionStatus: true
+  },
+  {
+    id: 10,
+    name: 'User3',
+    email: 'User3@example.com',
+    title: 'Software Engineer',
+    phone: '987-654-3210',
+    branch: 'HR',
+    company: 'XYZ Inc',
+    userType: 'Employee',
+    completionStatus: true
+  },
+  {
+    id: 11,
+    name: 'User3',
+    email: 'User3@example.com',
+    title: 'Software Engineer',
+    phone: '987-654-3210',
+    branch: 'HR',
+    company: 'XYZ Inc',
+    userType: 'Employee',
+    completionStatus: true
+  },
+  {
+    id: 12,
+    name: 'User3',
+    email: 'User3@example.com',
+    title: 'Software Engineer',
+    phone: '987-654-3210',
+    branch: 'HR',
+    company: 'XYZ Inc',
+    userType: 'Employee',
+    completionStatus: true
+  },
+  {
+    id: 13,
+    name: 'User3',
+    email: 'User3@example.com',
+    title: 'Software Engineer',
+    phone: '987-654-3210',
+    branch: 'HR',
+    company: 'XYZ Inc',
+    userType: 'Employee',
+    completionStatus: true
+  },
+  {
+    id: 14,
+    name: 'User3',
+    email: 'User3@example.com',
+    title: 'Software Engineer',
+    phone: '987-654-3210',
+    branch: 'HR',
+    company: 'XYZ Inc',
+    userType: 'Employee',
+    completionStatus: true
+  },
+  {
+    id: 15,
+    name: 'User3',
+    email: 'User3@example.com',
+    title: 'Software Engineer',
+    phone: '987-654-3210',
+    branch: 'HR',
+    company: 'XYZ Inc',
+    userType: 'Employee',
+    completionStatus: true
   }
 ]
 

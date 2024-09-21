@@ -21,7 +21,6 @@ import menuItemStyles from '@core/styles/vertical/menuItemStyles'
 import menuSectionStyles from '@core/styles/vertical/menuSectionStyles'
 import SidebarMenuData from '@/data/navigation/SidebarMenuData'
 import NavbarFooter from '../shared/NavbarFooter'
-import { HorizontalMenuDataType } from '@/types/menuTypes'
 import { hasChildren } from '@/utils/checkMenuItemhasChildren'
 
 type RenderExpandIconProps = {

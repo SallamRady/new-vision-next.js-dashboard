@@ -1,5 +1,15 @@
 import React, { useState } from 'react'
-import { Button, Card, CardHeader, Checkbox, FormControlLabel, Stack, TextField, Typography } from '@mui/material'
+import {
+  Button,
+  Card,
+  CardHeader,
+  Checkbox,
+  FormControlLabel,
+  Pagination,
+  Stack,
+  TextField,
+  Typography
+} from '@mui/material'
 import {
   ColumnDef,
   flexRender,
@@ -56,6 +66,8 @@ export default function GenericDataTable<T>({
   const [columnsVisibilityFilters, setColumnsVisibilityFilters] = useState('')
   const [openColumnVisibilityControlDialog, setOpenColumnVisibilityControlDialog] = useState(false)
   const [openAddDialog, setOpenAddDialog] = useState(false)
+  const [pageIndex, setPageIndex] = useState(0)
+  const [pageSize, setPageSize] = useState(10)
 
   // ** declare the table instance
   const table = useReactTable({
@@ -67,7 +79,8 @@ export default function GenericDataTable<T>({
     state: {
       rowSelection,
       globalFilter,
-      columnVisibility
+      columnVisibility,
+      pagination: { pageIndex, pageSize }
     },
     onRowSelectionChange: setRowSelection,
     onColumnVisibilityChange: setColumnVisibility,
@@ -219,6 +232,15 @@ export default function GenericDataTable<T>({
           </tbody>
         </table>
       </div>
+      {/* Pagination Controls */}
+      <Stack my={2} alignItems='center' justifyContent='center'>
+        <Pagination
+          count={Math.ceil(table.getPageCount())}
+          page={table.getState().pagination.pageIndex + 1} // MUI Pagination is 1-based, TanStack is 0-based
+          onChange={(_, page) => setPageIndex(page - 1)} // Convert MUI to TanStack
+          color='primary'
+        />
+      </Stack>
       {/* Add Dialog */}
       <LeftSlideInDialog
         open={openAddDialog}
