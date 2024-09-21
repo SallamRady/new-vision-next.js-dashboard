@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles'
 import type { VerticalMenuContextProps } from '@menu/components/vertical-menu/Menu'
 
 // Component Imports
-import HorizontalNav, { Menu, MenuItem } from '@menu/horizontal-menu'
+import HorizontalNav, { Menu, MenuItem, SubMenu } from '@menu/horizontal-menu'
 import VerticalNavContent from './VerticalNavContent'
 
 // Hook Imports
@@ -22,7 +22,6 @@ import verticalMenuItemStyles from '@core/styles/vertical/menuItemStyles'
 import verticalNavigationCustomStyles from '@core/styles/vertical/navigationCustomStyles'
 import SidebarMenuData from '@/data/navigation/SidebarMenuData'
 import { hasChildren } from '@/utils/checkMenuItemhasChildren'
-import MenuItemWithChildren from '../shared/MenuItemWithChildren'
 
 type RenderExpandIconProps = {
   level?: number
@@ -80,7 +79,16 @@ const HorizontalMenu = () => {
         }}
       >
         {SidebarMenuData().map((link, index) => {
-          if (hasChildren(link)) return <MenuItemWithChildren key={`${link.label}-${index}`} item={link} />
+          if (hasChildren(link))
+            return (
+              <SubMenu label={link.label} icon={<i className={link.icon} />}>
+                {link.children?.map(item => (
+                  <MenuItem key={`${item.href}-${index}`} href={item.href} icon={<i className={item.icon} />}>
+                    {item.label}
+                  </MenuItem>
+                ))}
+              </SubMenu>
+            )
           else
             return (
               <MenuItem key={`${link.href}-${index}`} href={link.href} icon={<i className={link.icon} />}>
