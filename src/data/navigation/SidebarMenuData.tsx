@@ -13,6 +13,17 @@ const SidebarMenuData = (): HorizontalMenuDataType[] => [
     icon: 'ri-information-line'
   },
   {
+    label: 'الشركات',
+    icon: 'ri-dashboard-fill',
+    children: [
+      {
+        label: 'الشركات',
+        href: '/companies',
+        icon: 'ri-community-fill'
+      }
+    ]
+  },
+  {
     label: 'أدارة المستخدمين',
     icon: 'ri-group-line',
     children: [
