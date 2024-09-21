@@ -7,6 +7,7 @@ import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
 // Style Imports
 import { useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
+import AddUserDialogContent from './components/AddUser'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<UsersTableRowType>()
@@ -134,6 +135,7 @@ export default function UsersDataTable() {
       data={mockData}
       columns={columns}
       addButtonLabel='أضافة مستخدم'
+      addDialogContent={<AddUserDialogContent />}
       exportButtonLabel='تصدير'
       globalFilterPlaceholder='بحث...'
       onExport={() => console.log('Export users clicked')}
