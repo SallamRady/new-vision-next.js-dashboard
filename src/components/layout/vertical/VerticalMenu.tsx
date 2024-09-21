@@ -21,6 +21,9 @@ import menuItemStyles from '@core/styles/vertical/menuItemStyles'
 import menuSectionStyles from '@core/styles/vertical/menuSectionStyles'
 import SidebarMenuData from '@/data/navigation/SidebarMenuData'
 import NavbarFooter from '../shared/NavbarFooter'
+import { HorizontalMenuDataType } from '@/types/menuTypes'
+import { hasChildren } from '@/utils/checkMenuItemhasChildren'
+import MenuItemWithChildren from '../shared/MenuItemWithChildren'
 
 type RenderExpandIconProps = {
   open?: boolean
@@ -71,11 +74,14 @@ const VerticalMenu = ({ scrollMenu }: Props) => {
         renderExpandedMenuItemIcon={{ icon: <i className='ri-circle-fill' /> }}
         menuSectionStyles={menuSectionStyles(verticalNavOptions, theme)}
       >
-        {SidebarMenuData().map((link, index) => (
-          <MenuItem key={`${link.href}-${index}`} href={link.href} icon={<i className={link.icon} />}>
-            {link.label}
-          </MenuItem>
-        ))}
+        {SidebarMenuData().map((link, index) => {
+          if (hasChildren(link)) return <MenuItemWithChildren key={`${link.label}-${index}`} item={link} />
+          return (
+            <MenuItem key={`${link.href}-${index}`} href={link.href} icon={<i className={link.icon} />}>
+              {link.label}
+            </MenuItem>
+          )
+        })}
       </Menu>
       <NavbarFooter />
     </ScrollWrapper>

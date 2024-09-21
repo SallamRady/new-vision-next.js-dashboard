@@ -11,6 +11,17 @@ const SidebarMenuData = (): HorizontalMenuDataType[] => [
     label: 'About',
     href: '/about',
     icon: 'ri-information-line'
+  },
+  {
+    label: 'أدارة المستخدمين',
+    icon: 'ri-group-line',
+    children: [
+      {
+        label: 'المستخدمين',
+        href: '/users',
+        icon: 'ri-user-settings-line'
+      }
+    ]
   }
 ]
 

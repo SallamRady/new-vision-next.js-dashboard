@@ -21,6 +21,8 @@ import menuRootStyles from '@core/styles/horizontal/menuRootStyles'
 import verticalMenuItemStyles from '@core/styles/vertical/menuItemStyles'
 import verticalNavigationCustomStyles from '@core/styles/vertical/navigationCustomStyles'
 import SidebarMenuData from '@/data/navigation/SidebarMenuData'
+import { hasChildren } from '@/utils/checkMenuItemhasChildren'
+import MenuItemWithChildren from '../shared/MenuItemWithChildren'
 
 type RenderExpandIconProps = {
   level?: number
@@ -77,31 +79,16 @@ const HorizontalMenu = () => {
           renderExpandedMenuItemIcon: { icon: <i className='ri-circle-fill' /> }
         }}
       >
-        {SidebarMenuData().map((link, index) => (
-          <MenuItem key={`${link.href}-${index}`} href={link.href} icon={<i className={link.icon} />}>
-            {link.label}
-          </MenuItem>
-        ))}
+        {SidebarMenuData().map((link, index) => {
+          if (hasChildren(link)) return <MenuItemWithChildren key={`${link.label}-${index}`} item={link} />
+          else
+            return (
+              <MenuItem key={`${link.href}-${index}`} href={link.href} icon={<i className={link.icon} />}>
+                {link.label}
+              </MenuItem>
+            )
+        })}
       </Menu>
-      {/* <Menu
-        rootStyles={menuRootStyles(theme)}
-        renderExpandIcon={({ level }) => <RenderExpandIcon level={level} />}
-        renderExpandedMenuItemIcon={{ icon: <i className='ri-circle-fill' /> }}
-        menuItemStyles={menuItemStyles(theme, 'ri-circle-fill')}
-        popoutMenuOffset={{
-          mainAxis: ({ level }) => (level && level > 0 ? 4 : 14),
-          alignmentAxis: 0
-        }}
-        verticalMenuProps={{
-          menuItemStyles: verticalMenuItemStyles(verticalNavOptions, theme),
-          renderExpandIcon: ({ open }) => (
-            <RenderVerticalExpandIcon open={open} transitionDuration={transitionDuration} />
-          ),
-          renderExpandedMenuItemIcon: { icon: <i className='ri-circle-fill' /> }
-        }}
-      >
-        <GenerateHorizontalMenu menuData={menuData(dictionary)} />
-      </Menu> */}
     </HorizontalNav>
   )
 }

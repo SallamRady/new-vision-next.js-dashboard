@@ -51,6 +51,7 @@ export type HorizontalMenuItemDataType = Omit<
     icon?: string
     prefix?: ReactNode | ChipProps
     suffix?: ReactNode | ChipProps
+    children?: HorizontalMenuDataType[]
   }
 export type HorizontalSubMenuDataType = Omit<HorizontalSubMenuProps, 'children' | 'icon' | 'prefix' | 'suffix'> & {
   children: HorizontalMenuDataType[]
