@@ -7,7 +7,7 @@ export default function UsersTopCards() {
   return (
     <Stack direction={'row'} alignItems={'center'} justifyContent={'space-around'} flexWrap={'wrap'}>
       <HorizontalWithSubtitle
-        title='اجمالي عدد الموظفين'
+        title='اجمالي عدد المستخدمين'
         subtitle=''
         stats='21,459'
         avatarIcon='ri-user-3-line'
@@ -16,7 +16,7 @@ export default function UsersTopCards() {
         trendNumber='18%'
       />
       <HorizontalWithSubtitle
-        title='الموظفين المضافين اخر شهر'
+        title='المستخدمين المضافين اخر شهر'
         subtitle=''
         stats='127'
         avatarIcon='ri-arrow-right-up-line'
@@ -25,7 +25,7 @@ export default function UsersTopCards() {
         trendNumber='14%'
       />
       <HorizontalWithSubtitle
-        title='الموظفين النشطيين'
+        title='المستخدمين النشطيين'
         subtitle=''
         stats='127'
         avatarIcon='ri-checkbox-circle-line'
@@ -34,7 +34,7 @@ export default function UsersTopCards() {
         trendNumber='18%'
       />
       <HorizontalWithSubtitle
-        title='الموظفين المعلقين'
+        title='المستخدمين المعلقين'
         subtitle=''
         stats='127'
         avatarIcon='ri-bar-chart-fill'

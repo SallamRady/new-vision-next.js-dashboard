@@ -110,13 +110,13 @@ export default function GenericDataTable<T>({
                 size='small'
                 sx={{ width: '80%' }}
               />
+            </Stack>
+            <Stack width={'25%'} direction={'row'} alignItems={'center'} justifyContent={'end'} spacing={5}>
               {Boolean(addButtonLabel) && (
                 <Button variant='contained' onClick={() => setOpenAddDialog(true)}>
                   {addButtonLabel}
                 </Button>
               )}
-            </Stack>
-            <Stack width={'15%'} direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
               {onExport && (
                 <Button variant='outlined' endIcon={<i className='ri-upload-2-line'></i>} onClick={onExport}>
                   {exportButtonLabel}

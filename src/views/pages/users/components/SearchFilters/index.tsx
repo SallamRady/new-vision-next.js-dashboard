@@ -13,13 +13,13 @@ export default function UsersSearchFilters() {
       </Typography>
       <div className='flex gap-4'>
         <SelectControlField
-          label='الفرع'
+          label='الشركة'
           options={[]}
           addNoneOption={true}
           handleSelectFieldChange={handleSelectFieldChange}
         />
         <SelectControlField
-          label='المسمى الوظيفي'
+          label='نوع المستخدم'
           options={[]}
           addNoneOption={true}
           handleSelectFieldChange={handleSelectFieldChange}
