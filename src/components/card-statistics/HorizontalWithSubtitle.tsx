@@ -37,12 +37,12 @@ const HorizontalWithSubtitle = (props: UserDataType) => {
   } = props
 
   return (
-    <Card sx={{ width: cardWidth ?? '275px' }}>
-      <CardContent className='flex justify-between gap-2'>
+    <Card sx={{ width: cardWidth ?? '275px', m: '1rem auto' }}>
+      <CardContent className='flex h-full gap-2 align-middle'>
         <CustomAvatar color={avatarColor} skin='light' variant='rounded' size={42}>
           <i className={classnames(avatarIcon, 'text-[26px]')} />
         </CustomAvatar>
-        <div className='flex flex-col gap-1 flex-grow'>
+        <div className='flex flex-col  gap-1 flex-grow'>
           <Typography variant='body2' fontSize={'0.9rem'}>
             {title}
           </Typography>

@@ -133,7 +133,7 @@ export default function StatisticsCardWithColumns(props: StatisticsCardWithColum
   }
 
   return (
-    <Card sx={{ width: cardWidth ?? '275px' }}>
+    <Card sx={{ width: cardWidth ?? '275px', m: '1rem auto' }}>
       <CardHeader
         title={title}
         subheader={subTitle}

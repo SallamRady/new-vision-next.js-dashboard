@@ -124,7 +124,7 @@ export default function CurvedLineStatisticsCard(props: CurvedLineStatisticsCard
   }
 
   return (
-    <Card sx={{ width: cardWidth ?? '275px' }}>
+    <Card sx={{ width: cardWidth ?? '275px', m: '1rem auto' }}>
       <CardContent className='flex flex-col gap-6'>
         <Grid container>
           <Grid item xs={6} className='flex flex-col justify-around'>

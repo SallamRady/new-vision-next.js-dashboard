@@ -32,8 +32,8 @@ export default function TwoCardsInfoInOne(props: TwoCardsInfoInOneProps) {
   const { cardWidth, cards } = props
   // ** return component ui
   return (
-    <Card sx={{ width: cardWidth ?? '275px' }}>
-      <CardContent className='flex justify-between gap-8 flex-col'>
+    <Card sx={{ width: cardWidth ?? '275px', m: '1rem auto' }}>
+      <CardContent className='flex h-full justify-around gap-8 flex-col'>
         {cards?.map((card, index) => {
           return (
             <div className='flex justify-between gap-2'>
