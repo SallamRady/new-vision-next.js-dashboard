@@ -59,7 +59,7 @@ export default function CurvedLineStatisticsCard(props: CurvedLineStatisticsCard
             {
               offset: 0,
               opacity: 0.6,
-              color: 'var(--mui-palette-success-main)'
+              color: 'var(--mui-palette-primary-main)'
             },
             {
               offset: 100,
@@ -75,7 +75,7 @@ export default function CurvedLineStatisticsCard(props: CurvedLineStatisticsCard
         enabled: true,
         shadeTo: 'light',
         shadeIntensity: 1,
-        color: theme.palette.success.main
+        color: theme.palette.primary.main
       }
     },
     xaxis: {
@@ -98,7 +98,7 @@ export default function CurvedLineStatisticsCard(props: CurvedLineStatisticsCard
           size: 7,
           seriesIndex: 0,
           dataPointIndex: 7,
-          strokeColor: 'var(--mui-palette-success-main)',
+          strokeColor: 'var(--mui-palette-primary-main)',
           fillColor: 'var(--mui-palette-background-paper)'
         }
       ]
