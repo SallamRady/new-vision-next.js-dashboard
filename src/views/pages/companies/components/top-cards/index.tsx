@@ -1,3 +1,4 @@
+import StatisticsCardWithColumns from '@/components/card-statistics/StatisticsCardWithColumns'
 import TwoCardsInfoInOne, { CardIntoTwoCardsInfoInOnePropsType } from '@/components/card-statistics/TwoCardsInfoInOne'
 import { Stack } from '@mui/material'
 
@@ -28,7 +29,16 @@ export default function CompaniesTopCards() {
 
   return (
     <Stack direction={'row'} flexWrap={'wrap'} spacing={4}>
+      {/* card num 1 */}
       <TwoCardsInfoInOne cards={cards} />
+      {/* card num 2 */}
+      <StatisticsCardWithColumns
+        title='اشتراكات الباقة'
+        subTitle='اجمالي عدد مستخدمين الباقة'
+        value={78.2}
+        chartName='Package Subscriptions Chart'
+        data={[90, 140, 113, 66, 38, 68, 42, 103, 85, 42, 68, 85]}
+      />
     </Stack>
   )
 }
