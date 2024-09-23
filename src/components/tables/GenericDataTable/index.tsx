@@ -54,7 +54,7 @@ export default function GenericDataTable<T>({
   data,
   columns,
   globalFilterPlaceholder = 'Search...',
-  addButtonLabel = 'Add Item',
+  addButtonLabel,
   addDialogContent = <>Add Dialog</>,
   exportButtonLabel = 'Export',
   onExport

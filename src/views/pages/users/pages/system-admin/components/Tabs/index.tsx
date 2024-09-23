@@ -9,9 +9,9 @@ import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
 import Typography from '@mui/material/Typography'
-import UserRolesTab from './components/UserRolesTab'
-import UserStatusTab from './components/UserStatusTab'
-import UsersPageSettingsTab from './components/UsersPageSettingsTab'
+import UserRolesTab from './components/01.UsersRoles/01.UserRolesTab'
+import UserStatusTab from './components/02.UserStatusTab/02.UserStatusTab'
+import UsersPageSettingsTab from './components/03.PageSettings/UsersPageSettingsTab'
 
 export default function TabsOfUserSystemAdmin() {
   // States
