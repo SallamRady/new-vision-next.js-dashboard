@@ -87,7 +87,7 @@ export default function CircularStatisticsCard(props: PropsType) {
 
   // ** return component UI
   return (
-    <Card className='flex flex-col justify-between' sx={{ width: cardWidth ?? '315px', m: '1rem auto' }}>
+    <Card className='flex flex-col justify-center' sx={{ width: cardWidth ?? '315px', m: '1rem auto' }}>
       <CardContent className='flex justify-between items-start'>
         <div className='flex justify-between w-full'>
           <div className='flex flex-col justify-between gap-6'>

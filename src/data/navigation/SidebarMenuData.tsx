@@ -28,6 +28,11 @@ const SidebarMenuData = (): HorizontalMenuDataType[] => [
     icon: 'ri-group-line',
     children: [
       {
+        label: 'مدير نظام قسم المستخدمين',
+        href: '/users/system-admin',
+        icon: 'ri-tools-fill'
+      },
+      {
         label: 'المستخدمين',
         href: '/users',
         icon: 'ri-user-settings-line'

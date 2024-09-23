@@ -100,8 +100,25 @@ export default function GenericDataTable<T>({
       {/* header of card */}
       <CardHeader
         title={
-          <Stack width={'100%'} direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
-            <Stack width={'60%'} direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
+          <Stack
+            width={'100%'}
+            direction={{
+              xs: 'column',
+              sm: 'row'
+            }}
+            alignItems={'center'}
+            justifyContent={'space-between'}
+          >
+            <Stack
+              width={{
+                xs: '100%',
+                sm: '60%'
+              }}
+              direction={'row'}
+              alignItems={'center'}
+              justifyContent={'space-between'}
+              spacing={3}
+            >
               <TextField
                 variant='outlined'
                 value={globalFilter ?? ''}
@@ -111,7 +128,19 @@ export default function GenericDataTable<T>({
                 sx={{ width: '80%' }}
               />
             </Stack>
-            <Stack width={'25%'} direction={'row'} alignItems={'center'} justifyContent={'end'} spacing={5}>
+            <Stack
+              width={{
+                xs: '100%',
+                sm: '25%'
+              }}
+              direction={'row'}
+              alignItems={'center'}
+              justifyContent={{
+                sx: 'space-between',
+                sm: 'end'
+              }}
+              spacing={5}
+            >
               {Boolean(addButtonLabel) && (
                 <Button variant='contained' onClick={() => setOpenAddDialog(true)}>
                   {addButtonLabel}

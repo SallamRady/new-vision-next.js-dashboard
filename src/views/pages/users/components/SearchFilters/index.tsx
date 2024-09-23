@@ -11,7 +11,13 @@ export default function UsersSearchFilters() {
       <Typography variant='body2' fontSize={22} fontWeight={500}>
         فلتر البحث
       </Typography>
-      <div className='flex gap-4'>
+      <Stack
+        className='gap-4'
+        direction={{
+          xs: 'column',
+          sm: 'row'
+        }}
+      >
         <SelectControlField
           label='الشركة'
           options={[]}
@@ -30,7 +36,7 @@ export default function UsersSearchFilters() {
           addNoneOption={true}
           handleSelectFieldChange={handleSelectFieldChange}
         />
-      </div>
+      </Stack>
     </Stack>
   )
 }
