@@ -24,7 +24,11 @@ export default function GeneralTabsComponent(props: GeneralTabsComponentProps) {
   // return component ui
   return (
     <TabContext value={value}>
-      <TabList onChange={handleChange} aria-label='simple tabs example'>
+      <TabList
+        onChange={handleChange}
+        aria-label='generic-tabs-components'
+        className='overflow-x-auto whitespace-nowrap'
+      >
         {tabs?.map(tabData => (
           <Tab
             key={`tab-label-${tabData.id}-${tabData.label}`}
@@ -42,7 +46,7 @@ export default function GeneralTabsComponent(props: GeneralTabsComponentProps) {
         ))}
       </TabList>
       {tabs?.map(tabData => (
-        <TabPanel key={`tab-label-${tabData.id}-${tabData.label}`} value={tabData.id.toString()}>
+        <TabPanel key={`tab-panel-${tabData.id}-${tabData.label}`} value={tabData.id.toString()}>
           {tabData?.tabContent}
         </TabPanel>
       ))}

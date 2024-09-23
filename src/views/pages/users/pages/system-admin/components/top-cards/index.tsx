@@ -6,7 +6,18 @@ import UsersAdmanCardNUm4 from './components/card-4'
 
 export default function UsersSystemAdminTopCards() {
   return (
-    <Stack direction={'row'} spacing={3} flexWrap={'wrap'}>
+    <Stack
+      direction={{
+        xs: 'column',
+        sm: 'row'
+      }}
+      spacing={3}
+      flexWrap={'wrap'}
+      justifyContent={{
+        sx: 'start',
+        sm: 'space-between'
+      }}
+    >
       {/* Card number 1 */}
       <UsersAdmanCardNUm1 />
       {/* Card number 2 */}
