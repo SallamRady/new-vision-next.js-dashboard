@@ -1,15 +1,31 @@
 // MUI Imports
-import UserRolesTab from './components/01.UsersRoles/01.UserRolesTab'
-import UserStatusTab from './components/02.UserStatusTab/02.UserStatusTab'
+import UsersTabIndexOfUserSystemAdmin from './components/01.UsersIndex'
 import UsersPageSettingsTab from './components/03.PageSettings/UsersPageSettingsTab'
 import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
 
 export default function TabsOfUserSystemAdmin() {
   // declare and define component state and variables
   const tabsData: GeneralTabsComponentTabType[] = [
-    { id: 1, label: 'أدوار المستخدمين', tabContent: <UserRolesTab /> },
-    { id: 2, label: 'حالات المستخدم', tabContent: <UserStatusTab /> },
-    { id: 3, label: 'أعدادات صفحة المستخدمين', tabContent: <UsersPageSettingsTab /> }
+    {
+      id: 1,
+      label: (
+        <div className='flex items-center gap-2'>
+          <i className='ri-team-line text-lg' />
+          المستخدمين
+        </div>
+      ),
+      tabContent: <UsersTabIndexOfUserSystemAdmin />
+    },
+    {
+      id: 2,
+      label: (
+        <div className='flex items-center gap-2'>
+          <i className='ri-dashboard-horizontal-fill text-lg' />
+          أعدادات صفحة المستخدمين
+        </div>
+      ),
+      tabContent: <UsersPageSettingsTab />
+    }
   ]
 
   // return component ui
