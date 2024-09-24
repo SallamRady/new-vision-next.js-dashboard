@@ -1,3 +1,5 @@
+import MainNVSystemAdmin from '@/views/pages/system-admin'
+
 export default function NVSystemAdminPage() {
-  return <>system-admin</>
+  return <MainNVSystemAdmin />
 }

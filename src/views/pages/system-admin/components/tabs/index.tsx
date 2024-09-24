@@ -1,30 +1,28 @@
 // MUI Imports
-import UsersTabIndexOfUserSystemAdmin from './components/01.UsersIndex'
-import UsersPageSettingsTab from './components/03.PageSettings/UsersPageSettingsTab'
 import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
 
-export default function TabsOfUserSystemAdmin() {
+export default function TabsOfMainystemAdmin() {
   // declare and define component state and variables
   const tabsData: GeneralTabsComponentTabType[] = [
     {
       id: 1,
       label: (
         <div className='flex items-center gap-2 text-lg'>
-          <i className='ri-team-line text-lg' />
-          المستخدمين
+          <i className='ri-building-3-fill text-lg' />
+          الدول
         </div>
       ),
-      tabContent: <UsersTabIndexOfUserSystemAdmin />
+      tabContent: <>Countries</>
     },
     {
       id: 2,
       label: (
         <div className='flex items-center gap-2 text-lg'>
-          <i className='ri-dashboard-horizontal-fill text-lg' />
-          أعدادات صفحة المستخدمين
+          <i className='ri-money-dollar-box-fill text-lg' />
+          العملة
         </div>
       ),
-      tabContent: <UsersPageSettingsTab />
+      tabContent: <>Currency</>
     }
   ]
 
