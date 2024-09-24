@@ -13,6 +13,11 @@ const SidebarMenuData = (): HorizontalMenuDataType[] => [
     icon: 'ri-information-line'
   },
   {
+    label: 'مدير نظام NV',
+    href: '/system-admin',
+    icon: 'ri-tools-fill'
+  },
+  {
     label: 'الشركات',
     icon: 'ri-dashboard-fill',
     children: [
