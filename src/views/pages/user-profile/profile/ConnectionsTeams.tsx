@@ -15,7 +15,6 @@ import type { ProfileTeamsTechType, ProfileConnectionsType } from '@/types/pages
 import CustomAvatar from '@core/components/mui/Avatar'
 import OptionMenu from '@core/components/option-menu'
 import Link from '@components/Link'
-import CustomIconButton from '@core/components/mui/IconButton'
 import MeetingsSchedule from './MeetingsSchedule'
 
 type Props = {
@@ -25,7 +24,7 @@ type Props = {
 
 const ConnectionsTeams = (props: Props) => {
   // props
-  const { teamsTech, connections } = props
+  const { teamsTech } = props
 
   return (
     <>

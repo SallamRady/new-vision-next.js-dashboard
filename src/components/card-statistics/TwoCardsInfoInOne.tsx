@@ -36,7 +36,7 @@ export default function TwoCardsInfoInOne(props: TwoCardsInfoInOneProps) {
       <CardContent className='flex h-full justify-around gap-8 flex-col'>
         {cards?.map((card, index) => {
           return (
-            <div className='flex justify-between gap-2'>
+            <div key={`card-${index}`} className='flex justify-between gap-2'>
               <CustomAvatar color={card.avatarColor} skin='light' variant='rounded' size={42}>
                 <i className={classnames(card.avatarIcon, 'text-[26px]')} />
               </CustomAvatar>

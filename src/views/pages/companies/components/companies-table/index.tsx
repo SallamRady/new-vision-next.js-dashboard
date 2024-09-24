@@ -1,12 +1,13 @@
 'use client'
 // import packages
 import { Checkbox, Chip, IconButton, Typography } from '@mui/material'
-import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
+import { createColumnHelper } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
 import { useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
-import { CompanyTableRowType } from '@/types/companies/CompanyTableRowType'
+import type { CompanyTableRowType } from '@/types/companies/CompanyTableRowType'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<CompanyTableRowType>()
@@ -136,7 +137,7 @@ const mockData: CompanyTableRowType[] = [
 
 export default function CompaniesDataTable() {
   // ** declare and define component state and variables
-  const [data, setData] = useState<CompanyTableRowType[]>(mockData)
+  //const [data, setData] = useState<CompanyTableRowType[]>(mockData)
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<CompanyTableRowType, any>[]>(
@@ -199,7 +200,7 @@ export default function CompaniesDataTable() {
       {
         id: 'setting',
         header: 'الأعدادات',
-        cell: ({ row }) => (
+        cell: () => (
           <>
             <IconButton color='default'>
               <i className='ri-more-2-line' />
@@ -226,5 +227,3 @@ export default function CompaniesDataTable() {
     />
   )
 }
-
-type PropsType = {}

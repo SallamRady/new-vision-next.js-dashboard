@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
-import { Dialog, Slide, DialogContent, DialogTitle, Button } from '@mui/material'
-import { TransitionProps } from '@mui/material/transitions'
+import { Dialog, Slide, DialogContent, DialogTitle } from '@mui/material'
+import type { TransitionProps } from '@mui/material/transitions'
 import './index.scss'
 
 // Slide transition from the left

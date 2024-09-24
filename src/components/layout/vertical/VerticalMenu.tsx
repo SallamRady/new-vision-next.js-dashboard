@@ -75,7 +75,7 @@ const VerticalMenu = ({ scrollMenu }: Props) => {
         {SidebarMenuData().map((link, index) => {
           if (hasChildren(link))
             return (
-              <SubMenu label={link.label} icon={<i className={link.icon} />}>
+              <SubMenu key={`SubMenu-${link.label}-${index}`} label={link.label} icon={<i className={link.icon} />}>
                 {link.children?.map(item => (
                   <MenuItem key={`${item.href}-${index}`} href={item.href}>
                     {item.label}

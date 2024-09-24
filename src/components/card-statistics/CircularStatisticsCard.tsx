@@ -2,14 +2,16 @@
 import dynamic from 'next/dynamic'
 
 import { Card, CardContent, Typography } from '@mui/material'
-import { lighten, darken, useTheme } from '@mui/material/styles'
+import { darken, useTheme } from '@mui/material/styles'
 
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
 
 // Third-party Imports
 import type { ApexOptions } from 'apexcharts'
-import { StatisticsOptionType } from '@/types/cards/circlar-statistics-card'
+
+// components
+import type { StatisticsOptionType } from '@/types/cards/circlar-statistics-card'
 
 const StatisticsItem = (props: StatisticsItemProps) => (
   <div className='flex items-center gap-2 flex-wrap'>
@@ -27,9 +29,11 @@ export default function CircularStatisticsCard(props: PropsType) {
   // ** extract data from props
   const { title, subTitle, statisticsOptions, cardWidth } = props
   let totalValue: number = 0
+
   for (let idx = 0; idx < statisticsOptions.length; idx++) {
     totalValue += statisticsOptions[idx].value
   }
+
   // Hooks
   const theme = useTheme()
 

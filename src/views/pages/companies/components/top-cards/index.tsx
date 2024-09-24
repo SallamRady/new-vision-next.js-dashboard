@@ -5,7 +5,7 @@ import TwoCardsInfoInOne, { CardIntoTwoCardsInfoInOnePropsType } from '@/compone
 import { Stack } from '@mui/material'
 
 // dummy data
-let cards: CardIntoTwoCardsInfoInOnePropsType[] = [
+const cards: CardIntoTwoCardsInfoInOnePropsType[] = [
   {
     title: 'اجمالي الشركات',
     subtitle: '',

@@ -1,12 +1,13 @@
 'use client'
 // import packages
 import { Checkbox, Switch, Typography } from '@mui/material'
-import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
+import { createColumnHelper } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
 import { useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
-import { UserAdminPageTableColumnsControlType } from '@/types/users/users-system-admin-types'
+import type { UserAdminPageTableColumnsControlType } from '@/types/users/users-system-admin-types'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<UserAdminPageTableColumnsControlType>()

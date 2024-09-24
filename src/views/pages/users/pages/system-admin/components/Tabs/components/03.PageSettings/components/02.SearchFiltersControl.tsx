@@ -1,7 +1,8 @@
 'use client'
 // import packages
 import { Checkbox, Switch, Typography } from '@mui/material'
-import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
+import { createColumnHelper } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
 import { useMemo, useState } from 'react'

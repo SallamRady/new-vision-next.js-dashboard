@@ -1,7 +1,8 @@
 'use client'
 // import packages
 import { Checkbox, Chip, IconButton, Stack, Typography } from '@mui/material'
-import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
+import { createColumnHelper } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
 import { useMemo, useState } from 'react'
@@ -19,7 +20,7 @@ const mockData: UsersRolesType[] = [
 
 export default function UserRolesTab() {
   // ** declare and define component state and variables
-  const [data, setData] = useState<UsersRolesType[]>(mockData)
+  // const [data, setData] = useState<UsersRolesType[]>(mockData)
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<UsersRolesType, any>[]>(
@@ -65,7 +66,7 @@ export default function UserRolesTab() {
       {
         id: 'setting',
         header: 'الأعدادات',
-        cell: ({ row }) => (
+        cell: () => (
           <>
             <IconButton color='default'>
               <i className='ri-delete-bin-6-line' />
@@ -98,5 +99,3 @@ export default function UserRolesTab() {
     />
   )
 }
-
-type PropsType = {}

@@ -81,9 +81,9 @@ const HorizontalMenu = () => {
         {SidebarMenuData().map((link, index) => {
           if (hasChildren(link))
             return (
-              <SubMenu label={link.label} icon={<i className={link.icon} />}>
+              <SubMenu key={`submenu-${link.href}-${index}`} label={link.label} icon={<i className={link.icon} />}>
                 {link.children?.map(item => (
-                  <MenuItem key={`${item.href}-${index}`} href={item.href} icon={<i className={item.icon} />}>
+                  <MenuItem key={`label-${item.href}-${index}`} href={item.href} icon={<i className={item.icon} />}>
                     {item.label}
                   </MenuItem>
                 ))}

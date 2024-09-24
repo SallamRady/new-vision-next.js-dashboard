@@ -6,16 +6,12 @@ import dynamic from 'next/dynamic'
 // MUI Imports
 import Card from '@mui/material/Card'
 import { useTheme } from '@mui/material/styles'
-import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
+import { Chip, Grid } from '@mui/material'
 
 // Third Party Imports
 import type { ApexOptions } from 'apexcharts'
-
-// Components Imports
-import OptionMenu from '@core/components/option-menu'
-import { Chip, Grid } from '@mui/material'
 
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))

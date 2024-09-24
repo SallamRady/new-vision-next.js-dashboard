@@ -25,16 +25,7 @@ export type UserDataType = {
 
 const HorizontalWithSubtitle = (props: UserDataType) => {
   // Props
-  const {
-    title,
-    stats,
-    avatarIcon,
-    avatarColor,
-    trend: trend,
-    trendNumber: trendNumber,
-    subtitle: subtitle,
-    cardWidth
-  } = props
+  const { title, stats, avatarIcon, avatarColor, trend: trend, trendNumber: trendNumber, cardWidth } = props
 
   return (
     <Card sx={{ width: cardWidth ?? '275px', m: '1rem auto' }}>

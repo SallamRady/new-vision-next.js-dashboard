@@ -2,7 +2,8 @@
 // import packages
 import { UsersTableRowType } from '@/types/users/users-page-types'
 import { Checkbox, Chip, IconButton, Typography } from '@mui/material'
-import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
+import { createColumnHelper } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
 import { useMemo, useState } from 'react'

@@ -1,5 +1,3 @@
-import CustomerStats from '@/components/card-statistics/CustomerStats'
-import CardStatHorizontal from '@/components/card-statistics/Horizontal'
 import HorizontalWithSubtitle from '@/components/card-statistics/HorizontalWithSubtitle'
 import { Stack } from '@mui/material'
 

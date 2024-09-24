@@ -1,7 +1,8 @@
 'use client'
 // import packages
-import { Checkbox, Chip, IconButton, Stack, Typography } from '@mui/material'
-import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
+import { Checkbox, IconButton, Typography } from '@mui/material'
+import { createColumnHelper } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
 import { useMemo, useState } from 'react'
@@ -19,7 +20,7 @@ const mockData: UserStatusType[] = [
 
 export default function UserStatusTab() {
   // ** declare and define component state and variables
-  const [data, setData] = useState<UserStatusType[]>(mockData)
+  // const [data, setData] = useState<UserStatusType[]>(mockData)
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<UserStatusType, any>[]>(
@@ -54,7 +55,7 @@ export default function UserStatusTab() {
       {
         id: 'setting',
         header: 'الأعدادات',
-        cell: ({ row }) => (
+        cell: () => (
           <>
             <IconButton color='default'>
               <i className='ri-delete-bin-6-line' />
@@ -87,5 +88,3 @@ export default function UserStatusTab() {
     />
   )
 }
-
-type PropsType = {}

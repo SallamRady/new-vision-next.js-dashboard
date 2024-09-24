@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import React, { useState } from 'react'
 import {
   Button,
@@ -11,7 +12,6 @@ import {
   Typography
 } from '@mui/material'
 import {
-  ColumnDef,
   flexRender,
   getCoreRowModel,
   getFacetedMinMaxValues,
@@ -20,16 +20,16 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable,
-  FilterFn
+  useReactTable
 } from '@tanstack/react-table'
+import type { ColumnDef, FilterFn } from '@tanstack/react-table'
 // Import styles
 import classNames from 'classnames'
-import tableStyles from '@core/styles/table.module.css'
 import { rankItem } from '@tanstack/match-sorter-utils'
+import tableStyles from '@core/styles/table.module.css'
+
 // Import media
 import iconCarrierImg from '@assets/icons/SVGRepo_iconCarrier.png'
-import Image from 'next/image'
 import LeftSlideInDialog from '@/components/dialogs/left-dialog'
 
 // Define a fuzzy filter function
@@ -67,7 +67,7 @@ export default function GenericDataTable<T>({
   const [openColumnVisibilityControlDialog, setOpenColumnVisibilityControlDialog] = useState(false)
   const [openAddDialog, setOpenAddDialog] = useState(false)
   const [pageIndex, setPageIndex] = useState(0)
-  const [pageSize, setPageSize] = useState(10)
+  const [pageSize, _] = useState(10)
 
   // ** declare the table instance
   const table = useReactTable({

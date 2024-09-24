@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 
 import { Card, CardContent, Chip, Typography } from '@mui/material'
-import { lighten, darken, useTheme } from '@mui/material/styles'
+import { darken, useTheme } from '@mui/material/styles'
 
 // Styled Component Imports
 const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexCharts'))
