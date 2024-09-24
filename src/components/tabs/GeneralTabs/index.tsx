@@ -9,6 +9,7 @@ import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
 import Typography from '@mui/material/Typography'
+import { Paper } from '@mui/material'
 
 export default function GeneralTabsComponent(props: GeneralTabsComponentProps) {
   // States
@@ -24,27 +25,29 @@ export default function GeneralTabsComponent(props: GeneralTabsComponentProps) {
   // return component ui
   return (
     <TabContext value={value}>
-      <TabList
-        onChange={handleChange}
-        aria-label='generic-tabs-components'
-        className='overflow-x-auto whitespace-nowrap'
-      >
-        {tabs?.map(tabData => (
-          <Tab
-            key={`tab-label-${tabData.id}-${tabData.label}`}
-            value={tabData.id.toString()}
-            label={
-              <Typography
-                variant='body2'
-                fontSize={'1rem'}
-                color={value == tabData.id.toString() ? 'primary' : 'default'}
-              >
-                {tabData?.label}
-              </Typography>
-            }
-          />
-        ))}
-      </TabList>
+      <Paper sx={{ my: 2 }}>
+        <TabList
+          onChange={handleChange}
+          aria-label='generic-tabs-components'
+          className='overflow-x-auto whitespace-nowrap'
+        >
+          {tabs?.map(tabData => (
+            <Tab
+              key={`tab-label-${tabData.id}-${tabData.label}`}
+              value={tabData.id.toString()}
+              label={
+                <Typography
+                  variant='body2'
+                  fontSize={'1rem'}
+                  color={value == tabData.id.toString() ? 'primary' : 'default'}
+                >
+                  {tabData?.label}
+                </Typography>
+              }
+            />
+          ))}
+        </TabList>
+      </Paper>
       {tabs?.map(tabData => (
         <TabPanel key={`tab-panel-${tabData.id}-${tabData.label}`} value={tabData.id.toString()}>
           {tabData?.tabContent}
@@ -54,7 +57,7 @@ export default function GeneralTabsComponent(props: GeneralTabsComponentProps) {
   )
 }
 
-export type GeneralTabsComponentTabType = { id: number; label: string; tabContent: React.ReactNode }
+export type GeneralTabsComponentTabType = { id: number; label: React.ReactNode; tabContent: React.ReactNode }
 type GeneralTabsComponentProps = {
   tabs: GeneralTabsComponentTabType[]
 }
