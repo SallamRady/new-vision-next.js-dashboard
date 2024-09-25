@@ -1,6 +1,7 @@
 // MUI Imports
 import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
 import SystemAdminCountryTab from './components/countries/SystemAdminCountryTab'
+import SystemAdminLanguagesTab from './components/languages/SystemAdminLanguagesTab'
 
 export default function TabsOfMainystemAdmin() {
   // declare and define component state and variables
@@ -20,10 +21,20 @@ export default function TabsOfMainystemAdmin() {
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-money-dollar-box-fill text-lg' />
-          العملة
+          العملات
         </div>
       ),
       tabContent: <>Currency</>
+    },
+    {
+      id: 3,
+      label: (
+        <div className='flex items-center gap-2 text-lg'>
+          <i className='ri-global-line text-lg' />
+          اللغات
+        </div>
+      ),
+      tabContent: <SystemAdminLanguagesTab />
     }
   ]
 
