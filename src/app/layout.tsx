@@ -10,6 +10,7 @@ import '@/app/globals.css'
 // Generated Icon CSS Imports
 import '@assets/iconify-icons/generated-icons.css'
 import { PaletteContextProvider } from '@/contexts/paletteContext'
+import { ReduxProvider } from '@/store/redux-provider'
 
 export const metadata = {
   title: 'New Vision - Software House',
@@ -23,7 +24,9 @@ const RootLayout = ({ children }: ChildrenType) => {
   return (
     <html id='__next' lang='en' dir={direction}>
       <body className='flex is-full min-bs-full flex-auto flex-col overflow-x-hidden'>
-        <PaletteContextProvider>{children}</PaletteContextProvider>
+        <PaletteContextProvider>
+          <ReduxProvider>{children}</ReduxProvider>
+        </PaletteContextProvider>
       </body>
     </html>
   )
