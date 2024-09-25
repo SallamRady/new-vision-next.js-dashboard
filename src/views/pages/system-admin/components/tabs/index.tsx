@@ -1,5 +1,6 @@
 // MUI Imports
 import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import SystemAdminCountryTab from './components/countries/SystemAdminCountryTab'
 
 export default function TabsOfMainystemAdmin() {
   // declare and define component state and variables
@@ -12,7 +13,7 @@ export default function TabsOfMainystemAdmin() {
           الدول
         </div>
       ),
-      tabContent: <>Countries</>
+      tabContent: <SystemAdminCountryTab />
     },
     {
       id: 2,
