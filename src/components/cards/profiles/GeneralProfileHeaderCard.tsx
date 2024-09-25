@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 
 export default function GeneralProfileHeaderCard(props: PropsType) {
   // extract data from props
-  let { imageSrc, fullName, tags } = props
+  const { imageSrc, fullName, tags } = props
 
   return (
     <Card>

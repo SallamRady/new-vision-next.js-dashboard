@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material'
-// import UserProfileHeader from '../profile-header'
+import UserProfileHeaderCard from '../profile-header'
 
 export default function UserProfileEntryPoint() {
   return (
@@ -7,7 +7,7 @@ export default function UserProfileEntryPoint() {
       {/* User Header Card */}
       <Grid item xs={12}>
         {/* User Profile Header */}
-        {/* <UserProfileHeader /> */}
+        <UserProfileHeaderCard />
       </Grid>
     </Grid>
   )
