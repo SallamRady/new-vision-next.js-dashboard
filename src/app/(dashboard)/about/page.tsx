@@ -1,3 +1,9 @@
+import FormGenerator from '@/components/form-generator'
+
 export default function Page() {
-  return <h1>About page!</h1>
+  return (
+    <div>
+      <FormGenerator />
+    </div>
+  )
 }
