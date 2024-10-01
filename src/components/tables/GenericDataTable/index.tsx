@@ -31,6 +31,7 @@ import tableStyles from '@core/styles/table.module.css'
 // Import media
 import iconCarrierImg from '@assets/icons/SVGRepo_iconCarrier.png'
 import LeftSlideInDialog from '@/components/dialogs/left-dialog'
+import AddNewColumnToTable from './components/AddNewColumnDialog'
 
 // Define a fuzzy filter function
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
@@ -204,6 +205,8 @@ export default function GenericDataTable<T>({
                     />
                   )
               )}
+            {/* add new column */}
+            <AddNewColumnToTable />
           </Stack>
         }
       />
