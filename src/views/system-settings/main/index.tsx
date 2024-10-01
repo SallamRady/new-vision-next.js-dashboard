@@ -4,11 +4,12 @@ import { Tab, Tabs } from '@mui/material'
 import { ReactNode, useMemo, useState } from 'react'
 import OverviewTab from './tabs/overview'
 import RolesTab from './tabs/roles'
+import ConfigSettingsTab from './tabs/config-settings'
 
 const views: Record<number, ReactNode> = {
   1: <OverviewTab />,
   2: <RolesTab />,
-  3: <div>اعدادات المعرف</div>,
+  3: <ConfigSettingsTab />,
   4: <div>الدول واللغات</div>,
   5: <div>اعدادات المراسلات</div>,
   6: <div>اعدادات التخزين</div>,
