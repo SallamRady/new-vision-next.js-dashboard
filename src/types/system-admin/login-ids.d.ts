@@ -1,8 +1,7 @@
 export type LoginIDType = {
   id: number
   name: string
-  usersNumber: number
-  jointCompanies: string[]
-  serviceProviders: string[]
-  isActive: boolean
+  number_users: number
+  companies: { id: number; name: string }[]
+  status: boolean
 }

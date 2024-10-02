@@ -12,6 +12,7 @@ import type { ColumnDef } from '@tanstack/react-table'
 import { useMemo } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
 import { LoginIDType } from '@/types/system-admin/login-ids'
+import Loader from '@/components/Loader'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<LoginIDType>()
@@ -55,51 +56,29 @@ export default function SystemAdminLoginIdentifiersTab() {
         cell: ({ row }) => <Typography color='text.primary'>{row.original.name}</Typography>,
         enableHiding: true // Allow hiding this column
       }),
-      columnHelper.accessor('usersNumber', {
+      columnHelper.accessor('number_users', {
         header: 'عدد المستخدمين',
-        cell: ({ row }) => <Typography color='text.primary'>{row.original.usersNumber}</Typography>,
+        cell: ({ row }) => <Typography color='text.primary'>{row.original.number_users}</Typography>,
         enableHiding: true // Allow hiding this column
       }),
-      columnHelper.accessor('jointCompanies', {
+      columnHelper.accessor('companies', {
         header: 'الشركات المستخدمة',
         cell: ({ row }) => (
           <Stack direction={'row'} justifyContent={'center'} alignItems={'center'} spacing={2} flexWrap={'wrap'}>
-            {row.original.jointCompanies?.map(company => (
-              <Chip
-                key={`${company}-${row.original.jointCompanies.join(',')}`}
-                label={company}
-                color='default'
-                variant='tonal'
-              />
+            {row.original.companies?.map(company => (
+              <Chip key={`${company.id}}`} label={company.name} color='default' variant='tonal' />
             ))}
-            {row.original.jointCompanies.length == 0 && <>لا يوجد</>}
+            {row.original.companies.length == 0 && <>لا يوجد</>}
           </Stack>
         ),
         enableHiding: true // Allow hiding this column
       }),
-      columnHelper.accessor('serviceProviders', {
-        header: 'مزودين الخدمة',
-        cell: ({ row }) => (
-          <Stack direction={'row'} justifyContent={'center'} alignItems={'center'} spacing={2} flexWrap={'wrap'}>
-            {row.original.serviceProviders?.map(provider => (
-              <Chip
-                key={`${provider}-${row.original.serviceProviders.join(',')}`}
-                label={provider}
-                color='default'
-                variant='tonal'
-              />
-            ))}
-            {row.original.serviceProviders.length == 0 && <>لا يوجد</>}
-          </Stack>
-        ),
-        enableHiding: true // Allow hiding this column
-      }),
-      columnHelper.accessor('isActive', {
+      columnHelper.accessor('status', {
         header: 'الحالة',
         cell: ({ row }) => (
           <Chip
-            label={row.original.isActive ? 'مفعل' : 'غير مفعل'}
-            color={row.original.isActive ? 'success' : 'error'}
+            label={row.original.status ? 'مفعل' : 'غير مفعل'}
+            color={row.original.status ? 'success' : 'error'}
             variant='tonal'
           />
         ),
@@ -123,7 +102,7 @@ export default function SystemAdminLoginIdentifiersTab() {
   // ** declare and define component helper methods
 
   // ** return component ui
-  if (isLoading) return <Typography>Loading...</Typography>
+  if (isLoading) return <Loader />
   if (error) return <Typography>Error loading data: {error.message}</Typography>
   return (
     <Stack spacing={4} mt={6}>
