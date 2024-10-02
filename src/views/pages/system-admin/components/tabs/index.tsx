@@ -1,10 +1,10 @@
 // MUI Imports
-import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
-import SystemAdminCountryTab from './components/countries/SystemAdminCountryTab'
-import SystemAdminLanguagesTab from './components/languages/SystemAdminLanguagesTab'
 import SystemAdminCompaniesTab from './components/companies'
+import SystemAdminLoginIDsTab from './components/login-ids'
 import SystemRolesTabInSystemSettings from './components/system-roles'
+import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
 
+//Login IDs
 export default function TabsOfMainystemAdmin() {
   // declare and define component state and variables
   const tabsData: GeneralTabsComponentTabType[] = [
@@ -42,6 +42,16 @@ export default function TabsOfMainystemAdmin() {
       id: 4,
       label: (
         <div className='flex items-center gap-2 text-lg'>
+          <i className='ri-shield-check-line text-lg' />
+          معرفات الدخول
+        </div>
+      ),
+      tabContent: <SystemAdminLoginIDsTab />
+    },
+    {
+      id: 5,
+      label: (
+        <div className='flex items-center gap-2 text-lg'>
           <i className='ri-chat-1-line text-lg' />
           اعدادات المراسلات
         </div>
@@ -49,7 +59,7 @@ export default function TabsOfMainystemAdmin() {
       tabContent: <>اعدادات المراسلات</>
     },
     {
-      id: 5,
+      id: 6,
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-cloud-fill text-lg' />
@@ -59,7 +69,7 @@ export default function TabsOfMainystemAdmin() {
       tabContent: <>اعدادات التخزين</>
     },
     {
-      id: 6,
+      id: 7,
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-git-repository-private-fill text-lg' />
@@ -69,7 +79,7 @@ export default function TabsOfMainystemAdmin() {
       tabContent: <>الامن والحماية</>
     },
     {
-      id: 7,
+      id: 8,
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-building-3-fill text-lg' />
@@ -79,7 +89,7 @@ export default function TabsOfMainystemAdmin() {
       tabContent: <>انواع الشركات</>
     },
     {
-      id: 8,
+      id: 9,
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-file-code-fill text-lg' />
