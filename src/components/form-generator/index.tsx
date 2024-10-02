@@ -2,17 +2,16 @@
 
 import { useForm } from 'react-hook-form'
 
+import { z } from 'zod'
+import type { ZodType } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import type { ZodType } from 'zod'
-import { z } from 'zod'
-
+import { useCallback } from 'react'
 import validateText from './validate/text'
-import type { RenderFieldOptions } from './types/AllFields'
 import GenerateTextField from './fields/text'
 import { Grid, Typography } from '@mui/material'
-import { useCallback } from 'react'
 import GenerateSelectField from './fields/select'
+import type { RenderFieldOptions } from './types/AllFields'
 
 const fields: Omit<RenderFieldOptions, 'props'>[] = [
   { type: 'text', name: 'test', label: 'Test Label', validate: { max: 8, min: 1, required: true } },
