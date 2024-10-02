@@ -96,7 +96,7 @@ export default function SystemAdminLoginIDsTab() {
   // ** return component ui
   return (
     <Stack spacing={4}>
-      <Typography variant='h6' fontSize={21} fontWeight={700} mt={4}>
+      <Typography variant='h6' fontSize={22} fontWeight={700} mt={4}>
         معرفات عملية الدخول (Login)
       </Typography>
       <GenericDataTable

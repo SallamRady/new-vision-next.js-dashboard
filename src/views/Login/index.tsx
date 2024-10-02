@@ -45,9 +45,11 @@ const LoginV1 = ({}: { mode: Mode }) => {
 
   return (
     <div className='flex justify-center items-center min-bs-[100dvh] is-full relative p-6'>
+      {/* Particles Background */}
       <div className='absolute w-full h-full top-0 left-0' style={{ zIndex: -2 }}>
         <ParticlesComponent />
       </div>
+      {/* RoundedBackgroundContainer Top */}
       <div className='absolute top-0 w-full' style={{ height: 250 }}>
         <RoundedBackgroundContainer orientation='top'>
           <Container maxWidth='xl' sx={{ py: 6 }}>
@@ -60,7 +62,9 @@ const LoginV1 = ({}: { mode: Mode }) => {
           </Container>
         </RoundedBackgroundContainer>
       </div>
+      {/* Page Content */}
       {viewComponent}
+      {/* RoundedBackgroundContainer Bottom */}
       <div className='absolute bottom-0 w-full' style={{ height: 250 }}>
         <RoundedBackgroundContainer orientation='bottom'>
           <Stack direction='row' alignItems={'center'} justifyContent={'center'} spacing={2} mb={2}>

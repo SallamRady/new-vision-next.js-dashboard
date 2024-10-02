@@ -1,5 +1,6 @@
 // MUI Imports
 import SystemAdminCompaniesTab from './components/companies'
+import SystemAdminCountryTab from './components/countries/SystemAdminCountryTab'
 import SystemAdminLoginIDsTab from './components/login-ids'
 import SystemRolesTabInSystemSettings from './components/system-roles'
 import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
@@ -36,7 +37,7 @@ export default function TabsOfMainystemAdmin() {
           الدول واللغات
         </div>
       ),
-      tabContent: <>الدول واللغات</>
+      tabContent: <SystemAdminCountryTab />
     },
     {
       id: 4,
