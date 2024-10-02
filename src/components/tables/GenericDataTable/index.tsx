@@ -215,11 +215,11 @@ export default function GenericDataTable<T>({
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <th key={header.id}>
+                  <th key={header.id} className='text-center'>
                     {header.isPlaceholder ? null : (
                       <div
                         className={classNames({
-                          'flex items-center': header.column.getIsSorted(),
+                          'flex items-center justify-center': header.column.getIsSorted(),
                           'cursor-pointer select-none': header.column.getCanSort()
                         })}
                         onClick={header.column.getToggleSortingHandler()}
@@ -253,7 +253,9 @@ export default function GenericDataTable<T>({
               table.getRowModel().rows.map(row => (
                 <tr key={row.id} className={classNames({ selected: row.getIsSelected() })}>
                   {row.getVisibleCells().map(cell => (
-                    <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+                    <td key={cell.id} className='text-center'>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
                   ))}
                 </tr>
               ))
