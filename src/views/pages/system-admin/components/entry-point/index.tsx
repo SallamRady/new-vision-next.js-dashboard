@@ -6,7 +6,7 @@ export default function SystemAdminEntryPoint() {
   return (
     <Stack spacing={4}>
       {/* TOP Cards */}
-      <SystemAdminTopCards />
+      {/* <SystemAdminTopCards /> */}
       {/* Main Tabs */}
       <TabsOfMainystemAdmin />
     </Stack>
