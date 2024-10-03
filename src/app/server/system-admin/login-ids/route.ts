@@ -16,3 +16,21 @@ export async function GET() {
     return NextResponse.json({ message: 'Failed to fetch data' }, { status: 500 })
   }
 }
+
+export async function POST(request: Request) {
+  try {
+    // ** Get the identifier id from the request body
+    const { id }: { id: number } = await request.json()
+
+    // ** Send the POST request to the back-end API
+    const response = await axios.post(Api(`active-inactive-identifier`), {
+      identifier_id: id
+    })
+
+    // ** Return the fetched data as JSON
+    return NextResponse.json('success')
+  } catch (error) {
+    console.log('Error:::', error)
+    return NextResponse.json({ message: 'Failed to switch identifier status' }, { status: 500 })
+  }
+}

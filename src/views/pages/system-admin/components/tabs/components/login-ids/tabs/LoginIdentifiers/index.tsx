@@ -1,18 +1,17 @@
 'use client'
 
-//import SWR
-import useSWR from 'swr'
-
 // import packages
-import { Checkbox, Chip, IconButton, Stack, Typography } from '@mui/material'
+import { Checkbox, Chip, Stack, Typography } from '@mui/material'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
 import { LoginIDType } from '@/types/system-admin/login-ids'
 import Loader from '@/components/Loader'
+import ActionMenuButton from './components/ActionMenuBtn'
+import useLoginIdentifiers from '@/hooks/useLoginIdentifiers'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<LoginIDType>()
@@ -23,8 +22,15 @@ const fetcher = (url: string) => fetch(url).then(res => res.json())
 export default function SystemAdminLoginIdentifiersTab() {
   // ** declare and define component state and variables
   // Fetch data using SWR
-  const { data, error, isLoading } = useSWR<LoginIDType[]>('/server/system-admin/login-ids', fetcher)
-  console.log('SWR Response ::', data, error, isLoading)
+  const { data, error, isLoading } = useLoginIdentifiers()
+  const [tableData, setTableData] = useState<LoginIDType[]>([])
+
+  // ** handle side effects
+  useEffect(() => {
+    if (data != undefined) {
+      setTableData(data)
+    }
+  }, [data])
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<LoginIDType, any>[]>(
@@ -89,9 +95,7 @@ export default function SystemAdminLoginIdentifiersTab() {
         header: 'الأعدادات',
         cell: ({ row }) => (
           <>
-            <IconButton color='default'>
-              <i className='ri-more-2-line' />
-            </IconButton>
+            <ActionMenuButton id={row.original.id} status={row.original.status} setTableData={setTableData} />
           </>
         )
       }
@@ -107,7 +111,7 @@ export default function SystemAdminLoginIdentifiersTab() {
   return (
     <Stack spacing={4} mt={6}>
       <GenericDataTable
-        data={data || []}
+        data={tableData || []}
         columns={columns}
         exportButtonLabel='تصدير'
         globalFilterPlaceholder='بحث...'
