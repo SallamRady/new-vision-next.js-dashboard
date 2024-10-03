@@ -20,7 +20,7 @@ export function SuccessMessage(statment: String) {
 }
 
 export function errorMessage(statment: String) {
-  toast.success(statment, {
+  toast.error(statment, {
     position: 'bottom-right',
     autoClose: 5000,
     hideProgressBar: false,
