@@ -11,6 +11,8 @@ import '@/app/globals.css'
 import '@assets/iconify-icons/generated-icons.css'
 import { PaletteContextProvider } from '@/contexts/paletteContext'
 import { ReduxProvider } from '@/store/redux-provider'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const metadata = {
   title: 'New Vision - Software House',
@@ -26,6 +28,7 @@ const RootLayout = ({ children }: ChildrenType) => {
       <body className='flex is-full min-bs-full flex-auto flex-col overflow-x-hidden'>
         <PaletteContextProvider>
           <ReduxProvider>{children}</ReduxProvider>
+          <ToastContainer position='bottom-right' />
         </PaletteContextProvider>
       </body>
     </html>
