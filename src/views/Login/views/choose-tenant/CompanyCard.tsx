@@ -6,9 +6,10 @@ import { AuthOperationsContext, LoginPageViews } from '../../context'
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material'
 
 export default function CompanyCard(props: PropsType) {
-  const { handleChangeView } = useContext(AuthOperationsContext)
+  const { handleChangeView, storeSelectedTenant } = useContext(AuthOperationsContext)
 
   const handleClick = () => {
+    storeSelectedTenant(props.tenant)
     switch (props.tenant.login_ways?.[0]?.lookup?.name) {
       case LoginPageViews.OTP:
         handleChangeView(LoginPageViews.OTP)

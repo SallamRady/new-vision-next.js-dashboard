@@ -14,7 +14,7 @@ function LoginView() {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [identifier, setIdentifier] = useState('')
-  const { handleChangeView, storeTenants } = useContext(AuthOperationsContext)
+  const { handleChangeView, storeTenants, storeGlobalId, storeSelectedTenant } = useContext(AuthOperationsContext)
   // ** declare and define component helper methods
   function handleSendIdentifier() {
     // declare helper variables
@@ -39,15 +39,17 @@ function LoginView() {
         if (response.data?.msg) {
           errorMessage(response.data?.msg)
         } else if (response.data?.global_id) {
+          storeGlobalId(response.data?.global_id)
           if (response.data.tenants) {
             let tenants: TenentType[] = response.data.tenants
-            console.log('tenantstenantstenants', tenants)
+
             if (tenants.length > 1) {
               //allow users to choose corrct company
               storeTenants(tenants)
               handleChangeView(LoginPageViews.Multi_TENANTS)
             } else if (tenants.length == 1) {
               //redirect to correct login page
+              storeSelectedTenant(tenants[0])
               let lookUp = tenants?.[0]?.login_ways?.[0]?.lookup
               switch (lookUp.name) {
                 case LoginPageViews.PASSWORD:

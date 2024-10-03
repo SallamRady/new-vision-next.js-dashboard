@@ -8,38 +8,44 @@ import { useContext, useState } from 'react'
 import { TenentType } from '@/types/tenant'
 import { errorMessage } from '@/utils/notificationsMessages'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
+import { StoreInLocalStorage } from '@/utils/local.storage'
+import { redirect } from 'next/navigation'
 
 function PasswordView() {
   // ** declare and define component state and variables
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState('')
-  const { handleChangeView } = useContext(AuthOperationsContext)
+  const { handleChangeView, globalId, selectedTenant } = useContext(AuthOperationsContext)
   // ** declare and define component helper methods
   function handleSendPassword() {
     // declare helper variables
-    const url = Api(`identifier-check`)
-    const body = {}
+    const url = Api(`login-with-different-methods`)
+    const body = { password, global_id: globalId }
     const headers = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-Tenant': selectedTenant?.id
     }
     type ResType = {
-      global_id?: number
-      msg?: string
-      tenants?: TenentType[]
+      token: string
     }
     // send request
     setLoading(true)
     axios
-      .post(url, body, {
+      .post<ResType>(url, body, {
         headers: headers
       })
       .then(response => {
         // check error message is exist ?
-        console.log('sendPassword Response ', response)
+        StoreInLocalStorage('token', response.data.token)
+      })
+      .then(() => {
+        handleChangeView(LoginPageViews.LoggedIn)
+        redirect('/home')
       })
       .catch(err => {
-        errorMessage('خطا غير متوقع برجاء المحاولة فى وقت اخر')
+        if (err?.response?.status == 401) errorMessage('كلمة المرور غير صحيحة')
+        else errorMessage('خطا غير متوقع برجاء المحاولة فى وقت اخر')
       })
       .finally(() => {
         setLoading(false)
