@@ -1,11 +1,27 @@
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material'
-import Img from '@/assets/images/logos/constrix.png'
+'use client'
+
+import { useContext } from 'react'
 import { TenentType } from '@/types/tenant'
+import { AuthOperationsContext, LoginPageViews } from '../../context'
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material'
 
 export default function CompanyCard(props: PropsType) {
+  const { handleChangeView } = useContext(AuthOperationsContext)
+
+  const handleClick = () => {
+    switch (props.tenant.login_ways?.[0]?.lookup?.name) {
+      case LoginPageViews.OTP:
+        handleChangeView(LoginPageViews.OTP)
+        break
+      case LoginPageViews.PASSWORD:
+        handleChangeView(LoginPageViews.PASSWORD)
+        break
+    }
+  }
+
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+      <CardActionArea onClick={handleClick}>
         <CardMedia
           component='img'
           height='140'
