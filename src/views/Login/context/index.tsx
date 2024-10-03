@@ -31,11 +31,11 @@ export const AuthOperationsContextProvider = ({ children }: { children: ReactNod
   const [tenants, setTenants] = useState<TenentType[]>([])
   const [view, setView] = useState<LoginPageViews>(LoginPageViews.MAIN_PAGE)
   const [selectedTenant, setSelectedTenant] = useState<TenentType | undefined>(undefined)
+
   // ** handle side effects
   useEffect(() => {
     if (existInLocalStorage('token')) {
-      setView(LoginPageViews.LoggedIn)
-      redirect('/home')
+      return redirect('/home')
     }
   }, [])
   // ** declare and define component helper methods

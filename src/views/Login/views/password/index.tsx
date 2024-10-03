@@ -1,18 +1,18 @@
 'use client'
 
-import { Button, Card, CardContent, CardHeader, Divider, TextField, Typography } from '@mui/material'
+import { Button, Card, CardContent, CardHeader, TextField, Typography } from '@mui/material'
 
 import axios from 'axios'
 import { Api } from '@/Constants/Api'
 import { useContext, useState } from 'react'
-import { TenentType } from '@/types/tenant'
 import { errorMessage } from '@/utils/notificationsMessages'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
 import { StoreInLocalStorage } from '@/utils/local.storage'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/router'
 
 function PasswordView() {
   // ** declare and define component state and variables
+  const router = useRouter()
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState('')
@@ -41,7 +41,7 @@ function PasswordView() {
       })
       .then(() => {
         handleChangeView(LoginPageViews.LoggedIn)
-        redirect('/home')
+        router.push('/home')
       })
       .catch(err => {
         if (err?.response?.status == 401) errorMessage('كلمة المرور غير صحيحة')
