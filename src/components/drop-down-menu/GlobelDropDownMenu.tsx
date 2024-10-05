@@ -58,6 +58,7 @@ export default function GlobelDropDownMenu(props: PropsType) {
             onClick={() => {
               handleMenuBtnClick(btn)
             }}
+            disabled={Boolean(btn?.disabled)}
           >
             {btn.title}
           </MenuItem>
@@ -67,7 +68,7 @@ export default function GlobelDropDownMenu(props: PropsType) {
   )
 }
 
-export type GenericMenuButton = { id: string; title: React.ReactNode; onClick?: () => void }
+export type GenericMenuButton = { id: string; title: React.ReactNode; onClick?: () => void; disabled?: boolean }
 type PropsType = {
   btnTitle: string
   btnLoadingTitle?: string

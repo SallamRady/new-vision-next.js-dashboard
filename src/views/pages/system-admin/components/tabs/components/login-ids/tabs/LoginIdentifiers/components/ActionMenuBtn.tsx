@@ -20,7 +20,8 @@ export default function ActionMenuButton(props: PropsType) {
           <i className='ri-pencil-line'></i>
           <p className='text-slate-300 text-lg'>تعديل</p>
         </div>
-      )
+      ),
+      disabled: true
     },
     {
       id: `menu-btn-2`,
@@ -43,7 +44,8 @@ export default function ActionMenuButton(props: PropsType) {
           <i className='ri-delete-bin-6-line'></i>
           <p className='text-slate-300 text-lg'>حذف</p>
         </div>
-      )
+      ),
+      disabled: true
     }
   ]
 
