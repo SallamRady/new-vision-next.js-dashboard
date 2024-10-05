@@ -11,7 +11,7 @@ export default function TabsOfMainystemAdmin() {
   // declare and define component state and variables
   const tabsData: GeneralTabsComponentTabType[] = [
     {
-      id: 1,
+      id: 'GT-SA-1',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-community-fill text-lg' />
@@ -21,7 +21,7 @@ export default function TabsOfMainystemAdmin() {
       tabContent: <SystemAdminCompaniesTab />
     },
     {
-      id: 2,
+      id: 'GT-SA-2',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-money-dollar-box-fill text-lg' />
@@ -31,7 +31,7 @@ export default function TabsOfMainystemAdmin() {
       tabContent: <SystemRolesTabInSystemSettings />
     },
     {
-      id: 3,
+      id: 'GT-SA-3',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-global-line text-lg' />
@@ -41,7 +41,7 @@ export default function TabsOfMainystemAdmin() {
       tabContent: <SystemAdminCountryTab />
     },
     {
-      id: 4,
+      id: 'GT-SA-4',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-shield-check-line text-lg' />
@@ -51,7 +51,7 @@ export default function TabsOfMainystemAdmin() {
       tabContent: <SystemAdminLoginIDsTab />
     },
     {
-      id: 5,
+      id: 'GT-SA-5',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-chat-1-line text-lg' />
@@ -61,7 +61,7 @@ export default function TabsOfMainystemAdmin() {
       tabContent: <CorrespondenceSettingsTabIndex />
     },
     {
-      id: 6,
+      id: 'GT-SA-6',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-cloud-fill text-lg' />
@@ -71,7 +71,7 @@ export default function TabsOfMainystemAdmin() {
       tabContent: <>اعدادات التخزين</>
     },
     {
-      id: 7,
+      id: 'GT-SA-7',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-git-repository-private-fill text-lg' />
@@ -81,7 +81,7 @@ export default function TabsOfMainystemAdmin() {
       tabContent: <>الامن والحماية</>
     },
     {
-      id: 8,
+      id: 'GT-SA-8',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-building-3-fill text-lg' />
@@ -91,7 +91,7 @@ export default function TabsOfMainystemAdmin() {
       tabContent: <>انواع الشركات</>
     },
     {
-      id: 9,
+      id: 'GT-SA-9',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-file-code-fill text-lg' />
@@ -100,38 +100,8 @@ export default function TabsOfMainystemAdmin() {
       ),
       tabContent: <>اعدادات الموقع والتطبيقات</>
     }
-    // {
-    //   id: 1,
-    //   label: (
-    //     <div className='flex items-center gap-2 text-lg'>
-    //       <i className='ri-building-3-fill text-lg' />
-    //       الدول
-    //     </div>
-    //   ),
-    //   tabContent: <SystemAdminCountryTab />
-    // },
-    // {
-    //   id: 2,
-    //   label: (
-    //     <div className='flex items-center gap-2 text-lg'>
-    //       <i className='ri-money-dollar-box-fill text-lg' />
-    //       العملات
-    //     </div>
-    //   ),
-    //   tabContent: <>Currency</>
-    // },
-    // {
-    //   id: 3,
-    //   label: (
-    //     <div className='flex items-center gap-2 text-lg'>
-    //       <i className='ri-global-line text-lg' />
-    //       اللغات
-    //     </div>
-    //   ),
-    //   tabContent: <SystemAdminLanguagesTab />
-    // }
   ]
 
   // return component ui
-  return <GeneralTabsComponent tabs={tabsData} />
+  return <GeneralTabsComponent defaultTabId={'GT-SA-1'} tabs={tabsData} />
 }

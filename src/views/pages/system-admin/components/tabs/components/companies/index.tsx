@@ -5,7 +5,7 @@ export default function SystemAdminCompaniesTab() {
   // declare and define component state and variables
   const tabsData: GeneralTabsComponentTabType[] = [
     {
-      id: 1,
+      id: `GT-SA-COM-1`,
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-settings-4-fill text-lg' />
@@ -17,5 +17,5 @@ export default function SystemAdminCompaniesTab() {
   ]
 
   // return component ui
-  return <GeneralTabsComponent tabs={tabsData} />
+  return <GeneralTabsComponent defaultTabId='GT-SA-COM-1' tabs={tabsData} />
 }

@@ -5,7 +5,7 @@ export default function SystemRolesTabInSystemSettings() {
   // declare and define component state and variables
   const tabsData: GeneralTabsComponentTabType[] = [
     {
-      id: 1,
+      id: 'GT-SA-SR-1',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-team-line text-lg' />
@@ -15,7 +15,7 @@ export default function SystemRolesTabInSystemSettings() {
       tabContent: <UsersRolesTableTab />
     },
     {
-      id: 2,
+      id: 'GT-SA-SR-2',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-building-line text-lg' />
@@ -27,5 +27,5 @@ export default function SystemRolesTabInSystemSettings() {
   ]
 
   // return component ui
-  return <GeneralTabsComponent tabs={tabsData} />
+  return <GeneralTabsComponent defaultTabId='GT-SA-SR-1' tabs={tabsData} />
 }

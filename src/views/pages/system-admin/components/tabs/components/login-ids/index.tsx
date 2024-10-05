@@ -6,7 +6,7 @@ export default function SystemAdminLoginIDsTab() {
   // declare and define component state and variables
   const tabsData: GeneralTabsComponentTabType[] = [
     {
-      id: 1,
+      id: 'GT-SA-LS-1',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-login-box-line text-lg' />
@@ -16,7 +16,7 @@ export default function SystemAdminLoginIDsTab() {
       tabContent: <SystemAdminLoginsWaysTab />
     },
     {
-      id: 2,
+      id: 'GT-SA-LS-2',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-shield-check-line text-lg' />
@@ -28,7 +28,7 @@ export default function SystemAdminLoginIDsTab() {
   ]
 
   // return component ui
-  return <GeneralTabsComponent tabs={tabsData} />
+  return <GeneralTabsComponent defaultTabId='GT-SA-LS-1' tabs={tabsData} />
 }
 
 type PropsType = {}

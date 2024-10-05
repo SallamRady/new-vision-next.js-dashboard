@@ -4,7 +4,7 @@ export default function CorrespondenceSettingsTabIndex() {
   // declare and define component state and variables
   const tabsData: GeneralTabsComponentTabType[] = [
     {
-      id: 1,
+      id: 'GT-SA-RS-1',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-mail-line text-lg' />
@@ -14,7 +14,7 @@ export default function CorrespondenceSettingsTabIndex() {
       tabContent: <></>
     },
     {
-      id: 2,
+      id: 'GT-SA-RS-2',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-chat-1-line text-lg' />
@@ -24,7 +24,7 @@ export default function CorrespondenceSettingsTabIndex() {
       tabContent: <></>
     },
     {
-      id: 3,
+      id: 'GT-SA-RS-3',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-user-line text-lg' />
@@ -36,7 +36,7 @@ export default function CorrespondenceSettingsTabIndex() {
   ]
 
   // return component ui
-  return <GeneralTabsComponent tabs={tabsData} />
+  return <GeneralTabsComponent defaultTabId='GT-SA-RS-1' tabs={tabsData} />
 }
 
 type PropsType = {}
