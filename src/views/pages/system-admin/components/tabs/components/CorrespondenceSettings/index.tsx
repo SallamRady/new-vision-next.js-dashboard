@@ -1,29 +1,37 @@
 import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
-import SystemAdminLoginIdentifiersTab from './tabs/LoginIdentifiers'
-import SystemAdminLoginsWaysTab from './tabs/loginsApps/LoginsWaysTab'
 
-export default function SystemAdminLoginIDsTab() {
+export default function CorrespondenceSettingsTabIndex() {
   // declare and define component state and variables
   const tabsData: GeneralTabsComponentTabType[] = [
     {
       id: 1,
       label: (
         <div className='flex items-center gap-2 text-lg'>
-          <i className='ri-login-box-line text-lg' />
-          برامج الدخول
+          <i className='ri-mail-line text-lg' />
+          البريد الألكتروني
         </div>
       ),
-      tabContent: <SystemAdminLoginsWaysTab />
+      tabContent: <></>
     },
     {
       id: 2,
       label: (
         <div className='flex items-center gap-2 text-lg'>
-          <i className='ri-shield-check-line text-lg' />
-          المعرف
+          <i className='ri-chat-1-line text-lg' />
+          الرسائل النصية
         </div>
       ),
-      tabContent: <SystemAdminLoginIdentifiersTab />
+      tabContent: <></>
+    },
+    {
+      id: 3,
+      label: (
+        <div className='flex items-center gap-2 text-lg'>
+          <i className='ri-user-line text-lg' />
+          منصات التواصل
+        </div>
+      ),
+      tabContent: <></>
     }
   ]
 

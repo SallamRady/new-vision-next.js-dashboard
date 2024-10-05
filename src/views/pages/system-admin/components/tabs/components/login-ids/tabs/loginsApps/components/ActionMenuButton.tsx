@@ -1,14 +1,11 @@
-'use client'
 // React Imports
 import { SetStateAction } from 'react'
 
 // MUI Imports
 import { FormControlLabel, Switch } from '@mui/material'
-import { LoginIDType } from '@/types/system-admin/login-ids'
-import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
-import { Api } from '@/Constants/Api'
+import { errorMessage } from '@/utils/notificationsMessages'
 import GlobelDropDownMenu, { GenericMenuButton } from '@/components/drop-down-menu/GlobelDropDownMenu'
-import axiosInstance from '@/libs/axiosConfig'
+import { LoginWayType } from '@/types/login-way'
 
 export default function ActionMenuButton(props: PropsType) {
   // ** declare and define component state abd variables
@@ -50,22 +47,10 @@ export default function ActionMenuButton(props: PropsType) {
   // ** declare and define component helper methods
   const handleStatusSwitch = async () => {
     try {
-      // send request
-      await axiosInstance.post(Api(`active-inactive-identifier`), {
-        identifier_id: props.id
-      })
-      // change data in table
-      props.setTableData(prev => {
-        return prev.map(ele => {
-          if (ele.id == props.id) return { ...ele, status: !ele.status }
-          return ele
-        })
-      })
-      // show feedback message for user
-      SuccessMessage('تم تغير حالة المعرف بنجاح')
+      console.log('')
     } catch (error) {
       // show feedback message for user
-      console.error('Error switching status:', error)
+      console.error('Error switching status in Login Ways ::', error)
       errorMessage('تعذر تغير حالةالمعرف')
     }
   }
@@ -81,5 +66,5 @@ export default function ActionMenuButton(props: PropsType) {
 type PropsType = {
   id: number
   status: boolean
-  setTableData: React.Dispatch<SetStateAction<LoginIDType[]>>
+  setTableData: React.Dispatch<SetStateAction<LoginWayType[]>>
 }

@@ -8,6 +8,7 @@ import { useContext, useState } from 'react'
 import { TenentType } from '@/types/tenant'
 import { errorMessage } from '@/utils/notificationsMessages'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
+import { StoreInLocalStorage } from '@/utils/local.storage'
 
 function LoginView() {
   // ** declare and define component state and variables
@@ -40,6 +41,7 @@ function LoginView() {
           errorMessage(response.data?.msg)
         } else if (response.data?.global_id) {
           storeGlobalId(response.data?.global_id)
+          StoreInLocalStorage('globalId', response.data.global_id.toString())
           if (response.data.tenants) {
             let tenants: TenentType[] = response.data.tenants
 

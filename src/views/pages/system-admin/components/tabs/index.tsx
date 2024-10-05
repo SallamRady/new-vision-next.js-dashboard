@@ -1,5 +1,6 @@
 // MUI Imports
 import SystemAdminCompaniesTab from './components/companies'
+import CorrespondenceSettingsTabIndex from './components/CorrespondenceSettings'
 import SystemAdminCountryTab from './components/countries/SystemAdminCountryTab'
 import SystemAdminLoginIDsTab from './components/login-ids'
 import SystemRolesTabInSystemSettings from './components/system-roles'
@@ -57,7 +58,7 @@ export default function TabsOfMainystemAdmin() {
           اعدادات المراسلات
         </div>
       ),
-      tabContent: <>اعدادات المراسلات</>
+      tabContent: <CorrespondenceSettingsTabIndex />
     },
     {
       id: 6,

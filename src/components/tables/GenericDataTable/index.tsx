@@ -49,6 +49,8 @@ type GenericDataTableProps<T> = {
   exportButtonLabel?: string
   onExport?: () => void
   hideTableHeader?: boolean
+  disableSearch?: boolean
+  disableExport?: boolean
 }
 
 export default function GenericDataTable<T>({
@@ -59,7 +61,9 @@ export default function GenericDataTable<T>({
   addDialogContent = <>Add Dialog</>,
   exportButtonLabel = 'Export',
   onExport,
-  hideTableHeader = false
+  hideTableHeader = false,
+  disableSearch = false,
+  disableExport = false
 }: GenericDataTableProps<T>) {
   // ** declare and define component state and variables
   const [rowSelection, setRowSelection] = useState({})
@@ -122,14 +126,16 @@ export default function GenericDataTable<T>({
                 justifyContent={'space-between'}
                 spacing={3}
               >
-                <TextField
-                  variant='outlined'
-                  value={globalFilter ?? ''}
-                  onChange={e => setGlobalFilter(e.target.value)}
-                  placeholder={globalFilterPlaceholder}
-                  size='small'
-                  sx={{ width: '80%' }}
-                />
+                {disableSearch == true && (
+                  <TextField
+                    variant='outlined'
+                    value={globalFilter ?? ''}
+                    onChange={e => setGlobalFilter(e.target.value)}
+                    placeholder={globalFilterPlaceholder}
+                    size='small'
+                    sx={{ width: '80%' }}
+                  />
+                )}
               </Stack>
               <Stack
                 width={{

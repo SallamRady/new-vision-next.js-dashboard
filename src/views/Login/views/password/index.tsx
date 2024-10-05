@@ -4,11 +4,11 @@ import { Button, Card, CardContent, CardHeader, TextField, Typography } from '@m
 
 import axios from 'axios'
 import { Api } from '@/Constants/Api'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { errorMessage } from '@/utils/notificationsMessages'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
 import { StoreInLocalStorage } from '@/utils/local.storage'
-import { useRouter } from 'next/router'
+import { redirect, useRouter } from 'next/navigation'
 
 function PasswordView() {
   // ** declare and define component state and variables
@@ -16,40 +16,52 @@ function PasswordView() {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState('')
+  const [isMounted, setIsMounted] = useState(false)
   const { handleChangeView, globalId, selectedTenant } = useContext(AuthOperationsContext)
+
+  // ** handle side effects
+  useEffect(() => {
+    setIsMounted(true) // Set mounted state to true after component mounts
+  }, [])
+
   // ** declare and define component helper methods
   function handleSendPassword() {
-    // declare helper variables
-    const url = Api(`login-with-different-methods`)
-    const body = { password, global_id: globalId }
-    const headers = {
-      'Content-Type': 'application/json',
-      'X-Tenant': selectedTenant?.id
+    console.log('isMounted', isMounted)
+    if (isMounted) {
+      // declare helper variables
+      const url = Api(`login-with-different-methods`)
+      const body = { password, global_id: globalId }
+      const headers = {
+        'Content-Type': 'application/json',
+        'X-Tenant': selectedTenant?.id
+      }
+      type ResType = {
+        token: string
+      }
+      // send request
+      setLoading(true)
+      axios
+        .post<ResType>(url, body, {
+          headers: headers
+        })
+        .then(response => {
+          // check error message is exist ?
+          StoreInLocalStorage('token', response.data.token)
+        })
+        .then(() => {
+          handleChangeView(LoginPageViews.LoggedIn)
+          router.push('/home')
+          // return redirect('/home')
+        })
+        .catch(err => {
+          console.log('error1010::', err)
+          if (err?.response?.status == 401) errorMessage('كلمة المرور غير صحيحة')
+          else errorMessage('خطا غير متوقع برجاء المحاولة فى وقت اخر')
+        })
+        .finally(() => {
+          setLoading(false)
+        })
     }
-    type ResType = {
-      token: string
-    }
-    // send request
-    setLoading(true)
-    axios
-      .post<ResType>(url, body, {
-        headers: headers
-      })
-      .then(response => {
-        // check error message is exist ?
-        StoreInLocalStorage('token', response.data.token)
-      })
-      .then(() => {
-        handleChangeView(LoginPageViews.LoggedIn)
-        router.push('/home')
-      })
-      .catch(err => {
-        if (err?.response?.status == 401) errorMessage('كلمة المرور غير صحيحة')
-        else errorMessage('خطا غير متوقع برجاء المحاولة فى وقت اخر')
-      })
-      .finally(() => {
-        setLoading(false)
-      })
   }
   // ** component ui
   return (

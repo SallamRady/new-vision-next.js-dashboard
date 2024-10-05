@@ -1,7 +1,7 @@
 'use client'
 
 import { TenentType } from '@/types/tenant'
-import { existInLocalStorage } from '@/utils/local.storage'
+import { existInLocalStorage, StoreInLocalStorage } from '@/utils/local.storage'
 import { redirect } from 'next/navigation'
 import type { ReactNode } from 'react'
 import { createContext, useState, useEffect } from 'react'
@@ -52,6 +52,7 @@ export const AuthOperationsContextProvider = ({ children }: { children: ReactNod
   }
 
   function storeSelectedTenant(tenant: TenentType) {
+    StoreInLocalStorage('xTenentId', tenant.id.toString())
     setSelectedTenant(tenant)
   }
 
