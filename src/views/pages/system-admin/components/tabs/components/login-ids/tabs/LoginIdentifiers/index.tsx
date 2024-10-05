@@ -116,7 +116,8 @@ export default function SystemAdminLoginIdentifiersTab() {
         exportButtonLabel='تصدير'
         globalFilterPlaceholder='بحث...'
         onExport={() => console.log('Export users clicked')}
-        hideTableHeader={true}
+        hideTableHeader={false}
+        disableSearch={true}
       />
     </Stack>
   )

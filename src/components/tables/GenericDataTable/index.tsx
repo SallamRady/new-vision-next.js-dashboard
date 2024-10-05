@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { Suspense, useState } from 'react'
 import {
   Button,
   Card,
@@ -253,23 +253,25 @@ export default function GenericDataTable<T>({
           </thead>
           {/* set data body */}
           <tbody>
-            {table.getFilteredRowModel().rows.length === 0 ? (
-              <tr>
-                <td colSpan={table.getVisibleFlatColumns().length} className='text-center'>
-                  No data available
-                </td>
-              </tr>
-            ) : (
-              table.getRowModel().rows.map(row => (
-                <tr key={row.id} className={classNames({ selected: row.getIsSelected() })}>
-                  {row.getVisibleCells().map(cell => (
-                    <td key={cell.id} className='text-center'>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
-                  ))}
+            <Suspense fallback={<>Loading...</>}>
+              {table.getFilteredRowModel().rows.length === 0 ? (
+                <tr>
+                  <td colSpan={table.getVisibleFlatColumns().length} className='text-center'>
+                    No data available
+                  </td>
                 </tr>
-              ))
-            )}
+              ) : (
+                table.getRowModel().rows.map(row => (
+                  <tr key={row.id} className={classNames({ selected: row.getIsSelected() })}>
+                    {row.getVisibleCells().map(cell => (
+                      <td key={cell.id} className='text-center'>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              )}
+            </Suspense>
           </tbody>
         </table>
       </div>

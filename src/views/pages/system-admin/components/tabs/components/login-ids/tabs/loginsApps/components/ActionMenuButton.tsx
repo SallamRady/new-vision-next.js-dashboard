@@ -58,7 +58,7 @@ export default function ActionMenuButton(props: PropsType) {
   // ** return ui
   return (
     <>
-      <GlobelDropDownMenu btnTitle='أجراء' buttons={buttons} />
+      <GlobelDropDownMenu disabled={true} btnTitle='أجراء' buttons={buttons} />
     </>
   )
 }

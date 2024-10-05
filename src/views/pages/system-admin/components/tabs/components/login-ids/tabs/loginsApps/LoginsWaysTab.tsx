@@ -1,7 +1,7 @@
 'use client'
 
 // import packages
-import { Checkbox, Chip, Stack, Typography } from '@mui/material'
+import { Button, Checkbox, Chip, Stack, Typography } from '@mui/material'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
@@ -73,7 +73,7 @@ export default function SystemAdminLoginsWaysTab() {
         header: 'الحالة',
         cell: ({ row }) => (
           <Chip
-            label={row.original.status ? 'مفعل' : 'غير مفعل'}
+            label={row.original.status ? 'مفعل' : 'معطل'}
             color={row.original.status ? 'success' : 'error'}
             variant='tonal'
           />
@@ -96,17 +96,21 @@ export default function SystemAdminLoginsWaysTab() {
   // ** declare and define component helper methods
 
   // ** return component ui
-  if (isLoading) return <Loader />
+  // if (isLoading) return <Loader />
   if (error) return <Typography>Error loading data: {error.message}</Typography>
 
   return (
     <Stack spacing={4} mt={6}>
+      <Stack alignItems={'end'} justifyContent={'center'} my={4}>
+        <Button variant='contained' disabled>
+          أضافة
+        </Button>
+      </Stack>
       <GenericDataTable
         data={tableData || []}
         columns={columns}
-        exportButtonLabel='تصدير'
         globalFilterPlaceholder='بحث...'
-        addButtonLabel='أضافة'
+        hideTableHeader={true}
       />
     </Stack>
   )

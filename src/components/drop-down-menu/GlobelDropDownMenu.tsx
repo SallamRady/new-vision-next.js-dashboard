@@ -9,7 +9,7 @@ import MenuItem from '@mui/material/MenuItem'
 
 export default function GlobelDropDownMenu(props: PropsType) {
   // ** declare and define component state abd variables
-  const { btnTitle, btnLoadingTitle = 'جاري...', buttons } = props
+  const { btnTitle, btnLoadingTitle = 'جاري...', buttons, disabled = false } = props
   const [loading, setLoading] = useState(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
@@ -46,7 +46,7 @@ export default function GlobelDropDownMenu(props: PropsType) {
         aria-haspopup='true'
         color={loading ? 'inherit' : 'primary'}
         onClick={handleClick}
-        disabled={loading}
+        disabled={loading || disabled}
       >
         {loading ? btnLoadingTitle : btnTitle}
       </Button>
@@ -72,4 +72,5 @@ type PropsType = {
   btnTitle: string
   btnLoadingTitle?: string
   buttons: GenericMenuButton[]
+  disabled?: boolean
 }
