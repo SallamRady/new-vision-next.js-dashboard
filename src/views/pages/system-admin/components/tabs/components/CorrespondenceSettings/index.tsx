@@ -1,4 +1,5 @@
 import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import MailsTab from './tabs/mail/MailsTab'
 
 export default function CorrespondenceSettingsTabIndex() {
   // declare and define component state and variables
@@ -11,7 +12,7 @@ export default function CorrespondenceSettingsTabIndex() {
           البريد الألكتروني
         </div>
       ),
-      tabContent: <></>
+      tabContent: <MailsTab />
     },
     {
       id: 'GT-SA-RS-2',
