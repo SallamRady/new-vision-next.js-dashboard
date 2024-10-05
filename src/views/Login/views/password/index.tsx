@@ -26,7 +26,6 @@ function PasswordView() {
 
   // ** declare and define component helper methods
   function handleSendPassword() {
-    console.log('isMounted', isMounted)
     if (isMounted) {
       // declare helper variables
       const url = Api(`login-with-different-methods`)
@@ -54,7 +53,6 @@ function PasswordView() {
           // return redirect('/home')
         })
         .catch(err => {
-          console.log('error1010::', err)
           if (err?.response?.status == 401) errorMessage('كلمة المرور غير صحيحة')
           else errorMessage('خطا غير متوقع برجاء المحاولة فى وقت اخر')
         })

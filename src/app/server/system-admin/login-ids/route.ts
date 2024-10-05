@@ -13,7 +13,6 @@ export async function GET() {
     // ** Return the fetched data as JSON
     return NextResponse.json(response.data.identifiers)
   } catch (error) {
-    console.log('Error:::', error)
     return NextResponse.json({ message: 'Failed to fetch data' }, { status: 500 })
   }
 }
@@ -31,7 +30,6 @@ export async function POST(request: Request) {
     // ** Return the fetched data as JSON
     return NextResponse.json('success')
   } catch (error) {
-    console.log('Error:::', error)
     return NextResponse.json({ message: 'Failed to switch identifier status' }, { status: 500 })
   }
 }

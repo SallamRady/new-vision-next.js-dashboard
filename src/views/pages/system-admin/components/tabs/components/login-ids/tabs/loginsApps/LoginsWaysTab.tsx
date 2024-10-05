@@ -21,7 +21,6 @@ export default function SystemAdminLoginsWaysTab() {
   // Fetch data using SWR
   const { data, error, isLoading } = useLoginWays()
   const [tableData, setTableData] = useState<LoginWayType[]>([])
-  console.log('Datatdata, error, isLoading', data, error, isLoading)
 
   // ** handle side effects
   useEffect(() => {

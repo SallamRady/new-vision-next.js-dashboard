@@ -13,8 +13,6 @@ export default function GlobelDropDownMenu(props: PropsType) {
   const [loading, setLoading] = useState(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
-  console.log('loadingloading', loading)
-
   // ** declare and define component helper methods
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -35,7 +33,6 @@ export default function GlobelDropDownMenu(props: PropsType) {
       })
     } catch (error) {
       setLoading(false)
-      console.log('Error In Menu Btn Click ::', error)
     }
   }
 
