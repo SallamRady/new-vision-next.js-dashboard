@@ -1,16 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import './styles.scss'
 
 import { Button, Container, Link, Stack, Typography } from '@mui/material'
 import OtpInput from 'react-otp-input'
 import Countdown from 'react-countdown'
+import { AuthOperationsContext, LoginPageViews } from '../../context'
 
-import type { WithNextStepProps } from '../..'
-
-function OtpView({ next }: WithNextStepProps) {
+function OtpView() {
   const [otp, setOtp] = useState('')
+  const { handleChangeView } = useContext(AuthOperationsContext)
 
   return (
     <Container maxWidth='xs'>
@@ -19,7 +19,7 @@ function OtpView({ next }: WithNextStepProps) {
         autoComplete='off'
         onSubmit={e => {
           e.preventDefault()
-          next()
+          handleChangeView(LoginPageViews.MAIN_PAGE)
         }}
         className='flex flex-col gap-5'
       >

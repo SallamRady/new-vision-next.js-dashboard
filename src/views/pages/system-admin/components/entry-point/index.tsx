@@ -1,12 +1,11 @@
 import { Stack } from '@mui/material'
-import SystemAdminTopCards from '../top-cards'
 import TabsOfMainystemAdmin from '../tabs'
 
 export default function SystemAdminEntryPoint() {
   return (
     <Stack spacing={4}>
       {/* TOP Cards */}
-      <SystemAdminTopCards />
+      {/* <SystemAdminTopCards /> */}
       {/* Main Tabs */}
       <TabsOfMainystemAdmin />
     </Stack>

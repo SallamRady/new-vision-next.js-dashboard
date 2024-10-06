@@ -5,7 +5,7 @@ import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
 import type { CompanyTableRowType } from '@/types/companies/CompanyTableRowType'
 

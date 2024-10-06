@@ -12,10 +12,10 @@ import Typography from '@mui/material/Typography'
 import { Paper } from '@mui/material'
 
 export default function GeneralTabsComponent(props: GeneralTabsComponentProps) {
-  // States
-  const [value, setValue] = useState<string>('1')
   // extract data from props
-  const { tabs } = props
+  const { tabs, defaultTabId } = props
+  // States
+  const [value, setValue] = useState<string>(defaultTabId)
 
   // declare and define component helper methods
   const handleChange = (event: SyntheticEvent, newValue: string) => {
@@ -57,7 +57,8 @@ export default function GeneralTabsComponent(props: GeneralTabsComponentProps) {
   )
 }
 
-export type GeneralTabsComponentTabType = { id: number; label: React.ReactNode; tabContent: React.ReactNode }
+export type GeneralTabsComponentTabType = { id: string; label: React.ReactNode; tabContent: React.ReactNode }
 type GeneralTabsComponentProps = {
+  defaultTabId: string
   tabs: GeneralTabsComponentTabType[]
 }

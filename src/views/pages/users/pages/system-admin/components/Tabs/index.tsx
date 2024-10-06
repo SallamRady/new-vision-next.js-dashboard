@@ -7,7 +7,7 @@ export default function TabsOfUserSystemAdmin() {
   // declare and define component state and variables
   const tabsData: GeneralTabsComponentTabType[] = [
     {
-      id: 1,
+      id: 'GT-SA-US-1',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-team-line text-lg' />
@@ -17,7 +17,7 @@ export default function TabsOfUserSystemAdmin() {
       tabContent: <UsersTabIndexOfUserSystemAdmin />
     },
     {
-      id: 2,
+      id: 'GT-SA-US-2',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-dashboard-horizontal-fill text-lg' />
@@ -29,5 +29,5 @@ export default function TabsOfUserSystemAdmin() {
   ]
 
   // return component ui
-  return <GeneralTabsComponent tabs={tabsData} />
+  return <GeneralTabsComponent defaultTabId='GT-SA-US-1' tabs={tabsData} />
 }

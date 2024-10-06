@@ -23,6 +23,7 @@ import Button from '@mui/material/Button'
 
 // Hook Imports
 import { useSettings } from '@core/hooks/useSettings'
+import { removeKeyFromLocalStorage } from '@/utils/local.storage'
 
 // Styled component for badge content
 const BadgeContentSpan = styled('span')({
@@ -63,6 +64,9 @@ const UserDropdown = () => {
   }
 
   const handleUserLogout = async () => {
+    removeKeyFromLocalStorage('globalId')
+    removeKeyFromLocalStorage('xTenentId')
+    removeKeyFromLocalStorage('token')
     // Redirect to login page
     router.push('/login')
   }

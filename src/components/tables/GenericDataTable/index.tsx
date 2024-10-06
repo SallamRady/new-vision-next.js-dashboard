@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { Suspense, useState } from 'react'
 import {
   Button,
   Card,
@@ -48,6 +48,9 @@ type GenericDataTableProps<T> = {
   addDialogContent?: React.ReactNode
   exportButtonLabel?: string
   onExport?: () => void
+  hideTableHeader?: boolean
+  disableSearch?: boolean
+  disableExport?: boolean
 }
 
 export default function GenericDataTable<T>({
@@ -57,7 +60,10 @@ export default function GenericDataTable<T>({
   addButtonLabel,
   addDialogContent = <>Add Dialog</>,
   exportButtonLabel = 'Export',
-  onExport
+  onExport,
+  hideTableHeader = false,
+  disableSearch = false,
+  disableExport = false
 }: GenericDataTableProps<T>) {
   // ** declare and define component state and variables
   const [rowSelection, setRowSelection] = useState({})
@@ -98,75 +104,79 @@ export default function GenericDataTable<T>({
   return (
     <Card>
       {/* header of card */}
-      <CardHeader
-        title={
-          <Stack
-            width={'100%'}
-            direction={{
-              xs: 'column',
-              sm: 'row'
-            }}
-            alignItems={'center'}
-            justifyContent={'space-between'}
-          >
+      {hideTableHeader == false && (
+        <CardHeader
+          title={
             <Stack
-              width={{
-                xs: '100%',
-                sm: '60%'
+              width={'100%'}
+              direction={{
+                xs: 'column',
+                sm: 'row'
               }}
-              direction={'row'}
               alignItems={'center'}
               justifyContent={'space-between'}
-              spacing={3}
             >
-              <TextField
-                variant='outlined'
-                value={globalFilter ?? ''}
-                onChange={e => setGlobalFilter(e.target.value)}
-                placeholder={globalFilterPlaceholder}
-                size='small'
-                sx={{ width: '80%' }}
-              />
-            </Stack>
-            <Stack
-              width={{
-                xs: '100%',
-                sm: '25%'
-              }}
-              direction={'row'}
-              alignItems={'center'}
-              justifyContent={{
-                sx: 'space-between',
-                sm: 'end'
-              }}
-              spacing={5}
-            >
-              {Boolean(addButtonLabel) && (
-                <Button variant='contained' onClick={() => setOpenAddDialog(true)}>
-                  {addButtonLabel}
-                </Button>
-              )}
-              {onExport && (
-                <Button variant='outlined' endIcon={<i className='ri-upload-2-line'></i>} onClick={onExport}>
-                  {exportButtonLabel}
-                </Button>
-              )}
-              <Image
-                src={iconCarrierImg.src}
-                alt='iconCarrierImg icon'
-                width={20}
-                height={20}
-                style={{
-                  cursor: 'pointer'
+              <Stack
+                width={{
+                  xs: '100%',
+                  sm: '60%'
                 }}
-                onClick={() => {
-                  setOpenColumnVisibilityControlDialog(true)
+                direction={'row'}
+                alignItems={'center'}
+                justifyContent={'space-between'}
+                spacing={3}
+              >
+                {disableSearch == true && (
+                  <TextField
+                    variant='outlined'
+                    value={globalFilter ?? ''}
+                    onChange={e => setGlobalFilter(e.target.value)}
+                    placeholder={globalFilterPlaceholder}
+                    size='small'
+                    sx={{ width: '80%' }}
+                  />
+                )}
+              </Stack>
+              <Stack
+                width={{
+                  xs: '100%',
+                  sm: '25%'
                 }}
-              />
+                direction={'row'}
+                alignItems={'center'}
+                justifyContent={{
+                  sx: 'space-between',
+                  sm: 'end'
+                }}
+                spacing={5}
+              >
+                {Boolean(addButtonLabel) && (
+                  <Button variant='contained' onClick={() => setOpenAddDialog(true)}>
+                    {addButtonLabel}
+                  </Button>
+                )}
+                {onExport && (
+                  <Button variant='outlined' endIcon={<i className='ri-upload-2-line'></i>} onClick={onExport}>
+                    {exportButtonLabel}
+                  </Button>
+                )}
+                <Image
+                  src={iconCarrierImg.src}
+                  alt='iconCarrierImg icon'
+                  width={20}
+                  height={20}
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => {
+                    setOpenColumnVisibilityControlDialog(true)
+                  }}
+                />
+              </Stack>
             </Stack>
-          </Stack>
-        }
-      />
+          }
+        />
+      )}
       {/* control visibility of table columns */}
       <LeftSlideInDialog
         open={openColumnVisibilityControlDialog}
@@ -215,11 +225,11 @@ export default function GenericDataTable<T>({
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <th key={header.id}>
+                  <th key={header.id} className='text-center'>
                     {header.isPlaceholder ? null : (
                       <div
                         className={classNames({
-                          'flex items-center': header.column.getIsSorted(),
+                          'flex items-center justify-center': header.column.getIsSorted(),
                           'cursor-pointer select-none': header.column.getCanSort()
                         })}
                         onClick={header.column.getToggleSortingHandler()}
@@ -243,21 +253,25 @@ export default function GenericDataTable<T>({
           </thead>
           {/* set data body */}
           <tbody>
-            {table.getFilteredRowModel().rows.length === 0 ? (
-              <tr>
-                <td colSpan={table.getVisibleFlatColumns().length} className='text-center'>
-                  No data available
-                </td>
-              </tr>
-            ) : (
-              table.getRowModel().rows.map(row => (
-                <tr key={row.id} className={classNames({ selected: row.getIsSelected() })}>
-                  {row.getVisibleCells().map(cell => (
-                    <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
-                  ))}
+            <Suspense fallback={<>Loading...</>}>
+              {table.getFilteredRowModel().rows.length === 0 ? (
+                <tr>
+                  <td colSpan={table.getVisibleFlatColumns().length} className='text-center'>
+                    No data available
+                  </td>
                 </tr>
-              ))
-            )}
+              ) : (
+                table.getRowModel().rows.map(row => (
+                  <tr key={row.id} className={classNames({ selected: row.getIsSelected() })}>
+                    {row.getVisibleCells().map(cell => (
+                      <td key={cell.id} className='text-center'>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              )}
+            </Suspense>
           </tbody>
         </table>
       </div>
