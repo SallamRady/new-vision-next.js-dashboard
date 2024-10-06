@@ -23,7 +23,7 @@ function LoginView() {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [identifier, setIdentifier] = useState('')
-  const { handleChangeView, storeTenants, storeGlobalId, storeSelectedTenant, handleSetPassword } =
+  const { handleChangeView, storeTenants, storeGlobalId, storeSelectedTenant, handleSetPassword, handleSetIdentifier } =
     useContext(AuthOperationsContext)
   const ImgStyle = {
     cursor: 'pointer'
@@ -31,6 +31,9 @@ function LoginView() {
 
   // ** declare and define component helper methods
   function handleSendIdentifier() {
+    //set identifier to context
+    handleSetIdentifier(identifier)
+
     // declare helper variables
     const url = Api(`identifier-check`)
     const body = { identifier }

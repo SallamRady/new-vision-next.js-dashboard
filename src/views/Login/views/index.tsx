@@ -7,6 +7,7 @@ import OtpView from './otp'
 import PasswordView from './password'
 import SetPasswordView from './set-password'
 import LoginLoading from './loading'
+import ForgetPassword from './forget-password'
 
 export default function LoginViewsIndex() {
   // ** declare and define component state and variables
@@ -26,6 +27,8 @@ export default function LoginViewsIndex() {
         return <SetPasswordView />
       case LoginPageViews.LoggedIn:
         return <LoginLoading />
+      case LoginPageViews.ForgetPassword:
+        return <ForgetPassword />
     }
   }, [view])
 

@@ -63,6 +63,10 @@ function PasswordView() {
         })
     }
   }
+
+  function handleForgetPassword() {
+    handleChangeView(LoginPageViews.ForgetPassword)
+  }
   // ** component ui
   return (
     <Card className='flex flex-col sm:is-[460px]'>
@@ -121,7 +125,13 @@ function PasswordView() {
               {loading ? 'جاري التنفيذ..' : 'دخول'}
             </Button>
           </form>
-          <Typography variant='body2' fontWeight={400} fontSize={18}>
+          <Typography
+            variant='body2'
+            fontWeight={400}
+            fontSize={18}
+            sx={{ cursor: 'pointer' }}
+            onClick={handleForgetPassword}
+          >
             هل نسيت كلمة المرور؟{' '}
           </Typography>
         </div>

@@ -12,7 +12,8 @@ export enum LoginPageViews {
   PASSWORD = 'password',
   OTP = 'OTP',
   LoggedIn = 'LoggedIn',
-  SetPassword = 'SetPassword'
+  SetPassword = 'SetPassword',
+  ForgetPassword = 'ForgetPassword'
 }
 
 export const AuthOperationsContext = createContext<AuthOperationsContextType>({
@@ -21,18 +22,21 @@ export const AuthOperationsContext = createContext<AuthOperationsContextType>({
   tenants: [],
   storeTenants: _tenants => {},
   globalId: -1,
+  identifier: '',
   storeGlobalId: id => {},
   selectedTenant: undefined,
   storeSelectedTenant: tenant => {},
   handleSetPassword: set => {},
-  setPassword: false
+  setPassword: false,
+  handleSetIdentifier: str => {}
 })
 
 export const AuthOperationsContextProvider = ({ children }: { children: ReactNode }) => {
   // ** declare and define component state and variables
   const [globalId, setGlobalId] = useState(-1)
-  const [tenants, setTenants] = useState<TenentType[]>([])
+  const [identifier, setIdentifier] = useState('')
   const [setPassword, setSetPassword] = useState(false)
+  const [tenants, setTenants] = useState<TenentType[]>([])
   const [view, setView] = useState<LoginPageViews>(LoginPageViews.MAIN_PAGE)
   const [selectedTenant, setSelectedTenant] = useState<TenentType | undefined>(undefined)
 
@@ -43,6 +47,10 @@ export const AuthOperationsContextProvider = ({ children }: { children: ReactNod
     }
   }, [])
   // ** declare and define component helper methods
+  function handleSetIdentifier(str: string) {
+    setIdentifier(str)
+  }
+
   function handleSetPassword(set: boolean) {
     setSetPassword(set)
   }
@@ -68,16 +76,18 @@ export const AuthOperationsContextProvider = ({ children }: { children: ReactNod
   return (
     <AuthOperationsContext.Provider
       value={{
+        view,
+        globalId,
+        tenants,
+        setPassword,
+        identifier,
         selectedTenant,
         storeSelectedTenant,
-        globalId,
-        view,
-        setPassword,
-        handleChangeView,
-        tenants,
         storeTenants,
         storeGlobalId,
-        handleSetPassword
+        handleChangeView,
+        handleSetPassword,
+        handleSetIdentifier
       }}
     >
       {children}
@@ -89,6 +99,7 @@ type AuthOperationsContextType = {
   view: LoginPageViews
   tenants: TenentType[]
   globalId: number
+  identifier: string
   setPassword: boolean
   storeGlobalId(id: number): void
   selectedTenant: TenentType | undefined
@@ -96,4 +107,5 @@ type AuthOperationsContextType = {
   handleChangeView(_view: LoginPageViews): void
   storeSelectedTenant(tenant: TenentType): void
   handleSetPassword(set: boolean): void
+  handleSetIdentifier(str: string): void
 }
