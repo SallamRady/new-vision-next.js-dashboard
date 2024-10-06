@@ -2,7 +2,15 @@
 const nextConfig = {
   basePath: process.env.BASEPATH,
   images: {
-    domains: ['new.vision-dashbord.com'] // Add your image domain here
+    // domains: ['new.vision-dashbord.com'] // Add your image domain here
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'new.vision-dashbord.com',
+        port: '',
+        pathname: '/**'
+      }
+    ]
   },
   redirects: async () => {
     return [
