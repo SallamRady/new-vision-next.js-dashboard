@@ -5,6 +5,7 @@ import LoginView from './login'
 import ChooseCorrentTenant from './choose-tenant'
 import OtpView from './otp'
 import PasswordView from './password'
+import SetPasswordView from './set-password'
 
 export default function LoginViewsIndex() {
   // ** declare and define component state and variables
@@ -20,6 +21,8 @@ export default function LoginViewsIndex() {
         return <OtpView />
       case LoginPageViews.PASSWORD:
         return <PasswordView />
+      case LoginPageViews.SetPassword:
+        return <SetPasswordView />
     }
   }, [view])
 

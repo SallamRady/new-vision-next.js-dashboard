@@ -15,7 +15,8 @@ function LoginView() {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [identifier, setIdentifier] = useState('')
-  const { handleChangeView, storeTenants, storeGlobalId, storeSelectedTenant } = useContext(AuthOperationsContext)
+  const { handleChangeView, storeTenants, storeGlobalId, storeSelectedTenant, handleSetPassword } =
+    useContext(AuthOperationsContext)
   // ** declare and define component helper methods
   function handleSendIdentifier() {
     // declare helper variables
@@ -24,13 +25,17 @@ function LoginView() {
     const headers = {
       'Content-Type': 'application/json'
     }
+
     type ResType = {
       global_id?: number
       msg?: string
       tenants?: TenentType[]
+      can_set_pass?: boolean
     }
+
     // send request
     setLoading(true)
+
     axios
       .post<ResType>(url, body, {
         headers: headers
@@ -42,16 +47,25 @@ function LoginView() {
         } else if (response.data?.global_id) {
           storeGlobalId(response.data?.global_id)
           StoreInLocalStorage('globalId', response.data.global_id.toString())
+
           if (response.data.tenants) {
             let tenants: TenentType[] = response.data.tenants
 
             if (tenants.length > 1) {
               //allow users to choose corrct company
+              if (response.data?.can_set_pass) {
+                handleSetPassword(true)
+              }
               storeTenants(tenants)
               handleChangeView(LoginPageViews.Multi_TENANTS)
             } else if (tenants.length == 1) {
-              //redirect to correct login page
               storeSelectedTenant(tenants[0])
+
+              if (response.data?.can_set_pass) {
+                handleChangeView(LoginPageViews.SetPassword)
+                return
+              }
+              //redirect to correct login page
               let lookUp = tenants?.[0]?.login_ways?.[0]?.lookup
               switch (lookUp.name) {
                 case LoginPageViews.PASSWORD:

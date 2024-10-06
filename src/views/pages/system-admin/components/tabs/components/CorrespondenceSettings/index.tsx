@@ -1,5 +1,6 @@
 import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
 import MailsTab from './tabs/mail/MailsTab'
+import { CorrespondenceSettingsCxtProvider } from './context/CorrespondenceSettingsCxt'
 
 export default function CorrespondenceSettingsTabIndex() {
   // declare and define component state and variables
@@ -37,7 +38,11 @@ export default function CorrespondenceSettingsTabIndex() {
   ]
 
   // return component ui
-  return <GeneralTabsComponent defaultTabId='GT-SA-RS-1' tabs={tabsData} />
+  return (
+    <CorrespondenceSettingsCxtProvider>
+      <GeneralTabsComponent defaultTabId='GT-SA-RS-1' tabs={tabsData} />
+    </CorrespondenceSettingsCxtProvider>
+  )
 }
 
 type PropsType = {}

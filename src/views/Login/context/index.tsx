@@ -11,7 +11,8 @@ export enum LoginPageViews {
   Multi_TENANTS = 'Multi_TENANTS',
   PASSWORD = 'password',
   OTP = 'OTP',
-  LoggedIn = 'LoggedIn'
+  LoggedIn = 'LoggedIn',
+  SetPassword = 'SetPassword'
 }
 
 export const AuthOperationsContext = createContext<AuthOperationsContextType>({
@@ -22,13 +23,16 @@ export const AuthOperationsContext = createContext<AuthOperationsContextType>({
   globalId: -1,
   storeGlobalId: id => {},
   selectedTenant: undefined,
-  storeSelectedTenant: tenant => {}
+  storeSelectedTenant: tenant => {},
+  handleSetPassword: set => {},
+  setPassword: false
 })
 
 export const AuthOperationsContextProvider = ({ children }: { children: ReactNode }) => {
   // ** declare and define component state and variables
   const [globalId, setGlobalId] = useState(-1)
   const [tenants, setTenants] = useState<TenentType[]>([])
+  const [setPassword, setSetPassword] = useState(false)
   const [view, setView] = useState<LoginPageViews>(LoginPageViews.MAIN_PAGE)
   const [selectedTenant, setSelectedTenant] = useState<TenentType | undefined>(undefined)
 
@@ -39,6 +43,10 @@ export const AuthOperationsContextProvider = ({ children }: { children: ReactNod
     }
   }, [])
   // ** declare and define component helper methods
+  function handleSetPassword(set: boolean) {
+    setSetPassword(set)
+  }
+
   function handleChangeView(_view: LoginPageViews) {
     setView(_view)
   }
@@ -64,10 +72,12 @@ export const AuthOperationsContextProvider = ({ children }: { children: ReactNod
         storeSelectedTenant,
         globalId,
         view,
+        setPassword,
         handleChangeView,
         tenants,
         storeTenants,
-        storeGlobalId
+        storeGlobalId,
+        handleSetPassword
       }}
     >
       {children}
@@ -79,9 +89,11 @@ type AuthOperationsContextType = {
   view: LoginPageViews
   tenants: TenentType[]
   globalId: number
+  setPassword: boolean
   storeGlobalId(id: number): void
   selectedTenant: TenentType | undefined
   storeTenants(_tenants: TenentType[]): void
   handleChangeView(_view: LoginPageViews): void
   storeSelectedTenant(tenant: TenentType): void
+  handleSetPassword(set: boolean): void
 }
