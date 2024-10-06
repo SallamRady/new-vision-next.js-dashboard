@@ -9,6 +9,7 @@ import { errorMessage } from '@/utils/notificationsMessages'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
 import { StoreInLocalStorage } from '@/utils/local.storage'
 import { redirect, useRouter } from 'next/navigation'
+import axiosInstance from '@/libs/axiosConfig'
 
 function PasswordView() {
   // ** declare and define component state and variables
@@ -18,7 +19,7 @@ function PasswordView() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
-  const { handleChangeView, globalId, selectedTenant } = useContext(AuthOperationsContext)
+  const { handleChangeView, globalId, selectedTenant, identifier } = useContext(AuthOperationsContext)
 
   // ** handle side effects
   useEffect(() => {
@@ -65,7 +66,17 @@ function PasswordView() {
   }
 
   function handleForgetPassword() {
-    handleChangeView(LoginPageViews.ForgetPassword)
+    setLoading(true)
+    const body = { identifier }
+    axiosInstance
+      .post(Api(`identifier-check?forget_password=1`), body)
+      .then(response => {
+        handleChangeView(LoginPageViews.ForgetPassword)
+      })
+      .catch(err => {})
+      .finally(() => {
+        setLoading(false)
+      })
   }
   // ** component ui
   return (

@@ -9,6 +9,7 @@ import { useContext, useEffect, useState } from 'react'
 import { errorMessage } from '@/utils/notificationsMessages'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
 import { StoreInLocalStorage } from '@/utils/local.storage'
+import axiosInstance from '@/libs/axiosConfig'
 
 function ForgetPassword() {
   // ** declare and define component state and variables
@@ -40,34 +41,22 @@ function ForgetPassword() {
 
   // ** declare and define component helper methods
   function handleSendPassword() {
-    handleChangeView(LoginPageViews.ResetPassword)
-    return
-
     // declare helper variables
-    const url = Api(`login-with-different-methods`)
-    const body = { password, global_id: globalId }
+    const url = Api(`check-reset-password`)
+    const body = { password_temp: password, global_id: globalId }
     const headers = {
       'Content-Type': 'application/json',
       'X-Tenant': selectedTenant?.id
     }
-    type ResType = {
-      token: string
-    }
     // send request
     setLoading(true)
     axios
-      .post<ResType>(url, body, {
+      .post(url, body, {
         headers: headers
       })
       .then(response => {
         // check error message is exist ?
-        StoreInLocalStorage('token', response.data.token)
-      })
-      .then(() => {
-        router.push('/home')
-        setTimeout(() => {
-          handleChangeView(LoginPageViews.LoggedIn)
-        }, 500)
+        handleChangeView(LoginPageViews.ResetPassword)
       })
       .catch(err => {
         if (err?.response?.status == 401) errorMessage('كلمة المرور غير صحيحة')
@@ -81,6 +70,19 @@ function ForgetPassword() {
     const minutes = Math.floor(time / 60)
     const seconds = time % 60
     return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
+  }
+  function handleSendOTPAgain() {
+    setLoading(true)
+    const body = { identifier }
+    axiosInstance
+      .post(Api(`identifier-check?forget_password=1`), body)
+      .then(response => {
+        setTimeLeft(900)
+      })
+      .catch(err => {})
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   // ** component ui
@@ -162,6 +164,7 @@ function ForgetPassword() {
               type='button'
               disabled={loading}
               sx={{ textDecoration: 'underline', fontSize: 18, cursor: 'pointer' }}
+              onClick={handleSendOTPAgain}
             >
               اعادة ارسال
             </Button>
