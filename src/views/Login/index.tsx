@@ -1,8 +1,5 @@
 // Assets Imports
 
-// React Imports
-import { type ImgHTMLAttributes } from 'react'
-
 // Next Imports
 
 // Type Imports
@@ -19,15 +16,26 @@ import { AuthOperationsContextProvider } from './context'
 import { ParticlesComponent } from '@/components/particles'
 import RoundedBackgroundContainer from '@/components/rounded-background-container'
 import LoginViewsIndex from './views'
-
-const LogoImage = (props: ImgHTMLAttributes<HTMLImageElement>) => (
-  <img {...props} style={{ height: 82, ...props.style }} />
-)
+import PageHeader from './components/PageHeader'
+import Image from 'next/image'
+import ConstraxImg from '@/assets/images/logos/constrix.png'
 
 const LoginV1 = ({}: { mode: Mode }) => {
   return (
     <AuthOperationsContextProvider>
       <div className='flex justify-center items-center min-bs-[100dvh] is-full relative p-6'>
+        <Image
+          src={ConstraxImg.src}
+          alt='constrax'
+          width={70}
+          height={70}
+          style={{
+            color: 'transparent',
+            position: 'absolute',
+            left: '3%',
+            top: '3%'
+          }}
+        />
         {/* Particles Background */}
         <div className='absolute w-full h-full top-0 left-0' style={{ zIndex: -2 }}>
           <ParticlesComponent />
@@ -36,12 +44,7 @@ const LoginV1 = ({}: { mode: Mode }) => {
         <div className='absolute top-0 w-full' style={{ height: 250 }}>
           <RoundedBackgroundContainer orientation='top'>
             <Container maxWidth='xl' sx={{ py: 6 }}>
-              <Stack direction='column' gap={2} alignItems='center'>
-                <div>
-                  <LogoImage src={newVisionLogo.src} />
-                </div>
-                <Typography variant='h3'>لوحة التحكم</Typography>
-              </Stack>
+              <PageHeader />
             </Container>
           </RoundedBackgroundContainer>
         </div>

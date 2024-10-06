@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Card, CardContent, CardHeader, TextField, Typography } from '@mui/material'
+import { Button, Card, CardContent, CardHeader, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
 
 import axios from 'axios'
 import { Api } from '@/Constants/Api'
@@ -16,6 +16,7 @@ function PasswordView() {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
   const { handleChangeView, globalId, selectedTenant } = useContext(AuthOperationsContext)
 
@@ -48,9 +49,10 @@ function PasswordView() {
           StoreInLocalStorage('token', response.data.token)
         })
         .then(() => {
-          handleChangeView(LoginPageViews.LoggedIn)
           router.push('/home')
-          // return redirect('/home')
+          setTimeout(() => {
+            handleChangeView(LoginPageViews.LoggedIn)
+          }, 500)
         })
         .catch(err => {
           if (err?.response?.status == 401) errorMessage('كلمة المرور غير صحيحة')
@@ -67,8 +69,8 @@ function PasswordView() {
       {/* card header */}
       <CardHeader
         title={
-          <Typography variant='h4' fontWeight={600} fontSize={26} textAlign={'center'}>
-            تسجيل الدخول
+          <Typography variant='body2' fontWeight={600} fontSize={26} textAlign={'center'}>
+            ادخل كلمة المرور
           </Typography>
         }
       ></CardHeader>
@@ -87,7 +89,7 @@ function PasswordView() {
             <TextField
               autoFocus
               fullWidth
-              type='password'
+              type={showPassword ? 'text' : 'password'}
               error={error}
               onChange={e => {
                 if (e.target.value.length == 0) setError(true)
@@ -97,12 +99,31 @@ function PasswordView() {
               }}
               helperText={error ? 'كلمة المرور مطلوبة' : ''}
               label='أدخل كلمة المرور'
+              size='small'
+              disabled={loading}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position='end'>
+                    <IconButton
+                      onClick={() => {
+                        setShowPassword(prev => !prev)
+                      }}
+                      edge='end'
+                    >
+                      {!showPassword ? <i className={`ri-eye-line`}></i> : <i className={`ri-eye-off-line`}></i>}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
             />
 
-            <Button fullWidth variant='contained' type='submit' disabled={password.length == 0}>
-              تسجيل الدخول
+            <Button fullWidth variant='contained' type='submit' disabled={password.length == 0 || loading}>
+              {loading ? 'جاري التنفيذ..' : 'دخول'}
             </Button>
           </form>
+          <Typography variant='body2' fontWeight={400} fontSize={18}>
+            هل نسيت كلمة المرور؟{' '}
+          </Typography>
         </div>
       </CardContent>
     </Card>

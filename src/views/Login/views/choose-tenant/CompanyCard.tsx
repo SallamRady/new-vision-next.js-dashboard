@@ -1,9 +1,10 @@
 'use client'
 
+import Image from 'next/image'
 import { useContext } from 'react'
 import { TenentType } from '@/types/tenant'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material'
+import { Card, CardActionArea, CardContent, CardMedia, Grid, Stack, Typography } from '@mui/material'
 
 export default function CompanyCard(props: PropsType) {
   const { handleChangeView, storeSelectedTenant, setPassword, handleSetPassword } = useContext(AuthOperationsContext)
@@ -26,21 +27,39 @@ export default function CompanyCard(props: PropsType) {
   }
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea onClick={handleClick}>
-        <CardMedia
-          component='img'
-          height='140'
-          image={props.tenant?.media?.[0]?.original_url ?? ''}
-          alt='green iguana'
-        />
-        <CardContent>
-          <Typography gutterBottom variant='h5' component='div' textAlign={'center'}>
-            {props.tenant?.name}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <Grid
+      item
+      xs={3.7}
+      sx={{
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '12px',
+        padding: '1.3rem',
+        margin: '0.2rem',
+        ':hover': {
+          bgcolor: '#8080801c'
+        }
+      }}
+      onClick={handleClick}
+    >
+      <Stack alignContent={'center'} justifyContent={'center'} spacing={4}>
+        <Stack
+          width={'100px'}
+          height={'100px'}
+          alignItems={'center'}
+          justifyContent={'center'}
+          bgcolor={'#463361'}
+          borderRadius={'13px'}
+        >
+          <Image src={props.tenant?.media?.[0]?.original_url ?? ''} alt='tenant image' width={60} height={60} />
+        </Stack>
+        <Typography gutterBottom variant='h5' component='div' textAlign={'center'}>
+          {props.tenant?.name}
+        </Typography>
+      </Stack>
+    </Grid>
   )
 }
 

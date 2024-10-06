@@ -1,14 +1,22 @@
 'use client'
 
-import { Button, Card, CardContent, CardHeader, Divider, TextField, Typography } from '@mui/material'
+// MUI
+import { Button, Card, CardContent, CardHeader, Divider, Stack, TextField, Typography } from '@mui/material'
 
+// import packages
 import axios from 'axios'
+import Image from 'next/image'
 import { Api } from '@/Constants/Api'
 import { useContext, useState } from 'react'
 import { TenentType } from '@/types/tenant'
 import { errorMessage } from '@/utils/notificationsMessages'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
 import { StoreInLocalStorage } from '@/utils/local.storage'
+
+// assets
+import NafazImg from '@/assets/images/logos/nfaz.png'
+import gmailImg from '@/assets/images/logos/Gmail-Logo.png'
+import yahooImg from '@/assets/images/logos/yahoo-logo.png'
 
 function LoginView() {
   // ** declare and define component state and variables
@@ -17,6 +25,10 @@ function LoginView() {
   const [identifier, setIdentifier] = useState('')
   const { handleChangeView, storeTenants, storeGlobalId, storeSelectedTenant, handleSetPassword } =
     useContext(AuthOperationsContext)
+  const ImgStyle = {
+    cursor: 'pointer'
+  }
+
   // ** declare and define component helper methods
   function handleSendIdentifier() {
     // declare helper variables
@@ -86,6 +98,7 @@ function LoginView() {
         setLoading(false)
       })
   }
+
   // ** component ui
   return (
     <Card className='flex flex-col sm:is-[460px]'>
@@ -113,6 +126,7 @@ function LoginView() {
               autoFocus
               fullWidth
               error={error}
+              variant='standard'
               onChange={e => {
                 if (e.target.value.length == 0) setError(true)
                 else setError(false)
@@ -120,17 +134,21 @@ function LoginView() {
                 setIdentifier(e.target.value)
               }}
               helperText={error ? 'لابد من أدخال المعرف لتتمكن من تسجيل الدخول' : ''}
-              label='ادخل المعرف الخاص بك :البريد الالكتروني / رقم الهوية ..'
+              label='ادخل رقم الجوال / البريد الالكتروني'
             />
 
             <Button fullWidth variant='contained' type='submit' disabled={identifier.length == 0}>
-              تسجيل الدخول
+              التالي
             </Button>
 
+            {/*
             <Divider className='gap-3 text-textPrimary'>أو</Divider>
-            <Button fullWidth variant='contained' type='submit' color='secondary'>
-              تسجيل الدخول عن طريق بوابة نفاذ
-            </Button>
+            <Stack direction={'row'} alignItems={'center'} justifyContent={'space-around'}>
+              <Image src={yahooImg.src} alt='nafaz image' width={30} height={30} style={ImgStyle} />
+              <Image src={gmailImg.src} alt='nafaz image' width={30} height={30} style={ImgStyle} />
+              <Image src={NafazImg.src} alt='nafaz image' width={30} height={30} style={ImgStyle} />
+            </Stack>
+            */}
           </form>
         </div>
       </CardContent>
