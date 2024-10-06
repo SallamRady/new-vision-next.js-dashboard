@@ -28,7 +28,7 @@ function ResetPassword() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [error, setError] = useState({ password: false, confirmPassword: false })
   const [errorMessage, setErrorMessage] = useState({ password: '', confirmPassword: '' })
-  const { handleChangeView, globalId, selectedTenant } = useContext(AuthOperationsContext)
+  const { handleChangeView } = useContext(AuthOperationsContext)
 
   // ** handle side effects
 

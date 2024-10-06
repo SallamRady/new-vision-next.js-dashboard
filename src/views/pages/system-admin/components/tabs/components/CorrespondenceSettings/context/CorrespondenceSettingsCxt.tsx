@@ -1,6 +1,6 @@
 'use client'
 
-import useCorrespondenceSettings from '@/hooks/useCorrespondenceSettings'
+// import useCorrespondenceSettings from '@/hooks/useCorrespondenceSettings'
 import type { ReactNode } from 'react'
 import { createContext, useState } from 'react'
 
@@ -9,7 +9,7 @@ export const CorrespondenceSettingsCxt = createContext<CorrespondenceSettingsTyp
 export const CorrespondenceSettingsCxtProvider = (props: PropsType) => {
   // ** declare and define component state and variables
   const { children } = props
-  const { data: correspondenceData, isLoading, error } = useCorrespondenceSettings()
+  // const { data: correspondenceData, isLoading, error } = useCorrespondenceSettings()
 
   // ** handle side effects
 

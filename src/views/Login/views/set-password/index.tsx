@@ -1,23 +1,11 @@
 'use client'
 
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography
-} from '@mui/material'
+import { Button, Card, CardContent, CardHeader, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
 
-import axios from 'axios'
 import { Api } from '@/Constants/Api'
-import { useRouter } from 'next/navigation'
-import { useContext, useEffect, useState } from 'react'
-import { retriveFromLocalStorage, StoreInLocalStorage } from '@/utils/local.storage'
-import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
+import { useContext, useState } from 'react'
+import { retriveFromLocalStorage } from '@/utils/local.storage'
+import { SuccessMessage } from '@/utils/notificationsMessages'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
 import axiosInstance from '@/libs/axiosConfig'
 import SelectControlField from '@/components/forms/select-elements/SelectControlField'
@@ -35,7 +23,7 @@ function SetPasswordView() {
   const options: SelectFieldOptionType[] = [{ label: 'الأيميل', value: 'email' }]
   const [error, setError] = useState({ password: false, confirmPassword: false })
   const [errorMessage, setErrorMessage] = useState({ password: '', confirmPassword: '' })
-  const { handleChangeView, globalId, selectedTenant } = useContext(AuthOperationsContext)
+  const { handleChangeView } = useContext(AuthOperationsContext)
 
   // ** handle side effects
 

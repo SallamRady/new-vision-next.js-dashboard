@@ -73,7 +73,7 @@ function PasswordView() {
       .then(response => {
         handleChangeView(LoginPageViews.ForgetPassword)
       })
-      .catch(err => {})
+      .catch(() => {})
       .finally(() => {
         setLoading(false)
       })

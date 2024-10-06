@@ -14,6 +14,6 @@ export function removeKeyFromLocalStorage(key: string) {
   return localStorage.removeItem(`NewVisionDashboard-${key}`)
 }
 
-export function clearLocalStorage(key: string) {
+export function clearLocalStorage() {
   return localStorage.clear()
 }

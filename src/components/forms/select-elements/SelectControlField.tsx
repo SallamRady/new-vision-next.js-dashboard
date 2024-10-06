@@ -1,5 +1,5 @@
 import type { SelectFieldOptionType } from '@/types/input-controls-types'
-import { FormControl, InputLabel, MenuItem, Select, SxProps, Theme } from '@mui/material'
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 
 export default function SelectControlField(props: SelectControlFieldProps) {
   // ** declare and define helper variables

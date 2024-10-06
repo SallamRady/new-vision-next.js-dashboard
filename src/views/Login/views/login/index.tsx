@@ -64,7 +64,7 @@ function LoginView() {
           StoreInLocalStorage('globalId', response.data.global_id.toString())
 
           if (response.data.tenants) {
-            let tenants: TenentType[] = response.data.tenants
+            const tenants: TenentType[] = response.data.tenants
 
             if (tenants.length > 1) {
               //allow users to choose corrct company
@@ -81,7 +81,7 @@ function LoginView() {
                 return
               }
               //redirect to correct login page
-              let lookUp = tenants?.[0]?.login_ways?.[0]?.lookup
+              const lookUp = tenants?.[0]?.login_ways?.[0]?.lookup
               switch (lookUp.name) {
                 case LoginPageViews.PASSWORD:
                   handleChangeView(LoginPageViews.PASSWORD)
