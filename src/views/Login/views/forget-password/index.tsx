@@ -16,7 +16,7 @@ function ForgetPassword() {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState('')
-  const [timeLeft, setTimeLeft] = useState(30)
+  const [timeLeft, setTimeLeft] = useState(900)
   const [passwordExpired, setPasswordExpired] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const { handleChangeView, globalId, selectedTenant, identifier } = useContext(AuthOperationsContext)
@@ -40,6 +40,9 @@ function ForgetPassword() {
 
   // ** declare and define component helper methods
   function handleSendPassword() {
+    handleChangeView(LoginPageViews.ResetPassword)
+    return
+
     // declare helper variables
     const url = Api(`login-with-different-methods`)
     const body = { password, global_id: globalId }
@@ -77,7 +80,7 @@ function ForgetPassword() {
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60)
     const seconds = time % 60
-    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
+    return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
   }
 
   // ** component ui

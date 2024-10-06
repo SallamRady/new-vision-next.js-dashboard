@@ -13,7 +13,8 @@ export enum LoginPageViews {
   OTP = 'OTP',
   LoggedIn = 'LoggedIn',
   SetPassword = 'SetPassword',
-  ForgetPassword = 'ForgetPassword'
+  ForgetPassword = 'ForgetPassword',
+  ResetPassword = 'ResetPassword'
 }
 
 export const AuthOperationsContext = createContext<AuthOperationsContextType>({

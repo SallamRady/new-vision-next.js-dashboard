@@ -8,6 +8,7 @@ import PasswordView from './password'
 import SetPasswordView from './set-password'
 import LoginLoading from './loading'
 import ForgetPassword from './forget-password'
+import ResetPassword from './reset-password'
 
 export default function LoginViewsIndex() {
   // ** declare and define component state and variables
@@ -29,6 +30,8 @@ export default function LoginViewsIndex() {
         return <LoginLoading />
       case LoginPageViews.ForgetPassword:
         return <ForgetPassword />
+      case LoginPageViews.ResetPassword:
+        return <ResetPassword />
     }
   }, [view])
 
