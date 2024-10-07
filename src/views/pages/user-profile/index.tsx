@@ -41,7 +41,7 @@ const UserProfile = ({ tabContentList, data }: { tabContentList: { [key: string]
         <Grid item xs={12} className='flex flex-col gap-6'>
           <TabContext value={activeTab}>
             <Paper className='p-1'>
-              <CustomTabList onChange={handleChange} variant='scrollable' pill='true'>
+              <CustomTabList onChange={handleChange} variant='scrollable'>
                 <Tab
                   label={
                     <div className='flex items-center gap-2'>
@@ -55,10 +55,10 @@ const UserProfile = ({ tabContentList, data }: { tabContentList: { [key: string]
                   label={
                     <div className='flex items-center gap-2'>
                       <i className='ri-team-line text-lg' />
-                      الفرق
+                      العقد
                     </div>
                   }
-                  value='teams'
+                  value='contract'
                 />
                 <Tab
                   label={

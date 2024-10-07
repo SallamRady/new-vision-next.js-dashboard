@@ -19,11 +19,11 @@ const TopCards = () => {
       </Grid>
       <Grid item xs={12} md={6} lg={3}>
         <CardStatWithImage
-          stats='8.14k'
-          title='التقييمات'
-          trendNumber='15.6%'
+          stats='لا يوجد مهام'
+          title='المهام'
+          trendNumber=''
           chipColor='primary'
-          chipText={`عام ${new Date().getFullYear()}`}
+          chipText={``}
           src='/images/illustrations/characters/10.png'
         />
       </Grid>
