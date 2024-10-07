@@ -58,7 +58,7 @@ const UserProfile = ({ tabContentList, data }: { tabContentList: { [key: string]
                       العقد
                     </div>
                   }
-                  value='teams'
+                  value='contract'
                 />
                 <Tab
                   label={

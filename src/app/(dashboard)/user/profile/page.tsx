@@ -12,6 +12,7 @@ import UserProfile from '@views/pages/user-profile'
 
 // Data Imports
 import { getProfileData } from '@/app/server/actions'
+import ContractView from '@/views/pages/user-profile/contract'
 
 const ProfileTab = dynamic(() => import('@views/pages/user-profile/profile'))
 const TeamsTab = dynamic(() => import('@views/pages/user-profile/teams'))
@@ -21,6 +22,7 @@ const ConnectionsTab = dynamic(() => import('@views/pages/user-profile/connectio
 // Vars
 const tabContentList = (data?: Data): { [key: string]: ReactElement } => ({
   profile: <ProfileTab data={data?.users.profile} />,
+  contract: <ContractView />,
   teams: <TeamsTab data={data?.users.teams} />,
   projects: <ProjectsTab data={data?.users.projects} />,
   connections: <ConnectionsTab data={data?.users.connections} />
