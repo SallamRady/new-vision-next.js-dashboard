@@ -13,6 +13,7 @@ axiosInstance.interceptors.request.use(
     const session = useSession()
 
     const xTenantId = retriveFromLocalStorage('xTenentId')
+    console.log('session.data?.accessToken', session.data?.accessToken, xTenantId)
 
     if (session.data) {
       config.headers['Authorization'] = `Bearer ${session.data?.accessToken}`
