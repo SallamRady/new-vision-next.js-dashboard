@@ -8,8 +8,9 @@ const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexChart
 
 // Third-party Imports
 import type { ApexOptions } from 'apexcharts'
+import IssueIcon from '@/components/IssueIcon'
 
-function FinancialReport() {
+function FinancialReport({ financial }: Props) {
   // Hooks
   const theme = useTheme()
 
@@ -77,20 +78,32 @@ function FinancialReport() {
               </Typography>
               <Typography variant='body2'>المستحق الشهري</Typography>
             </div>
-            <div>
-              <Typography variant='h6' className='mbe-2'>
-                4000 رس
-              </Typography>
-              <Chip label='+18.4%' variant='tonal' size='small' color='success' />
-            </div>
+            {financial ? (
+              <div>
+                <Typography variant='h6' className='mbe-2'>
+                  4000 رس
+                </Typography>
+                <Chip label='+18.4%' variant='tonal' size='small' color='success' />
+              </div>
+            ) : (
+              <Typography>لا يوجد بيانات</Typography>
+            )}
           </div>
           <div>
-            <AppReactApexCharts type='donut' height={140} width={140} options={options} series={[35, 65]} />
+            {financial ? (
+              <AppReactApexCharts type='donut' height={140} width={140} options={options} series={[35, 65]} />
+            ) : (
+              <IssueIcon />
+            )}
           </div>
         </div>
       </CardContent>
     </Card>
   )
+}
+
+type Props = {
+  financial?: {}
 }
 
 export default FinancialReport

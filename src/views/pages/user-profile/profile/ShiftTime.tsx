@@ -8,8 +8,9 @@ const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexChart
 
 // Third-party Imports
 import type { ApexOptions } from 'apexcharts'
+import IssueIcon from '@/components/IssueIcon'
 
-function ShiftTime() {
+function ShiftTime({ shift }: Props) {
   // Hooks
   const theme = useTheme()
 
@@ -84,26 +85,41 @@ function ShiftTime() {
               </Typography>
               <Typography variant='body2'>تقرير أسبوعي</Typography>
             </div>
+            {shift && (
+              <div>
+                <Typography variant='h6' className='mbe-2'>
+                  231<span className='text-textSecondary'>س</span> 14<span className='text-textSecondary'>د</span>
+                </Typography>
+                <Chip label='+18.4%' variant='tonal' size='small' color='success' />
+              </div>
+            )}
+          </div>
+          {shift ? (
             <div>
-              <Typography variant='h6' className='mbe-2'>
-                231<span className='text-textSecondary'>س</span> 14<span className='text-textSecondary'>د</span>
-              </Typography>
-              <Chip label='+18.4%' variant='tonal' size='small' color='success' />
+              <AppReactApexCharts
+                type='donut'
+                height={140}
+                width={140}
+                options={options}
+                series={[23, 35, 10, 20, 35, 23]}
+              />
             </div>
-          </div>
-          <div>
-            <AppReactApexCharts
-              type='donut'
-              height={140}
-              width={140}
-              options={options}
-              series={[23, 35, 10, 20, 35, 23]}
-            />
-          </div>
+          ) : (
+            <IssueIcon />
+          )}
         </div>
       </CardContent>
+      {!shift && (
+        <CardContent>
+          <Typography>لا يوجد بيانات</Typography>
+        </CardContent>
+      )}
     </Card>
   )
+}
+
+type Props = {
+  shift?: {}
 }
 
 export default ShiftTime

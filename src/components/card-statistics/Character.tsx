@@ -21,13 +21,11 @@ const CardStatWithImage = (props: CardStatsCharacterProps) => {
               <Typography color='text.primary' className='text-nowrap font-medium'>
                 {title}
               </Typography>
-              <Chip size='small' variant='tonal' label={chipText} color={chipColor} />
+              {chipText && <Chip size='small' variant='tonal' label={chipText} color={chipColor} />}
             </div>
             <div className='flex flex-wrap items-center gap-x-2'>
               <Typography variant='h4'>{stats}</Typography>
-              <Typography color={trend === 'negative' ? 'error.main' : 'success.main'}>
-                {`${trend === 'negative' ? '-' : '+'}${trendNumber}`}
-              </Typography>
+              <Typography color={trend === 'negative' ? 'error.main' : 'success.main'}>{`${trendNumber}`}</Typography>
             </div>
           </Grid>
           <img src={src} alt={title} className='absolute block-end-0 inline-end-5 self-end bs-[130px] is-auto' />

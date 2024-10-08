@@ -22,7 +22,7 @@ export type CardStatsCharacterProps = {
   stats: string
   title: string
   trendNumber: string
-  chipText: string
+  chipText?: string
   src: string
   trend?: 'positive' | 'negative'
   chipColor?: ThemeColor

@@ -17,7 +17,7 @@ const ProfileTab = ({ data }: { data?: ProfileTabType }) => {
         <AboutOverview data={data} />
       </Grid>
       <Grid item lg={8} md={7} xs={12}>
-        <Grid container spacing={6}>
+        {/* <Grid container spacing={6}>
           <Grid item xs={12}>
             <ActivityTimeline />
           </Grid>
@@ -25,7 +25,7 @@ const ProfileTab = ({ data }: { data?: ProfileTabType }) => {
           <Grid item xs={12}>
             <ProjectListTable />
           </Grid>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Grid>
   )
