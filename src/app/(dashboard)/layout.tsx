@@ -22,6 +22,7 @@ import ScrollToTop from '@core/components/scroll-to-top'
 import { getMode, getSystemMode } from '@core/utils/serverHelpers'
 import CustomCustomizer from '@/components/custom-customizer'
 import AnimatedBackground from '@/components/animated-background'
+import { withAuth } from '@/guards/auth.guard'
 
 const Layout = async ({ children }: ChildrenType) => {
   // Vars
@@ -59,4 +60,4 @@ const Layout = async ({ children }: ChildrenType) => {
   )
 }
 
-export default Layout
+export default withAuth(Layout)

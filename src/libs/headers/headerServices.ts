@@ -6,8 +6,7 @@ import { authOptions } from '../auth/auth'
 export const getAuthHeaders = async (headers?: Record<string, string>): Promise<Record<string, string>> => {
   const data = await getServerSession(authOptions)
 
-  // if (!data?.accessToken) return { ...headers }
+  if (!data?.accessToken) return { ...headers }
 
-  // return { ...headers, Authorization: `Bearer ${data.accessToken}` }
-  return { ...headers }
+  return { ...headers, Authorization: `Bearer ${data.accessToken}` }
 }
