@@ -31,7 +31,7 @@ function PasswordView() {
 
     try {
       // sign in
-      let response = await signIn('credentials', {
+      const response = await signIn('credentials', {
         redirect: false,
         global_id: globalId,
         password,
