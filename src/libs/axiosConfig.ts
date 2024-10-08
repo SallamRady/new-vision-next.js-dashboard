@@ -1,5 +1,6 @@
 import { retriveFromLocalStorage } from '@/utils/local.storage'
 import axios from 'axios'
+import { useSession } from 'next-auth/react'
 
 const axiosInstance = axios.create({
   headers: {
@@ -9,11 +10,12 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   config => {
-    const token = retriveFromLocalStorage('token'),
-      xTenantId = retriveFromLocalStorage('xTenentId')
+    const session = useSession()
 
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`
+    const xTenantId = retriveFromLocalStorage('xTenentId')
+
+    if (session.data) {
+      config.headers['Authorization'] = `Bearer ${session.data?.accessToken}`
       config.headers['X-Tenant'] = `${xTenantId}`
     }
     return config

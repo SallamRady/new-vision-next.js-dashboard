@@ -30,18 +30,13 @@ function PasswordView() {
 
     try {
       // sign in
-      console.log('PasswordXXX', {
-        redirect: false,
-        global_id: globalId,
-        password,
-        xtenant: selectedTenant?.id
-      })
       let response = await signIn('credentials', {
         redirect: false,
         global_id: globalId,
         password,
         xtenant: selectedTenant?.id
       })
+
       if (response?.error) {
         if (response.status == 401) errorMessage('كلمة المرور غير صحيحة')
         else errorMessage('خطا غير متوقع برجاء المحاولة فى وقت اخر')
