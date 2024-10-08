@@ -126,7 +126,7 @@ export default function GenericDataTable<T>({
                 justifyContent={'space-between'}
                 spacing={3}
               >
-                {disableSearch == true && (
+                {disableSearch == false && (
                   <TextField
                     variant='outlined'
                     value={globalFilter ?? ''}

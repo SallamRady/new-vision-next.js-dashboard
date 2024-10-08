@@ -13,15 +13,18 @@ import { PaletteContextProvider } from '@/contexts/paletteContext'
 import { ReduxProvider } from '@/store/redux-provider'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/libs/auth/auth'
 
 export const metadata = {
   title: 'New Vision - Software House',
   description: 'Dashboard for new vision software house company'
 }
 
-const RootLayout = ({ children }: ChildrenType) => {
+const RootLayout = async ({ children }: ChildrenType) => {
   // Vars
   const direction = 'rtl'
+  const session = await getServerSession(authOptions)
 
   return (
     <html id='__next' lang='en' dir={direction}>

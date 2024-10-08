@@ -1,12 +1,10 @@
-// Assets Imports
-
-// Next Imports
-
 // Type Imports
 import { Container, Stack, Typography } from '@mui/material'
 
+// assets
 import newVisionLogo from '@assets/images/logos/new-vision.png'
 
+// types
 import type { Mode } from '@core/types'
 
 // Component Imports
