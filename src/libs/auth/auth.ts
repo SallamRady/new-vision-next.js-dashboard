@@ -24,10 +24,7 @@ export const authOptions: NextAuthOptions = {
           const url = Api(`login-with-different-methods`) //api``
           const body = {
             password: credentials?.password,
-            global_id: credentials?.global_id,
-            imei: '123876',
-            device_token: 'iksadghqwei',
-            device_type: 'android'
+            global_id: credentials?.global_id
           }
           const headers = {
             'Content-Type': 'application/json',
@@ -41,7 +38,7 @@ export const authOptions: NextAuthOptions = {
             return {
               global_id: credentials?.global_id,
               xtenantId: credentials?.xtenant,
-              token: response.data?.token
+              accessToken: response.data?.token
             } as any
           else throw new Error('error in login with email & password')
         } catch (error: any) {

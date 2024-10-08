@@ -14,7 +14,7 @@ import { ReduxProvider } from '@/store/redux-provider'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '@/libs/auth'
+import { authOptions } from '@/libs/auth/auth'
 
 export const metadata = {
   title: 'New Vision - Software House',
