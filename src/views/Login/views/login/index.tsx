@@ -1,11 +1,10 @@
 'use client'
 
 // MUI
-import { Button, Card, CardContent, CardHeader, Divider, Stack, TextField, Typography } from '@mui/material'
+import { Button, Card, CardContent, CardHeader, TextField, Typography } from '@mui/material'
 
 // import packages
 import axios from 'axios'
-import Image from 'next/image'
 import { Api } from '@/Constants/Api'
 import { useContext, useState } from 'react'
 import { TenentType } from '@/types/tenant'
@@ -25,6 +24,7 @@ function LoginView() {
   const [identifier, setIdentifier] = useState('')
   const { handleChangeView, storeTenants, storeGlobalId, storeSelectedTenant, handleSetPassword, handleSetIdentifier } =
     useContext(AuthOperationsContext)
+
   const ImgStyle = {
     cursor: 'pointer'
   }
@@ -136,11 +136,12 @@ function LoginView() {
 
                 setIdentifier(e.target.value)
               }}
+              disabled={loading}
               helperText={error ? 'لابد من أدخال المعرف لتتمكن من تسجيل الدخول' : ''}
               label='ادخل رقم الجوال / البريد الالكتروني'
             />
 
-            <Button fullWidth variant='contained' type='submit' disabled={identifier.length == 0}>
+            <Button fullWidth variant='contained' type='submit' disabled={identifier.length == 0 || loading}>
               التالي
             </Button>
 
