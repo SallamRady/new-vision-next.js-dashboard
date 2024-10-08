@@ -6,18 +6,14 @@ import { redirect } from 'next/navigation'
 // import packages
 import axios from 'axios'
 import { Api } from '@/Constants/Api'
+import { authOptions } from '@/libs/auth/auth'
+import { getServerSession } from 'next-auth/next'
 import { getAuthHeaders } from '@/libs/headers/headerServices'
 import { getAuthSession } from '@/libs/auth/getAuthSession'
 import NotAuthorized from '@/views/NotAuthorized'
 
 async function isAuthorized(headers: Record<string, string>) {
-  const session = await getAuthSession()
-  return await axios.post(Api(`authorized`), undefined, {
-    headers: {
-      ...headers,
-      'X-Tenant': session?.xtenantId
-    }
-  })
+  return await axios.post(Api(`authorized`), undefined, { headers })
 }
 // Higher Order Function for auth check
 export function withAuth<T extends FC<any>>(ServerComponent: T) {
@@ -62,6 +58,8 @@ export async function requireAuth() {
   if (!headers.Authorization) {
     redirect('/auth/login')
   }
+
+  console.log('headers --x-x-x-x--', headers)
 
   try {
     await isAuthorized(headers)
