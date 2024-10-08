@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 
 const fetchData = async () => {
   const Response = await axiosInstance.get(Api(`external_integration`))
-  console.log('ResponseResponseResponsecorrespondence', Response)
+
   return Response.data.login_ways
 }
 

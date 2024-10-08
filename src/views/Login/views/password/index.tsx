@@ -11,6 +11,7 @@ import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
 import { useRouter } from 'next/navigation'
 import axiosInstance from '@/libs/axiosConfig'
+import { retriveFromLocalStorage } from '@/utils/local.storage'
 
 function PasswordView() {
   // ** declare and define component state and variables
@@ -48,7 +49,6 @@ function PasswordView() {
         }, 1000)
       }
     } catch (error) {
-      console.log('Error::', error)
       errorMessage('خطا غير متوقع برجاء المحاولة فى وقت اخر')
     } finally {
       setLoading(false)
