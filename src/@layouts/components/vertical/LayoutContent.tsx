@@ -13,15 +13,23 @@ import { useSettings } from '@core/hooks/useSettings'
 import { verticalLayoutClasses } from '@layouts/utils/layoutClasses'
 
 // Styled Component Imports
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import StyledMain from '@layouts/styles/shared/StyledMain'
 
 const LayoutContent = ({ children }: ChildrenType) => {
   // Hooks
+  const router = useRouter()
+  const session = useSession()
   const { settings } = useSettings()
 
   // Vars
   const contentCompact = settings.contentWidth === 'compact'
   const contentWide = settings.contentWidth === 'wide'
+  if (session.status == 'unauthenticated') {
+    router.push('/login')
+    return
+  }
 
   return (
     <StyledMain
@@ -31,7 +39,7 @@ const LayoutContent = ({ children }: ChildrenType) => {
         [verticalLayoutClasses.contentWide]: contentWide
       })}
     >
-      {children}
+      {session.status == 'loading' ? <>Loading</> : children}
     </StyledMain>
   )
 }

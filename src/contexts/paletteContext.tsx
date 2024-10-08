@@ -5,6 +5,7 @@ import { createContext, useState, useEffect, useMemo } from 'react'
 
 import type { DeepPartialTheme } from '@/configs/color-palettes'
 import { colorPalettes } from '@/configs/color-palettes'
+import { SessionProvider } from 'next-auth/react'
 
 export const paletteContext = createContext<PaletteContext>({
   index: 0,
@@ -49,7 +50,7 @@ export const PaletteContextProvider = ({ children }: { children: ReactNode }) =>
 
   return (
     <paletteContext.Provider value={{ allThemes: colorPalettes, currentTheme, index: index || 0, setIndex }}>
-      {children}
+      <SessionProvider>{children}</SessionProvider>
     </paletteContext.Provider>
   )
 }

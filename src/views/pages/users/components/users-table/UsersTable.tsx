@@ -9,6 +9,7 @@ import type { ColumnDef } from '@tanstack/react-table'
 import { useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
 import AddUserDialogContent from './components/AddUser'
+import useUsersData from '@/hooks/useUsersData'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<UsersTableRowType>()
@@ -183,7 +184,10 @@ const mockData: UsersTableRowType[] = [
 
 export default function UsersDataTable() {
   // ** declare and define component state and variables
-  const [data, setData] = useState<UsersTableRowType[]>(mockData)
+  const { data, isLoading, isError } = useUsersData()
+  console.log('Datttttttaaa ::', data, isLoading, isError)
+  // const [data, setData] = useState<UsersTableRowType[]>(mockData)
+  //UserType
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<UsersTableRowType, any>[]>(
