@@ -17,8 +17,6 @@ import { horizontalLayoutClasses } from '@layouts/utils/layoutClasses'
 
 // Styled Component Imports
 import StyledMain from '@layouts/styles/shared/StyledMain'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 
 const LayoutContent = ({ children }: ChildrenType) => {
   // Hooks

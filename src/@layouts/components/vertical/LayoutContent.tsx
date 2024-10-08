@@ -13,8 +13,6 @@ import { useSettings } from '@core/hooks/useSettings'
 import { verticalLayoutClasses } from '@layouts/utils/layoutClasses'
 
 // Styled Component Imports
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import StyledMain from '@layouts/styles/shared/StyledMain'
 
 const LayoutContent = ({ children }: ChildrenType) => {
