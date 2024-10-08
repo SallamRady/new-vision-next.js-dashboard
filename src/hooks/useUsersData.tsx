@@ -10,9 +10,9 @@ const fetchData = async () => {
   const headers = {
     // 'X-Tenant': retriveFromLocalStorage(`xTenentId`)
   }
-
+  console.log('ResponseResponse - 1', session)
   const Response = await axiosInstance.get<{ users: UserType[] }>(Api(`user`))
-
+  console.log('ResponseResponse - 2', Response)
   return Response.data.users
 }
 
