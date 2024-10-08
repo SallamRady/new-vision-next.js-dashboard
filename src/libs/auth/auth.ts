@@ -32,8 +32,6 @@ export const authOptions: NextAuthOptions = {
             'X-Tenant': credentials?.xtenant
           }
 
-          // console.log()
-
           //send request.
           const response = await axios.post<ResType>(url, body, { headers })
 

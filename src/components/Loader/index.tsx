@@ -1,17 +1,32 @@
 // Import Styles
-import { Stack } from '@mui/material'
-import styles from './index.module.css'
+import './index.css'
+
+// import MUI elements
+import { Box, Typography } from '@mui/material'
 
 export default function Loader(props: LoaderProps) {
-  const { height } = props
+  const { height, title } = props
 
   return (
-    <Stack width={'100%'} alignItems={'center'} justifyContent={'center'} height={height ?? '400px'}>
-      <div className={`${styles.loader} bg-primary`}></div>
-    </Stack>
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        height: height ?? '400px',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column'
+      }}
+    >
+      <Box className='loaderDiv'></Box>
+      <Typography sx={{ marginTop: '1rem' }} variant='body2'>
+        {Boolean(title) ? title : 'جاري التحميل'}
+      </Typography>
+    </Box>
   )
 }
 
 type LoaderProps = {
   height?: string
+  title?: string
 }
