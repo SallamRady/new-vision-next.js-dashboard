@@ -8,4 +8,5 @@ export const getAuthHeaders = async (headers?: Record<string, string>): Promise<
   const data = await getServerSession(authOptions)
 
   return sessionToAuthHeaders(data, headers)
+
 }
