@@ -13,6 +13,9 @@ import UserProfile from '@views/pages/user-profile'
 // Data Imports
 import { getProfileData } from '@/app/server/actions'
 import ContractView from '@/views/pages/user-profile/contract'
+import { getMe } from '@/utils/api/user/get-me'
+import { getAuthHeaders } from '@/libs/headers/headerServices'
+import { notFound } from 'next/navigation'
 
 const ProfileTab = dynamic(() => import('@views/pages/user-profile/profile'))
 const TeamsTab = dynamic(() => import('@views/pages/user-profile/teams'))
@@ -49,8 +52,12 @@ const tabContentList = (data?: Data): { [key: string]: ReactElement } => ({
 const ProfilePage = async () => {
   // Vars
   const data = await getProfileData()
+  const headers = await getAuthHeaders()
+  const user = await getMe(headers)
 
-  return <UserProfile data={data} tabContentList={tabContentList(data)} />
+  if (!user) notFound()
+
+  return <UserProfile user={user} data={data} tabContentList={tabContentList(data)} />
 }
 
 export default ProfilePage

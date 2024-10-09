@@ -19,8 +19,17 @@ import type { Data } from '@/types/pages/profileTypes'
 import UserProfileHeader from './UserProfileHeader'
 import CustomTabList from '@core/components/mui/TabList'
 import TopCards from './TopCards'
+import { User } from '@/types/api/common/User'
 
-const UserProfile = ({ tabContentList, data }: { tabContentList: { [key: string]: ReactElement }; data?: Data }) => {
+const UserProfile = ({
+  tabContentList,
+  data,
+  user
+}: {
+  tabContentList: { [key: string]: ReactElement }
+  data?: Data
+  user: User
+}) => {
   // States
   const [activeTab, setActiveTab] = useState('profile')
 
@@ -31,7 +40,7 @@ const UserProfile = ({ tabContentList, data }: { tabContentList: { [key: string]
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <UserProfileHeader data={data?.profileHeader} />
+        <UserProfileHeader data={data?.profileHeader} user={user} />
       </Grid>
 
       <Grid item xs={12}>

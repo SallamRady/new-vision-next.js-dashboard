@@ -20,9 +20,9 @@ export interface User {
   iqama: any
   border_number: any
   country_id: number
-  pictures: Pictures
+  pictures?: Pictures
 }
 
 interface Pictures {
-  image: Media[]
+  image?: Media[]
 }
