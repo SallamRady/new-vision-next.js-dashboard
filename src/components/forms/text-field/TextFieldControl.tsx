@@ -15,6 +15,7 @@ export default function TextFieldControl(props: TextFieldControlProps) {
     errorMsg = 'invalid input',
     placeholder = '',
     value,
+    disabled = false,
     inputProps = undefined
   } = props
 
@@ -40,6 +41,7 @@ export default function TextFieldControl(props: TextFieldControlProps) {
       helperText={error ? errorMsg : ''}
       placeholder={placeholder}
       InputProps={inputProps}
+      disabled={disabled}
     />
   )
 }
@@ -54,5 +56,6 @@ type TextFieldControlProps = {
   validationFun?: (str: string) => boolean
   errorMsg?: string
   placeholder?: string
+  disabled?: boolean
   inputProps?: Partial<InputProps> | Partial<FilledInputProps> | Partial<OutlinedInputProps> | undefined
 }

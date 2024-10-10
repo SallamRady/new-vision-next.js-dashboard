@@ -1,1 +1,1 @@
-export type SelectFieldOptionType = { label: string; value: string }
+export type SelectFieldOptionType = { label: React.ReactNode; value: string }

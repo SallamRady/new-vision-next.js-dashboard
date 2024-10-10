@@ -18,6 +18,7 @@ import TextFieldControl from '@/components/forms/text-field/TextFieldControl'
 import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
 import { UserType } from '@/types/users/users-page-types'
 import { api } from '@/Constants/Api'
+import { validationType } from '@/types/validationType'
 
 enum UserIdentifierEnum {
   NationalIdentity,
@@ -50,10 +51,10 @@ const _disabledFields: string[] = ['name', 'country_id', 'identifier', 'email', 
 
 export default function AddUserDialogContent(props: PropsType) {
   // ** handle declare and define component state and variables
-  const { userLookups } = useContext(UsersContext)
   const [body, setBody] = useState<BodyType>({})
   const [loading, setLoading] = useState(false)
   const [userName, setUserName] = useState('')
+  const { userLookups, validationsRules } = useContext(UsersContext)
   const [userEnumType, setUserEnumType] = useState<UserTypeEnum>(UserTypeEnum.None)
   const [identifierLabel, setIdentifierLabel] = useState('رقم الهوية الوطنية')
   const [userCountry, setUserCountry] = useState<CountryType | undefined>(undefined)
@@ -62,17 +63,18 @@ export default function AddUserDialogContent(props: PropsType) {
   const [disabledFields, setDisabledFields] = useState<string[]>(_disabledFields)
   const [invalidFields, setInvalidFields] = useState<string[]>(_invalidFields)
   const [nameErrorMessage, setNameErrorMessage] = useState('')
+  const emailsRules: validationType | undefined = validationsRules?.find(ele => ele.type == 'email')
 
   // ** handle side effects
   useEffect(() => {
     OpenDialog()
   }, [props.open])
 
-  console.log(body)
-
   // ** handle declare and define component helper methods
   const OpenDialog = () => {
-    setBody({})
+    setBody({ phone_code: '20' })
+    setUserName('')
+    setIdentifierType(UserIdentifierEnum.NationalIdentity)
     setUserEnumType(UserTypeEnum.None)
     setUserCountry(undefined)
     setCompanyCountryId(191)
@@ -101,22 +103,22 @@ export default function AddUserDialogContent(props: PropsType) {
     // prepare variables
     setLoading(true)
     const formBody = {
-        name: body['name'] ?? null,
-        email: body['email'] ?? null,
-        user_type_id: body['user_type_id'] ?? null,
-        phone: body['phone'] ?? null,
-        tenant_id: body['tenant_id'] ?? null,
-        country_id: userCountry?.id ?? null,
-        passport: UserIdentifierEnum.Passport == identifierType ? (body['identifier'] ?? null) : null,
-        identity: UserIdentifierEnum.NationalIdentity == identifierType ? (body['identifier'] ?? null) : null,
-        iqama: UserIdentifierEnum.Iqama == identifierType ? (body['identifier'] ?? null) : null,
-        border_number: UserIdentifierEnum.BorderNumber == identifierType ? (body['identifier'] ?? null) : null
-      },
-      url = 'register'
+      name: body['name'] ?? null,
+      email: body['email'] ?? null,
+      user_type_id: body['user_type_id'] ?? null,
+      phone: body['phone'] ?? null,
+      tenant_id: body['tenant_id'] ?? null,
+      country_id: userCountry?.id ?? null,
+      phone_code: body['phone_code'] ?? null,
+      passport: UserIdentifierEnum.Passport == identifierType ? (body['identifier'] ?? null) : null,
+      identity: UserIdentifierEnum.NationalIdentity == identifierType ? (body['identifier'] ?? null) : null,
+      iqama: UserIdentifierEnum.Iqama == identifierType ? (body['identifier'] ?? null) : null,
+      border_number: UserIdentifierEnum.BorderNumber == identifierType ? (body['identifier'] ?? null) : null
+    }
     //send request
     axiosInstance
-      .post<{ user: UserType }>(api`${url}`, formBody)
-      .then(response => {
+      .post<{ user: UserType }>(api`register`, formBody)
+      .then(() => {
         SuccessMessage('تم أنشاء المستخدم بنجاح')
         props.OnSuccessDialogAction()
       })
@@ -144,15 +146,16 @@ export default function AddUserDialogContent(props: PropsType) {
             delete body['tenant_id']
           } else {
             //employee
+            setUserName('')
             setDisabledFields(_disabledFields)
             setInvalidFields(_invalidFields)
             setUserEnumType(UserTypeEnum.Employee)
           }
-
           handleChange('user_type_id', newValue)
         }}
         validationFun={newValue => newValue.length > 0}
         errorMsg='نوع المستخدم مطلوب'
+        disabled={loading}
       />
       {/* company */}
       {UserTypeEnum.Employee == userEnumType && (
@@ -168,6 +171,7 @@ export default function AddUserDialogContent(props: PropsType) {
             }}
             validationFun={newValue => newValue.length > 0}
             errorMsg='اسم الشركة مطلوب'
+            disabled={loading}
           />
           {companyCountryId == -1 && <FormHelperText className='text-error'>دولة الشركة غير محددة</FormHelperText>}
         </>
@@ -214,6 +218,7 @@ export default function AddUserDialogContent(props: PropsType) {
             }
           }}
           errorMsg={nameErrorMessage}
+          disabled={loading}
         />
       )}
 
@@ -240,6 +245,7 @@ export default function AddUserDialogContent(props: PropsType) {
             return false
           }}
           errorMsg='الجنسية مطلوبة'
+          disabled={loading}
         />
       )}
 
@@ -291,6 +297,7 @@ export default function AddUserDialogContent(props: PropsType) {
               return false
             }}
             errorMsg={`${identifierLabel} مطلوب`}
+            disabled={loading}
           />
         </>
       )}
@@ -305,39 +312,93 @@ export default function AddUserDialogContent(props: PropsType) {
             setDisabledFields(prev => prev.filter(ele => ele != 'phone'))
           }}
           validationFun={newValue => {
-            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-            if (newValue.length > 0 && emailRegex.test(newValue)) {
+            if (emailsRules == undefined) {
+              // there is no email validation rules so use default email validation
+              const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+              if (newValue.length > 0 && emailRegex.test(newValue)) {
+                removeFromInvalidFields('email')
+                return true
+              }
+              addFromInvalidFields('email')
+              return false
+            } else {
+              console.log('emailsRules exist :', emailsRules, newValue)
+              if (emailsRules.start_with) {
+                let arr = emailsRules.start_with?.split(',') ?? []
+                for (let idx = 0; idx < arr.length; idx++) {
+                  if (!newValue.startsWith(arr[idx])) {
+                    addFromInvalidFields('email')
+                    return false
+                  }
+                }
+              }
+              if (emailsRules.end_with) {
+                let arr = emailsRules.end_with?.split(',') ?? []
+                for (let idx = 0; idx < arr.length; idx++) {
+                  if (!newValue.endsWith(arr[idx])) {
+                    addFromInvalidFields('email')
+                    return false
+                  }
+                }
+              }
+              if (emailsRules.contains) {
+                let arr = emailsRules.contains?.split(',') ?? []
+                for (let idx = 0; idx < arr.length; idx++) {
+                  if (!newValue.includes(arr[idx])) {
+                    addFromInvalidFields('email')
+                    return false
+                  }
+                }
+              }
               removeFromInvalidFields('email')
               return true
             }
-            addFromInvalidFields('email')
-            return false
           }}
           errorMsg={'البريد الالكتروني غير صالح'}
         />
       )}
       {/* phone */}
       {canShowInputField('phone') && (
-        <TextFieldControl
-          isRequired={true}
-          label={'رقم الجوال'}
-          type='number'
-          handleChange={newValue => {
-            handleChange('phone', newValue)
-          }}
-          validationFun={newValue => {
-            if (newValue.length > 0) {
-              removeFromInvalidFields('phone')
-              return true
+        <div className='flex items-start justify-between'>
+          <TextFieldControl
+            isRequired={true}
+            label={'رقم الجوال'}
+            type='number'
+            handleChange={newValue => {
+              handleChange('phone', newValue)
+            }}
+            validationFun={newValue => {
+              if (newValue.length > 0) {
+                removeFromInvalidFields('phone')
+                return true
+              }
+              addFromInvalidFields('phone')
+              return false
+            }}
+            errorMsg={'رقم الجوال مطلوب'}
+            disabled={loading}
+          />
+          <SelectControlField
+            label=''
+            defaultValue='20'
+            isfullWidth={false}
+            options={
+              userLookups?.countries?.map(ele => ({
+                label: (
+                  <div className='flex items-center justify-between w-20'>
+                    <img src={ele.flag_url ?? ''} width={'20px'} height={'20'} alt={ele.name_ar} />
+                    <p className='text-sm'>{` ${ele.phonecode} + `}</p>
+                  </div>
+                ),
+                value: ele.phonecode + ''
+              })) || []
             }
-            addFromInvalidFields('phone')
-            return false
-          }}
-          errorMsg={'رقم الجوال مطلوب'}
-          inputProps={{
-            endAdornment: <InputAdornment position='end'>{userCountry?.phonecode ?? '966'}+</InputAdornment>
-          }}
-        />
+            handleSelectFieldChange={newValue => {
+              handleChange('phone_code', newValue)
+            }}
+            disabled={loading}
+          />
+        </div>
       )}
       {/* show skeletons for user experience */}
       <Stack spacing={1}>
