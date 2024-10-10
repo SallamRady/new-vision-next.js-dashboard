@@ -64,6 +64,7 @@ const mockData: CountryType[] = [
 export default function SystemAdminCountryTab() {
   // ** declare and define component state and variables
   const [data, setData] = useState<CountryType[]>(mockData)
+  const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<CountryType, any>[]>(
@@ -150,6 +151,8 @@ export default function SystemAdminCountryTab() {
       exportButtonLabel='تصدير'
       globalFilterPlaceholder='بحث...'
       onExport={() => console.log('Export users clicked')}
+      setOpenAddDialog={setOpenAddDialog}
+      openAddDialog={openAddDialog}
     />
   )
 }

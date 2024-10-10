@@ -27,8 +27,12 @@ export default function LeftSlideInDialog(props: LeftSlideInDialogProps) {
       keepMounted
       onClose={handleClose}
       PaperProps={{
-        className: 'fixed top-0 left-0 w-64 h-screen m-0 overflow-hidden'
+        className: `fixed top-0 left-0 w-80 h-screen m-0 overflow-hidden`,
+        style: {
+          minWidth: '20rem'
+        }
       }}
+      // sx={{ width: dialogWidth }}
       aria-labelledby='slide-dialog-title'
     >
       <DialogTitle id='slide-dialog-title'>{title}</DialogTitle>

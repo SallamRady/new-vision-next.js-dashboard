@@ -21,6 +21,7 @@ const mockData: UsersRolesType[] = [
 export default function UserRolesTab() {
   // ** declare and define component state and variables
   // const [data, setData] = useState<UsersRolesType[]>(mockData)
+  const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<UsersRolesType, any>[]>(
@@ -96,6 +97,8 @@ export default function UserRolesTab() {
       exportButtonLabel='تصدير'
       globalFilterPlaceholder='بحث...'
       onExport={() => console.log('Export users clicked')}
+      setOpenAddDialog={setOpenAddDialog}
+      openAddDialog={openAddDialog}
     />
   )
 }

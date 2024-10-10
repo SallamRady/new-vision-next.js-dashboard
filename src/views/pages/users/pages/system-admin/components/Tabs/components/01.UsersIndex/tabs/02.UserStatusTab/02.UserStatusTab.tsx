@@ -21,6 +21,7 @@ const mockData: UserStatusType[] = [
 export default function UserStatusTab() {
   // ** declare and define component state and variables
   // const [data, setData] = useState<UserStatusType[]>(mockData)
+  const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<UserStatusType, any>[]>(
@@ -85,6 +86,8 @@ export default function UserStatusTab() {
       exportButtonLabel='تصدير'
       globalFilterPlaceholder='بحث...'
       onExport={() => console.log('Export users clicked')}
+      setOpenAddDialog={setOpenAddDialog}
+      openAddDialog={openAddDialog}
     />
   )
 }

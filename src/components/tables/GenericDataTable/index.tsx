@@ -44,13 +44,16 @@ type GenericDataTableProps<T> = {
   data: T[]
   columns: ColumnDef<T, any>[]
   globalFilterPlaceholder?: string
-  addButtonLabel?: string
+  addButtonLabel?: React.ReactNode
   addDialogContent?: React.ReactNode
   exportButtonLabel?: string
   onExport?: () => void
+  durringFireAddFun?: () => void
   hideTableHeader?: boolean
   disableSearch?: boolean
   disableExport?: boolean
+  openAddDialog: boolean
+  setOpenAddDialog: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function GenericDataTable<T>({
@@ -61,9 +64,12 @@ export default function GenericDataTable<T>({
   addDialogContent = <>Add Dialog</>,
   exportButtonLabel = 'Export',
   onExport,
+  durringFireAddFun,
   hideTableHeader = false,
   disableSearch = false,
-  disableExport = false
+  disableExport = false,
+  openAddDialog,
+  setOpenAddDialog
 }: GenericDataTableProps<T>) {
   // ** declare and define component state and variables
   const [rowSelection, setRowSelection] = useState({})
@@ -71,7 +77,6 @@ export default function GenericDataTable<T>({
   const [columnVisibility, setColumnVisibility] = useState({})
   const [columnsVisibilityFilters, setColumnsVisibilityFilters] = useState('')
   const [openColumnVisibilityControlDialog, setOpenColumnVisibilityControlDialog] = useState(false)
-  const [openAddDialog, setOpenAddDialog] = useState(false)
   const [pageIndex, setPageIndex] = useState(0)
   const [pageSize, _] = useState(10)
 
@@ -151,7 +156,13 @@ export default function GenericDataTable<T>({
                 spacing={5}
               >
                 {Boolean(addButtonLabel) && (
-                  <Button variant='contained' onClick={() => setOpenAddDialog(true)}>
+                  <Button
+                    variant='contained'
+                    onClick={() => {
+                      if (durringFireAddFun) durringFireAddFun()
+                      setOpenAddDialog(true)
+                    }}
+                  >
                     {addButtonLabel}
                   </Button>
                 )}
@@ -288,11 +299,7 @@ export default function GenericDataTable<T>({
       <LeftSlideInDialog
         open={openAddDialog}
         setOpen={setOpenAddDialog}
-        title={
-          <Typography variant='body1' fontSize={'1.2rem'} color={'#fff'}>
-            {addButtonLabel}
-          </Typography>
-        }
+        title={addButtonLabel}
         dialogContent={addDialogContent}
       />
     </Card>

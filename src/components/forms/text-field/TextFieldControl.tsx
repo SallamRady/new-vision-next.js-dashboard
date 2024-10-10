@@ -1,8 +1,22 @@
 'use client'
-import { TextField } from '@mui/material'
+import { FilledInputProps, OutlinedInputProps, TextField } from '@mui/material'
+import { HTMLInputTypeAttribute, useState } from 'react'
+import { InputProps } from 'react-otp-input'
 
 export default function TextFieldControl(props: TextFieldControlProps) {
-  const { label, isRequired = false, handleChange, size = 'small' } = props
+  const [error, setError] = useState(false)
+  const {
+    label,
+    isRequired = false,
+    handleChange,
+    validationFun,
+    size = 'small',
+    type = 'text',
+    errorMsg = 'invalid input',
+    placeholder = '',
+    value,
+    inputProps = undefined
+  } = props
 
   return (
     <TextField
@@ -10,18 +24,35 @@ export default function TextFieldControl(props: TextFieldControlProps) {
       required={isRequired}
       label={label}
       size={size}
+      type={type}
+      value={value}
       onChange={e => {
         if (handleChange) {
           handleChange(e.target.value)
         }
+        if (validationFun) {
+          let valid = validationFun(e.target.value)
+          if (!valid) setError(true)
+          else setError(false)
+        }
       }}
+      error={error}
+      helperText={error ? errorMsg : ''}
+      placeholder={placeholder}
+      InputProps={inputProps}
     />
   )
 }
 
 type TextFieldControlProps = {
   label: string
+  value?: string
   isRequired?: boolean
   size?: 'small' | 'medium'
+  type?: HTMLInputTypeAttribute
   handleChange?: (str: string) => void
+  validationFun?: (str: string) => boolean
+  errorMsg?: string
+  placeholder?: string
+  inputProps?: Partial<InputProps> | Partial<FilledInputProps> | Partial<OutlinedInputProps> | undefined
 }

@@ -78,6 +78,7 @@ const mockData: LanguageType[] = [
 export default function SystemAdminLanguagesTab() {
   // ** declare and define component state and variables
   const [data, setData] = useState<LanguageType[]>(mockData)
+  const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<LanguageType, any>[]>(
@@ -153,6 +154,8 @@ export default function SystemAdminLanguagesTab() {
       exportButtonLabel='تصدير'
       globalFilterPlaceholder='بحث...'
       onExport={() => console.log('Export users clicked')}
+      setOpenAddDialog={setOpenAddDialog}
+      openAddDialog={openAddDialog}
     />
   )
 }

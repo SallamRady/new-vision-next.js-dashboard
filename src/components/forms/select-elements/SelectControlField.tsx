@@ -1,16 +1,38 @@
+'use client'
 import type { SelectFieldOptionType } from '@/types/input-controls-types'
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
+import { useState } from 'react'
 
 export default function SelectControlField(props: SelectControlFieldProps) {
   // ** declare and define helper variables
-  const { label, options, addNoneOption, defaultValue = '', isfullWidth = true } = props
+  const {
+    label,
+    options,
+    addNoneOption,
+    defaultValue = '',
+    isfullWidth = true,
+    handleSelectFieldChange,
+    validationFun,
+    isRequired = false,
+    errorMsg = 'invalid choice'
+  } = props
+  const [error, setError] = useState(false)
   // ** return component UI
   return (
-    <FormControl fullWidth={isfullWidth} sx={{ width: !isfullWidth ? '120px' : undefined }}>
+    <FormControl fullWidth={isfullWidth} sx={{ width: !isfullWidth ? '120px' : undefined }} required={isRequired}>
       <InputLabel id='demo-basic-select-outlined-label' size='small'>
         {label}
       </InputLabel>
-      <Select label={label} defaultValue={defaultValue} size='small'>
+      <Select
+        label={label}
+        defaultValue={defaultValue}
+        size='small'
+        onChange={e => {
+          if (handleSelectFieldChange) handleSelectFieldChange(e.target.value)
+          if (validationFun) validationFun(e.target.value)
+        }}
+        error={error}
+      >
         {addNoneOption === true && (
           <MenuItem value={'none'}>
             <em>None</em>
@@ -22,6 +44,7 @@ export default function SelectControlField(props: SelectControlFieldProps) {
           </MenuItem>
         ))}
       </Select>
+      {error && <FormHelperText>{errorMsg}</FormHelperText>}
     </FormControl>
   )
 }
@@ -29,9 +52,12 @@ export default function SelectControlField(props: SelectControlFieldProps) {
 type SelectControlFieldProps = {
   label: string
   options: SelectFieldOptionType[]
-  handleSelectFieldChange: (newValue: string) => void
+  handleSelectFieldChange?: (newValue: string) => void
+  validationFun?: (str: string) => boolean
   //optional
   addNoneOption?: boolean
   defaultValue?: string
   isfullWidth?: boolean
+  isRequired?: boolean
+  errorMsg?: string
 }

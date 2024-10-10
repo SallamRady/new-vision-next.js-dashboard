@@ -22,6 +22,7 @@ const mockData: UserAdminPageCardsControlType[] = [
 export default function StatisticsCardsControl() {
   // ** declare and define component state and variables
   const [data, setData] = useState<UserAdminPageCardsControlType[]>(mockData)
+  const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<UserAdminPageCardsControlType, any>[]>(
@@ -74,7 +75,14 @@ export default function StatisticsCardsControl() {
       <Typography variant='subtitle1' fontSize={18} fontWeight={700}>
         Statistics Cards
       </Typography>
-      <GenericDataTable data={mockData} columns={columns} addDialogContent={<></>} globalFilterPlaceholder='بحث...' />
+      <GenericDataTable
+        data={mockData}
+        columns={columns}
+        addDialogContent={<></>}
+        globalFilterPlaceholder='بحث...'
+        setOpenAddDialog={setOpenAddDialog}
+        openAddDialog={openAddDialog}
+      />
     </>
   )
 }

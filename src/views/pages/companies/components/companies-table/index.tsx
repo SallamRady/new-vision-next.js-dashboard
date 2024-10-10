@@ -5,7 +5,7 @@ import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
 import type { CompanyTableRowType } from '@/types/companies/CompanyTableRowType'
 
@@ -138,6 +138,7 @@ const mockData: CompanyTableRowType[] = [
 export default function CompaniesDataTable() {
   // ** declare and define component state and variables
   //const [data, setData] = useState<CompanyTableRowType[]>(mockData)
+  const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<CompanyTableRowType, any>[]>(
@@ -224,6 +225,8 @@ export default function CompaniesDataTable() {
       exportButtonLabel='تصدير'
       globalFilterPlaceholder='بحث...'
       onExport={() => console.log('Export users clicked')}
+      setOpenAddDialog={setOpenAddDialog}
+      openAddDialog={openAddDialog}
     />
   )
 }
