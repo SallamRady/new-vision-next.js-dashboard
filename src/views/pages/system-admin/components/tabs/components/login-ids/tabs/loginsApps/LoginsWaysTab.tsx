@@ -21,6 +21,7 @@ export default function SystemAdminLoginsWaysTab() {
   // Fetch data using SWR
   const { data, error, isLoading } = useLoginWays()
   const [tableData, setTableData] = useState<LoginWayType[]>([])
+  const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // ** handle side effects
   useEffect(() => {
@@ -111,6 +112,8 @@ export default function SystemAdminLoginsWaysTab() {
         columns={columns}
         globalFilterPlaceholder='بحث...'
         hideTableHeader={true}
+        setOpenAddDialog={setOpenAddDialog}
+        openAddDialog={openAddDialog}
       />
     </Stack>
   )

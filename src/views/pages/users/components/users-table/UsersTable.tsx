@@ -17,7 +17,9 @@ const columnHelper = createColumnHelper<UserType>()
 
 export default function UsersDataTable() {
   // ** declare and define component state and variables
-  const { data, isLoading, isError } = useUsersData()
+  const { data, isLoading, isError, refetch } = useUsersData()
+  const [dialogOpenned, setDialogOpenned] = useState(false)
+  const [openAddDialog, setOpenAddDialog] = useState(false)
   //UserType
 
   // declare tanstack table columns
@@ -112,6 +114,13 @@ export default function UsersDataTable() {
   )
 
   // ** declare and define component helper methods
+  const durringFireAddFun = () => {
+    setDialogOpenned(prev => !prev)
+  }
+  const OnSuccessDialogAction = () => {
+    setOpenAddDialog(false)
+    refetch()
+  }
 
   // ** return component ui
   if (isLoading) return <Loader />
@@ -121,11 +130,18 @@ export default function UsersDataTable() {
       <GenericDataTable
         data={data || []}
         columns={columns}
-        addButtonLabel='أضافة مستخدم'
-        addDialogContent={<AddUserDialogContent />}
+        addButtonLabel={
+          <Typography variant='body2' fontWeight={700} fontSize={20}>
+            أضافة مستخدم
+          </Typography>
+        }
+        durringFireAddFun={durringFireAddFun}
+        addDialogContent={<AddUserDialogContent OnSuccessDialogAction={OnSuccessDialogAction} open={dialogOpenned} />}
         exportButtonLabel='تصدير'
         globalFilterPlaceholder='بحث...'
         onExport={() => console.log('Export users clicked')}
+        setOpenAddDialog={setOpenAddDialog}
+        openAddDialog={openAddDialog}
       />
     </>
   )

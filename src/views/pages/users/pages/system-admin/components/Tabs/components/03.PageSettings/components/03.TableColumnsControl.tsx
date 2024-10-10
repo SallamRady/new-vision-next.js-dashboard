@@ -27,6 +27,7 @@ const mockData: UserAdminPageTableColumnsControlType[] = [
 export default function TableColumnsControl() {
   // ** declare and define component state and variables
   const [data, setData] = useState<UserAdminPageTableColumnsControlType[]>(mockData)
+  const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<UserAdminPageTableColumnsControlType, any>[]>(
@@ -79,7 +80,14 @@ export default function TableColumnsControl() {
       <Typography variant='subtitle1' fontSize={18} fontWeight={700}>
         أعمدة الجدول
       </Typography>
-      <GenericDataTable data={mockData} columns={columns} addDialogContent={<></>} globalFilterPlaceholder='بحث...' />
+      <GenericDataTable
+        data={mockData}
+        columns={columns}
+        addDialogContent={<></>}
+        globalFilterPlaceholder='بحث...'
+        setOpenAddDialog={setOpenAddDialog}
+        openAddDialog={openAddDialog}
+      />
     </>
   )
 }

@@ -21,6 +21,7 @@ const mockData: UserAdminPageSearchFiltersControlType[] = [
 export default function SearchFiltersControl() {
   // ** declare and define component state and variables
   const [data, setData] = useState<UserAdminPageSearchFiltersControlType[]>(mockData)
+  const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<UserAdminPageSearchFiltersControlType, any>[]>(
@@ -73,7 +74,14 @@ export default function SearchFiltersControl() {
       <Typography variant='subtitle1' fontSize={18} fontWeight={700}>
         فلاتر البحث
       </Typography>
-      <GenericDataTable data={mockData} columns={columns} addDialogContent={<></>} globalFilterPlaceholder='بحث...' />
+      <GenericDataTable
+        data={mockData}
+        columns={columns}
+        addDialogContent={<></>}
+        globalFilterPlaceholder='بحث...'
+        setOpenAddDialog={setOpenAddDialog}
+        openAddDialog={openAddDialog}
+      />
     </>
   )
 }

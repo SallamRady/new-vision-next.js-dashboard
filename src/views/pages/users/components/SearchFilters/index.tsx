@@ -22,19 +22,19 @@ export default function UsersSearchFilters() {
           label='الشركة'
           options={[]}
           addNoneOption={true}
-          handleSelectFieldChange={handleSelectFieldChange}
+          // handleSelectFieldChange={handleSelectFieldChange}
         />
         <SelectControlField
           label='نوع المستخدم'
           options={[]}
           addNoneOption={true}
-          handleSelectFieldChange={handleSelectFieldChange}
+          // handleSelectFieldChange={handleSelectFieldChange}
         />
         <SelectControlField
           label='حالة الموظف'
           options={[]}
           addNoneOption={true}
-          handleSelectFieldChange={handleSelectFieldChange}
+          // handleSelectFieldChange={handleSelectFieldChange}
         />
       </Stack>
     </Stack>

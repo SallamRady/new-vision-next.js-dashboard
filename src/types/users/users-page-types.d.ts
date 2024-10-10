@@ -1,18 +1,5 @@
+import { CountryType } from '../system-admin/countries'
 import { TenentType } from '../tenant'
-
-export type UsersTableRowType = {
-  id: number
-  name: string
-  email: string
-  phone: string
-  title: string
-  branch: string
-  company: string
-  userType: 'Admin' | 'Employee'
-  completionStatus: boolean
-  avatar?: string
-  actions?: string
-}
 
 export type UserType = {
   id: number
@@ -35,4 +22,16 @@ export type UserType = {
   border_number: string
   country_id: number
   tenants: TenentType[]
+}
+
+type UserTypesType = {
+  id: number
+  name: string
+  type: string
+}
+
+export type UserLookUpsType = {
+  tenants: TenentType[]
+  user_types: UserTypesType[]
+  countries: CountryType[]
 }

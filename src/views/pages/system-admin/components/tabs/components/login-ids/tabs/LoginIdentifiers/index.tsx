@@ -24,6 +24,7 @@ export default function SystemAdminLoginIdentifiersTab() {
   // Fetch data using SWR
   const { data, error, isLoading } = useLoginIdentifiers()
   const [tableData, setTableData] = useState<LoginIDType[]>([])
+  const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // ** handle side effects
   useEffect(() => {
@@ -118,6 +119,8 @@ export default function SystemAdminLoginIdentifiersTab() {
         onExport={() => console.log('Export users clicked')}
         hideTableHeader={false}
         disableSearch={true}
+        setOpenAddDialog={setOpenAddDialog}
+        openAddDialog={openAddDialog}
       />
     </Stack>
   )
