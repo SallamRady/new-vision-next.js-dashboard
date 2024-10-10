@@ -11,7 +11,7 @@ export type UserType = {
   updated_at: string
   user_type_id: number
   phone: string
-  status: boolean
+  status: number
   identity: string
   otp: string
   otp_expire: string

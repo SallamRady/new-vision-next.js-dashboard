@@ -8,9 +8,10 @@ import type { ColumnDef } from '@tanstack/react-table'
 // Style Imports
 import { useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
-import AddUserDialogContent from './components/AddUser'
+import AddUserDialogContent from './components/AddUserDialog'
 import useUsersData from '@/hooks/useUsersData'
 import Loader from '@/components/Loader'
+import ActionButton from './components/ActionButton'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<UserType>()
@@ -87,8 +88,8 @@ export default function UsersDataTable() {
       columnHelper.accessor('status', {
         header: 'حالة الموظف',
         cell: ({ row }) => {
-          if (row.original.status == true) return <Chip label='مكتمل' color='success' variant='tonal' />
-          return <Chip label='غير مكتمل' color='warning' variant='tonal' />
+          if (row.original.status == -1) return <Chip label='استكمال بيانات' color='warning' variant='tonal' />
+          return <Chip label='Status unknown' color='error' variant='tonal' />
         },
         enableHiding: true // Allow hiding this column
       }),
@@ -96,17 +97,7 @@ export default function UsersDataTable() {
         id: 'setting',
         header: 'الأعدادات',
         cell: ({ row }) => (
-          <>
-            <IconButton color='default'>
-              <i className='ri-delete-bin-6-line' />
-            </IconButton>
-            <IconButton color='default'>
-              <i className='ri-eye-line' />
-            </IconButton>
-            <IconButton color='default'>
-              <i className='ri-more-2-line' />
-            </IconButton>
-          </>
+          <ActionButton rowId={row.original.id} OnSuccessDeleteDialogAction={OnSuccessDeleteDialogAction} />
         )
       }
     ],
@@ -119,6 +110,9 @@ export default function UsersDataTable() {
   }
   const OnSuccessDialogAction = () => {
     setOpenAddDialog(false)
+    refetch()
+  }
+  const OnSuccessDeleteDialogAction = () => {
     refetch()
   }
 
