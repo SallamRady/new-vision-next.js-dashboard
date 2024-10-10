@@ -15,9 +15,9 @@ import { UsersContext } from '../../../context'
 import { useContext, useEffect, useState } from 'react'
 import { CountryType } from '@/types/system-admin/countries'
 import TextFieldControl from '@/components/forms/text-field/TextFieldControl'
-import { Api } from '@/Constants/Api'
 import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
 import { UserType } from '@/types/users/users-page-types'
+import { api } from '@/Constants/Api'
 
 enum UserIdentifierEnum {
   NationalIdentity,
@@ -115,7 +115,7 @@ export default function AddUserDialogContent(props: PropsType) {
       url = 'register'
     //send request
     axiosInstance
-      .post<{ user: UserType }>(Api(url), formBody)
+      .post<{ user: UserType }>(api`${url}`, formBody)
       .then(response => {
         SuccessMessage('تم أنشاء المستخدم بنجاح')
         props.OnSuccessDialogAction()

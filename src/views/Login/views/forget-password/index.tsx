@@ -3,7 +3,7 @@
 import { Button, Card, CardContent, CardHeader, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
 
 import axios from 'axios'
-import { Api } from '@/Constants/Api'
+import { api } from '@/Constants/Api'
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
 import { errorMessage } from '@/utils/notificationsMessages'
@@ -42,7 +42,7 @@ function ForgetPassword() {
   // ** declare and define component helper methods
   function handleSendPassword() {
     // declare helper variables
-    const url = Api(`check-reset-password`)
+    const url = api`check-reset-password`
     const body = { password_temp: password, global_id: globalId }
     const headers = {
       'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ function ForgetPassword() {
     setLoading(true)
     const body = { identifier }
     axiosInstance
-      .post(Api(`identifier-check?forget_password=1`), body)
+      .post(api`identifier-check?forget_password=1`, body)
       .then(response => {
         setTimeLeft(900)
       })

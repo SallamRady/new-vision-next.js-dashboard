@@ -1,13 +1,14 @@
 'use server'
 import { NextResponse } from 'next/server'
 import { LoginIDType } from '@/types/system-admin/login-ids'
-import { Api } from '@/Constants/Api'
+
 import axiosInstance from '@/libs/axiosConfig'
+import { api } from '@/Constants/Api'
 
 export async function GET() {
   try {
     // ** fetch data from back-end
-    const response = await axiosInstance.get<{ identifiers: LoginIDType[] }>(Api(`identifiers`))
+    const response = await axiosInstance.get<{ identifiers: LoginIDType[] }>(api`identifiers`)
 
     // ** Return the fetched data as JSON
     return NextResponse.json(response.data.identifiers)
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
     const { id }: { id: number } = await request.json()
 
     // ** Send the POST request to the back-end API
-    await axiosInstance.post(Api(`active-inactive-identifier`), {
+    await axiosInstance.post(api`active-inactive-identifier`, {
       identifier_id: id
     })
 

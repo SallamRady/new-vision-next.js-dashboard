@@ -1,4 +1,4 @@
-import { Api } from '@/Constants/Api'
+import { api } from '@/Constants/Api'
 import axiosInstance from '@/libs/axiosConfig'
 import { useQuery } from '@tanstack/react-query'
 import { UserType } from '@/types/users/users-page-types'
@@ -11,7 +11,7 @@ const fetchData = async () => {
     // 'X-Tenant': retriveFromLocalStorage(`xTenentId`)
   }
 
-  const Response = await axiosInstance.get<{ users: UserType[] }>(Api(`user`))
+  const Response = await axiosInstance.get<{ users: UserType[] }>(api`user`)
 
   return Response.data.users
 }

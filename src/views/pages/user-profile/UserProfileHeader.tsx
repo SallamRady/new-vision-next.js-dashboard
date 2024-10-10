@@ -12,7 +12,7 @@ import { Box, Paper } from '@mui/material'
 import VisuallyHiddenInput from '@/components/ViduallyHiddenInput'
 import { User } from '@/types/api/common/User'
 import axios from 'axios'
-import { api } from '@/Constants/api'
+import { api } from '@/Constants/Api'
 import { useRouter } from 'next/navigation'
 import { getClientAuthHeaders } from '@/libs/headers/clientHeaders'
 

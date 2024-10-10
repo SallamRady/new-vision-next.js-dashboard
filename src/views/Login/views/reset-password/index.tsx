@@ -12,7 +12,7 @@ import {
   Typography
 } from '@mui/material'
 
-import { Api } from '@/Constants/Api'
+import { api } from '@/Constants/Api'
 import { useContext, useState } from 'react'
 import axiosInstance from '@/libs/axiosConfig'
 import { retriveFromLocalStorage } from '@/utils/local.storage'
@@ -44,7 +44,7 @@ function ResetPassword() {
     //start sending request
     setLoading(true)
     axiosInstance
-      .post(Api(`set-pass`), body, {
+      .post(api`set-pass`, body, {
         headers: {
           'X-Tenant': retriveFromLocalStorage(`xTenentId`)
         }

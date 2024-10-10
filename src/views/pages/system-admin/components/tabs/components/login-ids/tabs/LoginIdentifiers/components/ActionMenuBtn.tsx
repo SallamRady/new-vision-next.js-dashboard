@@ -6,7 +6,7 @@ import { SetStateAction } from 'react'
 import { FormControlLabel, Switch } from '@mui/material'
 import { LoginIDType } from '@/types/system-admin/login-ids'
 import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
-import { Api } from '@/Constants/Api'
+import { api } from '@/Constants/Api'
 import GlobelDropDownMenu, { GenericMenuButton } from '@/components/drop-down-menu/GlobelDropDownMenu'
 import axiosInstance from '@/libs/axiosConfig'
 
@@ -53,7 +53,7 @@ export default function ActionMenuButton(props: PropsType) {
   const handleStatusSwitch = async () => {
     try {
       // send request
-      await axiosInstance.post(Api(`active-inactive-identifier`), {
+      await axiosInstance.post(api`active-inactive-identifier`, {
         identifier_id: props.id
       })
       // change data in table

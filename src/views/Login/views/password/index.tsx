@@ -4,7 +4,7 @@
 import { Button, Card, CardContent, CardHeader, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
 
 // import packages
-import { Api } from '@/Constants/Api'
+import { api } from '@/Constants/Api'
 import { signIn } from 'next-auth/react'
 import { useContext, useState } from 'react'
 import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
@@ -62,7 +62,7 @@ function PasswordView() {
     setLoading(true)
     const body = { identifier }
     axiosInstance
-      .post(Api(`identifier-check?forget_password=1`), body)
+      .post(api`identifier-check?forget_password=1`, body)
       .then(() => {
         handleChangeView(LoginPageViews.ForgetPassword)
       })

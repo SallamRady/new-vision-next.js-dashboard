@@ -5,14 +5,14 @@ import { redirect } from 'next/navigation'
 
 // import packages
 import axios from 'axios'
-import { Api } from '@/Constants/Api'
+import { api } from '@/Constants/Api'
 import { getAuthHeaders } from '@/libs/headers/headerServices'
 import { getAuthSession } from '@/libs/auth/getAuthSession'
 import NotAuthorized from '@/views/NotAuthorized'
 
 async function isAuthorized(headers: Record<string, string>) {
   const session = await getAuthSession()
-  return await axios.post(Api(`authorized`), undefined, {
+  return await axios.post(api`authorized`, undefined, {
     headers: {
       ...headers,
       'X-Tenant': session?.xtenantId

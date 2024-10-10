@@ -1,4 +1,4 @@
-import { api } from '@/Constants/api'
+import { api } from '@/Constants/Api'
 import { AuthHeaders } from '@/types/AuthHeaders'
 import { User } from '@/types/api/common/User'
 import axios from 'axios'

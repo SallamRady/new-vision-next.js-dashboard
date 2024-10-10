@@ -2,7 +2,7 @@
 
 import { Button, Card, CardContent, CardHeader, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
 
-import { Api } from '@/Constants/Api'
+import { api } from '@/Constants/Api'
 import { useContext, useState } from 'react'
 import { retriveFromLocalStorage } from '@/utils/local.storage'
 import { SuccessMessage } from '@/utils/notificationsMessages'
@@ -39,7 +39,7 @@ function SetPasswordView() {
     //start sending request
     setLoading(true)
     axiosInstance
-      .post(Api(`set-pass`), body, {
+      .post(api`set-pass`, body, {
         headers: {
           'X-Tenant': retriveFromLocalStorage(`xTenentId`)
         }

@@ -5,7 +5,7 @@ import { Button, Card, CardContent, CardHeader, TextField, Typography } from '@m
 
 // import packages
 import axios from 'axios'
-import { Api } from '@/Constants/Api'
+import { api } from '@/Constants/Api'
 import { useContext, useState } from 'react'
 import { TenentType } from '@/types/tenant'
 import { errorMessage } from '@/utils/notificationsMessages'
@@ -35,7 +35,7 @@ function LoginView() {
     handleSetIdentifier(identifier)
 
     // declare helper variables
-    const url = Api(`identifier-check`)
+    const url = api`identifier-check`
     const body = { identifier }
     const headers = {
       'Content-Type': 'application/json'
