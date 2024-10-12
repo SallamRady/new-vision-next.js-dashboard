@@ -21,7 +21,9 @@ export enum UserIdentifierEnum {
 export enum UserTypeEnum {
   None,
   Admin,
-  Employee
+  Employee,
+  Client,
+  Freelance
 }
 export const userIdentifiersWays = [
   {

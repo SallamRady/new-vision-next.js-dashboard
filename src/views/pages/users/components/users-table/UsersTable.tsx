@@ -149,6 +149,7 @@ export default function UsersDataTable() {
         onExport={() => console.log('Export users clicked')}
         setOpenAddDialog={setOpenAddDialog}
         openAddDialog={openAddDialog}
+        addDialogTitile={formMode == 'Create' ? 'أضافة مستخدم' : 'تعديل مستخدم'}
       />
     </>
   )
