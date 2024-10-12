@@ -20,6 +20,7 @@ export type UserType = {
   passport: string
   iqama: string
   border_number: string
+  phone_code: string
   country_id: number
   tenants: TenentType[]
 }

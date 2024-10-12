@@ -1,11 +1,17 @@
+'use client'
 import GlobelDropDownMenu, { GenericMenuButton } from '@/components/drop-down-menu/GlobelDropDownMenu'
 import { api } from '@/Constants/Api'
 import axiosInstance from '@/libs/axiosConfig'
 import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
+import { SetStateAction, useContext } from 'react'
+import { UsersContext } from '../../../context'
+import { UserType } from '@/types/users/users-page-types'
 
 export default function ActionButton(props: PropsType) {
   // ** declare and define component state and variables
-  const { rowId, OnSuccessDeleteDialogAction } = props
+  const { handleChangeFormMode, handleStoreEditedUser } = useContext(UsersContext)
+  const { row, OnSuccessDeleteDialogAction, setOpenAddDialog } = props
+
   const buttons: GenericMenuButton[] = [
     {
       id: `menu-btn-1`,
@@ -14,7 +20,8 @@ export default function ActionButton(props: PropsType) {
           <i className='ri-eye-line'></i>
           <p className='text-slate-300 text-lg'>عرض</p>
         </div>
-      )
+      ),
+      disabled: true
     },
     {
       id: `menu-btn-2`,
@@ -23,7 +30,8 @@ export default function ActionButton(props: PropsType) {
           <i className='ri-pencil-line'></i>
           <p className='text-slate-300 text-lg'>استكمال بيانات</p>
         </div>
-      )
+      ),
+      disabled: true
     },
     {
       id: `menu-btn-3`,
@@ -32,7 +40,10 @@ export default function ActionButton(props: PropsType) {
           <i className='ri-pencil-line'></i>
           <p className='text-slate-300 text-lg'>تعديل</p>
         </div>
-      )
+      ),
+      onClick: () => {
+        handleEditUser()
+      }
     },
     {
       id: `menu-btn-4`,
@@ -51,7 +62,7 @@ export default function ActionButton(props: PropsType) {
   // ** declare and define actions
   const handleDeleteUser = () => {
     axiosInstance
-      .delete(api`user/${rowId}`)
+      .delete(api`user/${row.id}`)
       .then(() => {
         OnSuccessDeleteDialogAction()
         SuccessMessage('تم حذف المستخدم بنجاح')
@@ -59,6 +70,12 @@ export default function ActionButton(props: PropsType) {
       .catch(err => {
         errorMessage('تعذر الحذف')
       })
+  }
+
+  const handleEditUser = () => {
+    handleStoreEditedUser(row)
+    handleChangeFormMode('Edit')
+    setOpenAddDialog(true)
   }
 
   // ** return component ui
@@ -74,6 +91,7 @@ export default function ActionButton(props: PropsType) {
 }
 
 type PropsType = {
-  rowId: number
+  row: UserType
   OnSuccessDeleteDialogAction: () => void
+  setOpenAddDialog: React.Dispatch<SetStateAction<boolean>>
 }
