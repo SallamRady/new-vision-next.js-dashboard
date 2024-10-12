@@ -68,7 +68,7 @@ export default function AddUserDialogContent(props: PropsType) {
 
   // ** handle declare and define component helper methods
   const OpenDialog = () => {
-    setBody({ phone_code: '20' })
+    setBody({ phone_code: '191' })
     setUserName('')
     setIdentifierType(UserIdentifierEnum.NationalIdentity)
     setUserEnumType(UserTypeEnum.None)
@@ -173,17 +173,39 @@ export default function AddUserDialogContent(props: PropsType) {
           label='نوع المستخدم'
           options={userLookups?.user_types?.map(ele => ({ label: ele.name, value: ele.id + '' })) || []}
           handleSelectFieldChange={newValue => {
-            if (newValue == '1') {
-              //admin
-              setUserEnumType(UserTypeEnum.Admin)
-              setDisabledFields(prev => prev.filter(ele => ele != 'name'))
-              delete body['tenant_id']
-            } else {
-              //employee
-              setUserName('')
-              setDisabledFields(_disabledFields)
-              setInvalidFields(_invalidFields)
-              setUserEnumType(UserTypeEnum.Employee)
+            switch (newValue.toString()) {
+              case '1': //system-admin
+                setUserEnumType(UserTypeEnum.Admin)
+                setDisabledFields(prev => prev.filter(ele => ele != 'name'))
+                delete body['tenant_id']
+                break
+              case '2': //company-user
+                setUserName('')
+                setDisabledFields(_disabledFields)
+                setInvalidFields(_invalidFields)
+                setUserEnumType(UserTypeEnum.Employee)
+                setUserEnumType(UserTypeEnum.Employee)
+                break
+              case '12': //client
+                setDisabledFields(prev => prev.filter(ele => ele != 'name'))
+                delete body['tenant_id']
+                setUserEnumType(UserTypeEnum.Client)
+                if (identifierType == UserIdentifierEnum.BorderNumber || identifierType == UserIdentifierEnum.Iqama) {
+                  setIdentifierLabel('رقم الهوية الوطنية')
+                  setIdentifierType(UserIdentifierEnum.NationalIdentity)
+                  handleChange('identifier', '')
+                }
+                break
+              case '13': //freelance
+                setDisabledFields(prev => prev.filter(ele => ele != 'name'))
+                delete body['tenant_id']
+                setUserEnumType(UserTypeEnum.Freelance)
+                if (identifierType == UserIdentifierEnum.BorderNumber || identifierType == UserIdentifierEnum.Iqama) {
+                  setIdentifierLabel('رقم الهوية الوطنية')
+                  setIdentifierType(UserIdentifierEnum.NationalIdentity)
+                  handleChange('identifier', '')
+                }
+                break
             }
             handleChange('user_type_id', newValue)
           }}
@@ -266,9 +288,13 @@ export default function AddUserDialogContent(props: PropsType) {
               setUserCountry(userLookups?.countries?.find(ele => ele.id == +newValue))
               handleChange('country_id', newValue)
               setDisabledFields(prev => prev.filter(ele => ele != 'identifier'))
-
-              if (newValue == companyCountryId + '') setIdentifierType(UserIdentifierEnum.NationalIdentity)
-              else setIdentifierType(UserIdentifierEnum.Passport)
+              if (userEnumType == UserTypeEnum.Admin || userEnumType == UserTypeEnum.Employee) {
+                if (newValue == companyCountryId + '') setIdentifierType(UserIdentifierEnum.NationalIdentity)
+                else setIdentifierType(UserIdentifierEnum.Passport)
+              } else {
+                setIdentifierLabel('رقم الهوية الوطنية')
+                setIdentifierType(UserIdentifierEnum.NationalIdentity)
+              }
             }}
             validationFun={newValue => {
               if (newValue.length > 0) {
@@ -288,14 +314,19 @@ export default function AddUserDialogContent(props: PropsType) {
           <>
             {/* identity type */}
             <RadioGroup row defaultValue='checked' name='basic-radio' aria-label='basic-radio'>
-              {userIdentifiersWays?.map(identifier => (
+              {(userEnumType == UserTypeEnum.Client || userEnumType == UserTypeEnum.Freelance
+                ? userIdentifiersWays.slice(0, 2)
+                : userIdentifiersWays
+              )?.map(identifier => (
                 <FormControlLabel
                   key={identifier.id}
                   value={identifier.value}
                   disabled={
-                    identifier.value == UserIdentifierEnum.NationalIdentity
-                      ? companyCountryId != userCountry?.id
-                      : companyCountryId == userCountry?.id
+                    userEnumType == UserTypeEnum.Client || userEnumType == UserTypeEnum.Freelance
+                      ? false
+                      : identifier.value == UserIdentifierEnum.NationalIdentity
+                        ? companyCountryId != userCountry?.id
+                        : companyCountryId == userCountry?.id
                   }
                   control={
                     <Radio
