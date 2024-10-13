@@ -34,7 +34,7 @@ const HorizontalWithSubtitle = (props: UserDataType) => {
           <i className={classnames(avatarIcon, 'text-[26px]')} />
         </CustomAvatar>
         <div className='flex flex-col  gap-1 flex-grow'>
-          <Typography variant='body2' fontSize={'0.9rem'}>
+          <Typography variant='body2' fontSize={'1rem'}>
             {title}
           </Typography>
           <div className='flex items-center gap-2 flex-wrap'>
