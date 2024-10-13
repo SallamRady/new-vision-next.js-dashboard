@@ -12,6 +12,9 @@ import NotAuthorized from '@/views/NotAuthorized'
 
 async function isAuthorized(headers: Record<string, string>) {
   const session = await getAuthSession()
+
+  if (process.env.NODE_ENV === 'development') return
+
   return await axios.post(api`authorized`, undefined, {
     headers: {
       ...headers,
