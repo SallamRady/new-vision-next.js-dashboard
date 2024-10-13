@@ -18,7 +18,7 @@ export type UserDataType = {
   avatarIcon: string
   avatarColor?: ThemeColor
   trend: string
-  trendNumber: string
+  trendNumber?: string
   subtitle: string
   cardWidth?: string
 }
@@ -41,13 +41,15 @@ const HorizontalWithSubtitle = (props: UserDataType) => {
             <Typography variant='body2' fontSize={'1rem'} color='text.primary'>
               {stats}
             </Typography>
-            <Typography
-              variant='body2'
-              fontSize={'0.7rem'}
-              color={trend === 'negative' ? 'error.main' : 'success.main'}
-            >
-              {`(${trendNumber}${trend === 'negative' ? '-' : '+'})`}
-            </Typography>
+            {Boolean(trendNumber) && (
+              <Typography
+                variant='body2'
+                fontSize={'0.7rem'}
+                color={trend === 'negative' ? 'error.main' : 'success.main'}
+              >
+                {`(${trendNumber}${trend === 'negative' ? '-' : '+'})`}
+              </Typography>
+            )}
           </div>
         </div>
       </CardContent>
