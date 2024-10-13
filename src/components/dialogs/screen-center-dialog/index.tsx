@@ -5,19 +5,29 @@ import { SetStateAction } from 'react'
 
 // MUI Imports
 import Dialog from '@mui/material/Dialog'
-import { DialogContent } from '@mui/material'
+import { DialogContent, IconButton } from '@mui/material'
 import DialogTitle from '@mui/material/DialogTitle'
 
 const ScreenCenterDialog = (props: PropsType) => {
   // States
-  const { open, setOpen, title, dialogContent } = props
+  const { open, setOpen, title, dialogContent, dialogMaxWidth = 'sm' } = props
 
   const handleDialogClose = () => setOpen(false)
 
   return (
-    <Dialog onClose={handleDialogClose} aria-labelledby='screen-center-dialog' open={open}>
+    <Dialog maxWidth={dialogMaxWidth} onClose={handleDialogClose} aria-labelledby='screen-center-dialog' open={open}>
       <DialogTitle id='screen-center-dialog-title'>{title}</DialogTitle>
       <DialogContent>{dialogContent}</DialogContent>
+      <IconButton
+        onClick={handleDialogClose}
+        sx={{
+          position: 'absolute',
+          left: '3%',
+          top: '5%'
+        }}
+      >
+        <i className='ri-close-large-line'></i>
+      </IconButton>
     </Dialog>
   )
 }
@@ -27,6 +37,7 @@ type PropsType = {
   setOpen: React.Dispatch<SetStateAction<boolean>>
   title: React.ReactNode
   dialogContent: React.ReactNode
+  dialogMaxWidth?: 'xs' | 'xl' | 'sm' | 'md' | 'lg'
 }
 
 export default ScreenCenterDialog

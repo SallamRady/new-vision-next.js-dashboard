@@ -14,7 +14,8 @@ export default function SelectControlField(props: SelectControlFieldProps) {
     handleSelectFieldChange,
     validationFun,
     isRequired = false,
-    errorMsg = 'invalid choice'
+    errorMsg = 'invalid choice',
+    disabled = false
   } = props
   const [error, setError] = useState(false)
   // ** return component UI
@@ -31,6 +32,7 @@ export default function SelectControlField(props: SelectControlFieldProps) {
           if (handleSelectFieldChange) handleSelectFieldChange(e.target.value)
           if (validationFun) validationFun(e.target.value)
         }}
+        disabled={disabled}
         error={error}
       >
         {addNoneOption === true && (
@@ -60,4 +62,5 @@ type SelectControlFieldProps = {
   isfullWidth?: boolean
   isRequired?: boolean
   errorMsg?: string
+  disabled?: boolean
 }

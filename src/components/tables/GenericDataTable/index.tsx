@@ -54,6 +54,7 @@ type GenericDataTableProps<T> = {
   disableExport?: boolean
   openAddDialog: boolean
   setOpenAddDialog: React.Dispatch<React.SetStateAction<boolean>>
+  addDialogTitile?: string
 }
 
 export default function GenericDataTable<T>({
@@ -69,7 +70,8 @@ export default function GenericDataTable<T>({
   disableSearch = false,
   disableExport = false,
   openAddDialog,
-  setOpenAddDialog
+  setOpenAddDialog,
+  addDialogTitile
 }: GenericDataTableProps<T>) {
   // ** declare and define component state and variables
   const [rowSelection, setRowSelection] = useState({})
@@ -299,7 +301,7 @@ export default function GenericDataTable<T>({
       <LeftSlideInDialog
         open={openAddDialog}
         setOpen={setOpenAddDialog}
-        title={addButtonLabel}
+        title={addDialogTitile ?? addButtonLabel}
         dialogContent={addDialogContent}
       />
     </Card>
