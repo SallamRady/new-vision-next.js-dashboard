@@ -1,88 +1,37 @@
-import IssueIcon from '@/components/IssueIcon'
-import { Grid, ListItemIcon, ListItemText, MenuItem, MenuList, Paper, Tab, Tabs, TextField } from '@mui/material'
-import type { GridProps, TextFieldProps } from '@mui/material'
-
-const GridItem = (props: GridProps) => <Grid item xs={12} md={6} {...props} />
-
-const getTextFieldProps = (props?: TextFieldProps): TextFieldProps => ({
-  fullWidth: true,
-  // placeholder: props?.label as string,
-  label: 'حقل ادخال',
-  placeholder: 'حقل ادخال',
-  ...props
-})
-
+import { useState } from "react";
+import { Grid, Paper, MenuList, MenuItem, ListItemText, ListItemIcon } from "@mui/material";
+import IssueIcon from "@/components/IssueIcon";
+import TabsContainer from "./TapsCont"; // Import child component
+import { TabEnum } from "./Taps"
 function PersonalDetails() {
+  const [tab, setTab] = useState<TabEnum>(TabEnum.personalDetailsTap); // Control active tab
+
   return (
     <Grid container spacing={4}>
-      <Grid item xs={5} md={3} lg={2}>
+      <Grid item xs={3}>
         <Paper>
-          <MenuList
-            sx={{
-              width: 1,
-              '.MuiMenuItem-root': {
-                py: 6
-              }
-            }}
-          >
-            <MenuItem>
-              <ListItemText>البيانات الشخصية</ListItemText>
-              <ListItemIcon>
-                <IssueIcon />
-              </ListItemIcon>
+          <MenuList>
+            <MenuItem onClick={() => setTab(TabEnum.personalDetailsTap)}>
+                <ListItemText>البيانات الشخصية</ListItemText>
+              <ListItemIcon><IssueIcon /></ListItemIcon>
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={() => setTab(TabEnum.BankingInformationTap)}>
               <ListItemText>المعلومات البنكية</ListItemText>
-              <ListItemIcon>
-                <IssueIcon />
-              </ListItemIcon>
+              <ListItemIcon><IssueIcon /></ListItemIcon>
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={() => setTab(TabEnum.ContactInformationTap)}>
               <ListItemText>معلومات الاتصال</ListItemText>
-              <ListItemIcon>
-                <IssueIcon />
-              </ListItemIcon>
+              <ListItemIcon><IssueIcon /></ListItemIcon>
             </MenuItem>
           </MenuList>
         </Paper>
       </Grid>
-      <Grid item container spacing={4} xs={7} md={9} lg={10}>
-        <GridItem>
-          <TextField {...getTextFieldProps()} />
-        </GridItem>
-        <GridItem>
-          <TextField {...getTextFieldProps()} />
-        </GridItem>
-        <GridItem>
-          <TextField {...getTextFieldProps()} />
-        </GridItem>
-        <GridItem>
-          <TextField {...getTextFieldProps()} />
-        </GridItem>
-        <GridItem>
-          <TextField {...getTextFieldProps()} />
-        </GridItem>
-        <GridItem>
-          <TextField {...getTextFieldProps()} />
-        </GridItem>
-        <GridItem>
-          <TextField {...getTextFieldProps()} />
-        </GridItem>
-        <GridItem>
-          <TextField {...getTextFieldProps()} />
-        </GridItem>
-        <GridItem>
-          <TextField {...getTextFieldProps()} />
-        </GridItem>
-        <GridItem>
-          <TextField {...getTextFieldProps()} />
-        </GridItem>
-        <GridItem>
-          <TextField {...getTextFieldProps()} />
-        </GridItem>
+
+      <Grid item xs={9}>
+        <TabsContainer activeTab={tab} />
       </Grid>
     </Grid>
-  )
+  );
 }
 
-export default PersonalDetails
+export default PersonalDetails;
