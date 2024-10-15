@@ -10,6 +10,9 @@ import { SelectFieldWithValue } from '@/views/pages/users/components/users-table
 import axiosInstance from '@/libs/axiosConfig'
 import { api } from '@/Constants/api'
 import { serialize } from 'object-to-formdata'
+import { FileBondState } from '@/types/filepond'
+import axios from 'axios'
+import { getAuthHeaders } from '@/libs/headers/headerServices'
 
 const _hiddenFields = ['tenant_type_id', 'registration_type_id', 'dynamic_forms']
 
@@ -79,7 +82,7 @@ export default function SetCompanyDialogForm() {
   const removeFromHiddenFields = (key: string) => {
     setHiddenFields(prev => prev.filter(ele => ele != key))
   }
-  const onSubmit: SubmitHandler<CompanyFormType> = data => {
+  const onSubmit: SubmitHandler<CompanyFormType> = async data => {
     // prepare form body data
     let bodyForm = {
       name: 'company_name',
@@ -89,13 +92,24 @@ export default function SetCompanyDialogForm() {
       forms: data?.forms?.map(ele => ({
         id: ele.formId,
         data: ele.fields?.map(field => ({
-          [field.key]: field.value
+          [field.key]: field.type == 'file' ? field.uploadedFiles : field.value
         }))
       }))
     }
+
+    //
+    const headers = await getAuthHeaders()
     // send request
-    axiosInstance
-      .post(api`tenant`, serialize(bodyForm))
+    axios
+      .post(
+        api`tenant`,
+        serialize(bodyForm, {
+          indices: true
+        }),
+        {
+          headers
+        }
+      )
       .then(response => {
         console.log('responseresponse', response)
       })
@@ -119,6 +133,7 @@ export default function SetCompanyDialogForm() {
         options={companiesLookupsData?.countries?.map(ele => ({ label: ele.name_ar, value: ele.id.toString() })) || []}
         // disabled={loading}
       />
+
       {/* company type */}
       {isHiddenField('tenant_type_id') && (
         <SelectFieldWithValue
@@ -136,8 +151,9 @@ export default function SetCompanyDialogForm() {
           //   disabled={loading}
         />
       )}
+
       {/* registeration type */}
-      {isHiddenField('registration_type_id') && (
+      {false && (
         <SelectFieldWithValue
           label='نوع التسجيل'
           value={registerationType}
@@ -151,9 +167,9 @@ export default function SetCompanyDialogForm() {
               ?.find(ele => ele.id.toString() == tenantType)
               ?.registration_types?.map(ele => ({ label: ele.name, value: ele.id.toString() })) || []
           }
-          //   disabled={loading}
         />
       )}
+
       {/* Dynamically render sections */}
       {isHiddenField('dynamic_forms') && (
         <>
@@ -216,6 +232,7 @@ type FieldType = {
   label: string
   type: string
   value: null | string | File
+  uploadedFiles?: FileBondState
 }
 
 type SingleFormType = {

@@ -1,8 +1,12 @@
+'use client'
 import { Control, Controller, useFieldArray, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { CompanyFormType } from './SetCompanyDialog'
 import { Box, InputLabel, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
+import CustomFilePond from '@/components/CustomFilePond'
+import { useState } from 'react'
+import { FileBondState } from '@/types/filepond'
 
 export default function DynamicFormFields({ control, formIndex, register, setValue }: FieldsArrayProps) {
   // ** declare and define component state and varables
@@ -10,6 +14,8 @@ export default function DynamicFormFields({ control, formIndex, register, setVal
     control,
     name: `forms.${formIndex}.fields` as const
   })
+  const [uploadedFiles, setUploadedFiles] = useState<FileBondState>([])
+  console.log('uploadedFilesuploadedFiles', uploadedFiles)
 
   // ** return component ui
   return (
@@ -55,14 +61,25 @@ export default function DynamicFormFields({ control, formIndex, register, setVal
                 <InputLabel sx={{ fontSize: '18px' }} shrink htmlFor={`date-picker-${formIndex}-${fieldIndex}`}>
                   {dField.label}
                 </InputLabel>
-                <input
-                  type='file'
-                  {...register(`forms.${formIndex}.fields.${fieldIndex}.value` as const)}
-                  onChange={e => {
-                    console.log('Fileeeeeees', e.target.files)
-                  }}
-                  className='bg-inherit'
-                  multiple
+                <Controller
+                  name={`forms.${formIndex}.fields.${fieldIndex}.uploadedFiles`}
+                  control={control}
+                  render={({ field }) => (
+                    <CustomFilePond
+                      {...field}
+                      onupdatefiles={files => {
+                        console.log('filesfiles', files)
+                        // setValue(
+                        //   `forms.${formIndex}.fields.${fieldIndex}.uploadedFiles`,
+                        //   files.map(fileItem => fileItem.file)
+                        // )
+                        // setUploadedFiles(files.map(fileItem => fileItem.file))
+                        field.onChange(files.map(file => file.file)?.[0])
+                      }}
+                      allowMultiple={false}
+                      maxFiles={1}
+                    />
+                  )}
                 />
               </>
             )}
