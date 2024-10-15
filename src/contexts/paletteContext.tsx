@@ -2,7 +2,9 @@
 
 import type { ReactNode } from 'react'
 import { createContext, useState, useEffect, useMemo } from 'react'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import type { DeepPartialTheme } from '@/configs/color-palettes'
 import { colorPalettes } from '@/configs/color-palettes'
 import { SessionProvider } from 'next-auth/react'
@@ -50,7 +52,9 @@ export const PaletteContextProvider = ({ children }: { children: ReactNode }) =>
 
   return (
     <paletteContext.Provider value={{ allThemes: colorPalettes, currentTheme, index: index || 0, setIndex }}>
-      <SessionProvider>{children}</SessionProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <SessionProvider>{children}</SessionProvider>
+      </LocalizationProvider>
     </paletteContext.Provider>
   )
 }

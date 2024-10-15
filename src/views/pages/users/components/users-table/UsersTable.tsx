@@ -1,16 +1,15 @@
 'use client'
 // import packages
 import { UserType } from '@/types/users/users-page-types'
-import { Checkbox, Chip, IconButton, Stack, Typography } from '@mui/material'
+import { Checkbox, Chip, Stack, Typography } from '@mui/material'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
+import Loader from '@/components/Loader'
 import { useContext, useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
 import AddUserDialogContent from './components/AddUserDialog'
-import useUsersData from '@/hooks/useUsersData'
-import Loader from '@/components/Loader'
 import ActionButton from './components/ActionButton'
 import { UsersContext } from '../../context'
 import EditUserDialog from './components/EditUserDialog'
@@ -20,10 +19,9 @@ const columnHelper = createColumnHelper<UserType>()
 
 export default function UsersDataTable() {
   // ** declare and define component state and variables
-  const { data, isLoading, isError, refetch } = useUsersData()
+  const { users, handleChangeFormMode, formMode, usersIsLoading, refreshUserData } = useContext(UsersContext)
   const [dialogOpenned, setDialogOpenned] = useState(false)
   const [openAddDialog, setOpenAddDialog] = useState(false)
-  const { handleChangeFormMode, formMode } = useContext(UsersContext)
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<UserType, any>[]>(
@@ -117,25 +115,21 @@ export default function UsersDataTable() {
   }
   const OnSuccessDialogAction = () => {
     setOpenAddDialog(false)
-    refetch()
+    refreshUserData()
   }
   const OnSuccessDeleteDialogAction = () => {
     refetch()
   }
 
   // ** return component ui
-  if (isLoading) return <Loader />
+  if (usersIsLoading) return <Loader />
 
   return (
     <>
       <GenericDataTable
-        data={data || []}
+        data={users || []}
         columns={columns}
-        addButtonLabel={
-          <Typography variant='body2' fontWeight={700} fontSize={20}>
-            أضافة مستخدم
-          </Typography>
-        }
+        addButtonLabel={` أضافة مستخدم`}
         durringFireAddFun={durringFireAddFun}
         addDialogContent={
           formMode == 'Create' ? (
@@ -154,5 +148,3 @@ export default function UsersDataTable() {
     </>
   )
 }
-
-type PropsType = {}

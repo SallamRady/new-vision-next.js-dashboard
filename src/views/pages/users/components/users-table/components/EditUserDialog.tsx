@@ -509,7 +509,7 @@ export default function EditUserDialog(props: PropsType) {
   )
 }
 
-const SelectFieldWithValue = ({
+export const SelectFieldWithValue = ({
   label,
   value,
   options,

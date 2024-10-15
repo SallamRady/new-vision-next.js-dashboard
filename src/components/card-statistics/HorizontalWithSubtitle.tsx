@@ -18,7 +18,7 @@ export type UserDataType = {
   avatarIcon: string
   avatarColor?: ThemeColor
   trend: string
-  trendNumber: string
+  trendNumber?: string
   subtitle: string
   cardWidth?: string
 }
@@ -34,20 +34,22 @@ const HorizontalWithSubtitle = (props: UserDataType) => {
           <i className={classnames(avatarIcon, 'text-[26px]')} />
         </CustomAvatar>
         <div className='flex flex-col  gap-1 flex-grow'>
-          <Typography variant='body2' fontSize={'0.9rem'}>
+          <Typography variant='body2' fontSize={'1rem'}>
             {title}
           </Typography>
           <div className='flex items-center gap-2 flex-wrap'>
             <Typography variant='body2' fontSize={'1rem'} color='text.primary'>
               {stats}
             </Typography>
-            <Typography
-              variant='body2'
-              fontSize={'0.7rem'}
-              color={trend === 'negative' ? 'error.main' : 'success.main'}
-            >
-              {`(${trendNumber}${trend === 'negative' ? '-' : '+'})`}
-            </Typography>
+            {Boolean(trendNumber) && (
+              <Typography
+                variant='body2'
+                fontSize={'0.7rem'}
+                color={trend === 'negative' ? 'error.main' : 'success.main'}
+              >
+                {`(${trendNumber}${trend === 'negative' ? '-' : '+'})`}
+              </Typography>
+            )}
           </div>
         </div>
       </CardContent>

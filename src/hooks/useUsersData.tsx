@@ -4,21 +4,24 @@ import { useQuery } from '@tanstack/react-query'
 import { UserType } from '@/types/users/users-page-types'
 import { getAuthSession } from '@/libs/auth/getAuthSession'
 
-const fetchData = async () => {
+type ResponseType = {
+  count_active_users: number
+  count_inactive_users: number
+  users: UserType[]
+  users_count: number
+  users_count_last_month: number
+}
+const fetchData = async (params: string) => {
   // prepare helper methods
-  const session = await getAuthSession()
-  const headers = {
-    // 'X-Tenant': retriveFromLocalStorage(`xTenentId`)
-  }
+  let url = params.length > 0 ? `user?${params}` : `user`
+  const Response = await axiosInstance.get<ResponseType>(api`${url}`)
 
-  const Response = await axiosInstance.get<{ users: UserType[] }>(api`user`)
-
-  return Response.data.users
+  return Response.data
 }
 
-export default function useUsersData() {
+export default function useUsersData(params: string) {
   return useQuery({
-    queryKey: [`users-data`],
-    queryFn: fetchData
+    queryKey: [`users-data`, params],
+    queryFn: () => fetchData(params)
   })
 }

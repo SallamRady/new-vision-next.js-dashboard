@@ -1,12 +1,10 @@
-import { Stack } from '@mui/material'
-import CompaniesTopCards from './components/top-cards'
-import CompaniesDataTable from './components/companies-table'
+import { ComponiesCxtProvider } from './context/ComponiesCxt'
+import CompaniesEntryPoint from './components/entry-point/CompaniesEntryPoint'
 
 export default function CompaniesPageContent() {
   return (
-    <Stack spacing={6}>
-      <CompaniesTopCards />
-      <CompaniesDataTable />
-    </Stack>
+    <ComponiesCxtProvider>
+      <CompaniesEntryPoint />
+    </ComponiesCxtProvider>
   )
 }

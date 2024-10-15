@@ -3,14 +3,18 @@ import GlobelDropDownMenu, { GenericMenuButton } from '@/components/drop-down-me
 import { api } from '@/Constants/Api'
 import axiosInstance from '@/libs/axiosConfig'
 import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
-import { SetStateAction, useContext } from 'react'
+import { SetStateAction, useContext, useState } from 'react'
 import { UsersContext } from '../../../context'
 import { UserType } from '@/types/users/users-page-types'
+import ScreenCenterDialog from '@/components/dialogs/screen-center-dialog'
+import { Typography } from '@mui/material'
+import DeleteUserDialogContent from './DeleteDialogContent'
 
 export default function ActionButton(props: PropsType) {
   // ** declare and define component state and variables
-  const { handleChangeFormMode, handleStoreEditedUser } = useContext(UsersContext)
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
   const { row, OnSuccessDeleteDialogAction, setOpenAddDialog } = props
+  const { handleChangeFormMode, handleStoreEditedUser } = useContext(UsersContext)
 
   const buttons: GenericMenuButton[] = [
     {
@@ -54,15 +58,18 @@ export default function ActionButton(props: PropsType) {
         </div>
       ),
       onClick: () => {
-        handleDeleteUser()
+        if (row.tenants?.length <= 1) handleDeleteUser()
+        else setOpenDeleteDialog(true)
       }
     }
   ]
 
   // ** declare and define actions
   const handleDeleteUser = () => {
+    let body = row?.tenants?.length > 0 ? { tenant_id: [row?.tenants?.[0]?.id] } : {}
+
     axiosInstance
-      .delete(api`user/${row.id}`)
+      .post(api`user/delete/${row.id}`, body)
       .then(() => {
         OnSuccessDeleteDialogAction()
         SuccessMessage('تم حذف المستخدم بنجاح')
@@ -85,6 +92,16 @@ export default function ActionButton(props: PropsType) {
         btnTitle='أجراء'
         buttons={buttons}
         //btnColor='inherit'
+      />
+      <ScreenCenterDialog
+        open={openDeleteDialog}
+        setOpen={setOpenDeleteDialog}
+        title={
+          <Typography variant='body1' fontWeight={600} fontSize={19} mt={6} mb={2}>
+            المستخدم الذي ترغب فى حذفه مشترك فى أكثر من شركة
+          </Typography>
+        }
+        dialogContent={<DeleteUserDialogContent user={row} OnSuccessDeleteDialogAction={OnSuccessDeleteDialogAction} />}
       />
     </>
   )
