@@ -1,18 +1,26 @@
-'use client'
 
-// MUI Imports
+"use client"
+import { useState } from 'react'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
-
-// Component Imports
+import Button from '@mui/material/Button'
 import RoleCards from './RoleCards'
-import { Role } from '@/types/api/common/Role'
-import { Button } from '@mui/material'
 import AddDrawer from './AddDrawer'
-import { useState } from 'react'
+import { Role } from '@/types/api/common/Role'
 
 const Roles = ({ roles }: { roles?: Role[] }) => {
   const [open, setOpen] = useState(false)
+  const [selectedRole, setSelectedRole] = useState<Role | null>(null)
+
+  const handleEditRole = (role: Role) => {
+    setSelectedRole(role) // Pass the selected role data to the drawer
+    setOpen(true)
+  }
+
+  const handleAddRole = () => {
+    setSelectedRole(null) // Clear selected role when adding a new one
+    setOpen(true)
+  }
 
   return (
     <>
@@ -26,17 +34,21 @@ const Roles = ({ roles }: { roles?: Role[] }) => {
             الوصول إلى ما يحتاج إليه
           </Typography>
           <div className='flex flex-row-reverse'>
-            <Button variant='contained' onClick={() => setOpen(true)} endIcon={<i className='ri-add-fill' />}>
+            <Button
+              variant='contained'
+              onClick={handleAddRole}
+              endIcon={<i className='ri-add-fill' />}
+            >
               أضافة دور
             </Button>
           </div>
         </Grid>
         <Grid item xs={12}>
-          {roles && <RoleCards roles={roles} />}
+          {roles && <RoleCards roles={roles} onEditRole={handleEditRole} />}
         </Grid>
       </Grid>
 
-      <AddDrawer open={open} onClose={() => setOpen(false)} />
+      <AddDrawer open={open} onClose={() => setOpen(false)} role={selectedRole} />
     </>
   )
 }
