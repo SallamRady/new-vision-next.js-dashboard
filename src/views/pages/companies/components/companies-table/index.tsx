@@ -8,6 +8,7 @@ import type { ColumnDef } from '@tanstack/react-table'
 import { useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
 import type { CompanyTableRowType } from '@/types/companies/CompanyTableRowType'
+import SetCompanyDialogForm from './components/SetCompanyDialog'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<CompanyTableRowType>()
@@ -221,7 +222,11 @@ export default function CompaniesDataTable() {
       data={mockData}
       columns={columns}
       addButtonLabel='انشاء شركة'
-      addDialogContent={<>Add Company...</>}
+      addDialogContent={
+        <>
+          <SetCompanyDialogForm />
+        </>
+      }
       exportButtonLabel='تصدير'
       globalFilterPlaceholder='بحث...'
       onExport={() => console.log('Export users clicked')}
