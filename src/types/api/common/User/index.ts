@@ -29,6 +29,7 @@ export interface User {
 export interface UserBankAccount {
   id: number
   global_id?: number
+  holder_name?: string
   bank_id?: number
   country_id?: number
   currency_id?: number
