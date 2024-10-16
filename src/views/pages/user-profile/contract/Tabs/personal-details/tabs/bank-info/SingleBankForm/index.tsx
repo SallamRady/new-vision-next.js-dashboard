@@ -1,17 +1,19 @@
 'use client'
 
-import { z } from 'zod'
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { Controller } from 'react-hook-form'
 import { getGridItem } from '@/components/get-grid-item'
 import { Card, CardContent, Grid, MenuItem, TextField } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton'
-import { useQuery } from '@tanstack/react-query'
 import { useHooks } from './useHooks'
+import { UserBankAccount } from '@/types/api/common/User'
+import axios from 'axios'
+import { getClientAuthHeaders } from '@/libs/headers/clientHeaders'
+import { api } from '@/Constants/Api'
+import { SuccessMessage, errorMessage } from '@/utils/notificationsMessages'
 
 const GridItem = getGridItem({ xs: 12, md: 6 })
 
-function SingleBankForm() {
+function SingleBankForm({ bankAccount, refresh }: Props) {
   // Initialize the form with react-hook-form and zodResolver for validation
   const {
     form: {
@@ -20,12 +22,35 @@ function SingleBankForm() {
       handleSubmit,
       control
     },
-    query: { data: lookups, isLoading }
-  } = useHooks()
+    query: { data: lookups }
+  } = useHooks({ bankAccount })
+
+  console.log(errors)
 
   // Form submission handler
-  const onSubmit = handleSubmit(data => {
-    console.log(data)
+  const onSubmit = handleSubmit(async data => {
+    try {
+      const headers = await getClientAuthHeaders()
+      await axios.request({
+        headers,
+        data,
+        ...(bankAccount
+          ? {
+              // Edit
+              url: api`user-bank/${bankAccount.id}`,
+              method: 'PUT'
+            }
+          : {
+              // Create
+              url: api`user-bank`,
+              method: 'POST'
+            })
+      })
+      SuccessMessage('تم الحفظ بنجاح')
+      refresh()
+    } catch (error) {
+      errorMessage('تعذر في الحفظ')
+    }
   })
 
   return (
@@ -43,7 +68,7 @@ function SingleBankForm() {
                     fullWidth
                     {...field}
                     error={!!error?.message}
-                    helperText={!!error?.message}
+                    helperText={error?.message}
                     select
                   >
                     {lookups?.countries?.map(country => (
@@ -65,7 +90,7 @@ function SingleBankForm() {
                     fullWidth
                     {...field}
                     error={!!error?.message}
-                    helperText={!!error?.message}
+                    helperText={error?.message}
                     select
                   >
                     {lookups?.banks?.map(bank => (
@@ -81,14 +106,14 @@ function SingleBankForm() {
             <GridItem>
               <Controller
                 control={control}
-                name='country_id'
+                name='tenant_id'
                 render={({ field, fieldState: { error } }) => (
                   <TextField
                     label='اسم الشركة'
                     fullWidth
                     {...field}
                     error={!!error?.message}
-                    helperText={!!error?.message}
+                    helperText={error?.message}
                     select
                   >
                     {lookups?.tenants?.map(tenant => (
@@ -102,13 +127,35 @@ function SingleBankForm() {
             </GridItem>
 
             <GridItem>
+              <Controller
+                control={control}
+                name='currency_id'
+                render={({ field, fieldState: { error } }) => (
+                  <TextField
+                    label='عملة الحساب'
+                    fullWidth
+                    {...field}
+                    error={!!error?.message}
+                    helperText={error?.message}
+                    select
+                  >
+                    {lookups?.currencies?.map(currency => (
+                      <MenuItem key={currency.id} value={currency.id}>
+                        {currency.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                )}
+              />
+            </GridItem>
+            <GridItem>
               <TextField
-                label='عملة الحساب'
+                label='اسم مالك الحساب "كما مكتوب علي البطاقة"'
                 type='text'
                 fullWidth
-                {...register('currency')}
-                error={!!errors.currency}
-                helperText={errors.currency?.message}
+                {...register('holder_name')}
+                error={!!errors.holder_name}
+                helperText={errors.holder_name?.message}
               />
             </GridItem>
 
@@ -122,7 +169,6 @@ function SingleBankForm() {
                 helperText={errors.iban?.message}
               />
             </GridItem>
-
             <GridItem>
               <TextField
                 label='رقم الحساب'
@@ -146,34 +192,42 @@ function SingleBankForm() {
             </GridItem>
 
             <GridItem>
-              <TextField
-                select
-                label='Status'
-                fullWidth
-                {...register('status')}
-                SelectProps={{
-                  native: true
-                }}
-                error={!!errors.status}
-                helperText={errors.status?.message}
-              >
-                <option value='-1'>Default</option>
-                <option value='0'>Not Use</option>
-                <option value='1'>Salaries</option>
-                <option value='2'>Custody</option>
-              </TextField>
+              <Controller
+                control={control}
+                name='status'
+                render={({ field }) => (
+                  <TextField
+                    select
+                    label='Status'
+                    fullWidth
+                    {...field}
+                    error={!!errors.status}
+                    helperText={errors.status?.message}
+                  >
+                    <MenuItem value='-1'>Default</MenuItem>
+                    <MenuItem value='0'>Not Use</MenuItem>
+                    <MenuItem value='1'>Salaries</MenuItem>
+                    <MenuItem value='2'>Custody</MenuItem>
+                  </TextField>
+                )}
+              />
             </GridItem>
 
-            <GridItem xs={12}>
-              <LoadingButton loading={isSubmitting} type='submit' variant='contained' color='primary'>
+            <Grid item xs={12}>
+              <LoadingButton loading={isSubmitting} fullWidth type='submit' variant='contained' color='primary'>
                 Submit
               </LoadingButton>
-            </GridItem>
+            </Grid>
           </Grid>
         </form>
       </CardContent>
     </Card>
   )
+}
+
+type Props = {
+  bankAccount?: UserBankAccount
+  refresh: () => void
 }
 
 export default SingleBankForm
