@@ -9,6 +9,7 @@ import { useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
 import type { CompanyTableRowType } from '@/types/companies/CompanyTableRowType'
 import SetCompanyDialogForm from './components/SetCompanyDialog'
+import { SuccessMessage } from '@/utils/notificationsMessages'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<CompanyTableRowType>()
@@ -215,6 +216,10 @@ export default function CompaniesDataTable() {
   )
 
   // ** declare and define component helper methods
+  const OnSuccessDialogAction = () => {
+    SuccessMessage('تم أضافة الشركة بنجاح')
+    setOpenAddDialog(false)
+  }
 
   // ** return component ui
   return (
@@ -224,7 +229,7 @@ export default function CompaniesDataTable() {
       addButtonLabel='انشاء شركة'
       addDialogContent={
         <>
-          <SetCompanyDialogForm />
+          <SetCompanyDialogForm open={openAddDialog} OnSuccessDialogAction={OnSuccessDialogAction} />
         </>
       }
       exportButtonLabel='تصدير'

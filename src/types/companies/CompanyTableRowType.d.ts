@@ -1,4 +1,5 @@
 import { CountryType } from '../system-admin/countries'
+import { PackageType } from './package'
 
 export type CompanyTableRowType = {
   id: number
@@ -16,6 +17,7 @@ export type CompanyTableRowType = {
 export type CompaniesLookUpsType = {
   tenant_types: TenantType[]
   countries: CountryType[]
+  packages: PackageType[]
 }
 
 export type TenantType = {
@@ -27,6 +29,7 @@ export type TenantType = {
   created_at: string
   updated_at: string
   registration_types: RegistrationType[]
+  fields: TenantTypeFieldType[]
 }
 
 export type RegistrationType = {
@@ -58,4 +61,16 @@ export type DynamicFormField = {
   key: string
   type: string
   label: string
+}
+
+export type TenantTypeFieldType = {
+  id: number
+  name: string
+  facilities: string
+  created_at: string
+  updated_at: string
+  pivot: {
+    tenant_type_id: number
+    tenant_field_id: number
+  }
 }
