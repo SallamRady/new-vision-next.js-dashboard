@@ -3,5 +3,7 @@ export interface Country {
   shortname: string
   name: string
   name_ar: string
+  phonecode: number
+  status: number
   flag_url: string
 }

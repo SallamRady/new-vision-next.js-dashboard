@@ -1,5 +1,6 @@
 import { Bank } from '../../common/Bank'
 import { Country } from '../../common/Country'
+import { Currency } from '../../common/Currency'
 import { Tenant } from '../../common/Tenant'
 
 export interface GetMainLookupsRoot {
@@ -7,4 +8,5 @@ export interface GetMainLookupsRoot {
   tenants: Tenant[]
   countries: Country[]
   banks: Bank[]
+  currencies: Currency[]
 }
