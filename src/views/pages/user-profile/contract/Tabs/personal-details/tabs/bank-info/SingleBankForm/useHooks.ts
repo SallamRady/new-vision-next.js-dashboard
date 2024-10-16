@@ -37,7 +37,8 @@ export const useHooks = ({ bankAccount }: Props) => {
           currency_id: bankAccount.currency_id,
           iban: bankAccount.iban,
           status: bankAccount.status,
-          tenant_id: bankAccount.tenant_id
+          tenant_id: bankAccount.tenant_id,
+          holder_name: bankAccount.holder_name
         }
       : undefined
   })
