@@ -1,5 +1,7 @@
+import { boolean } from 'zod'
 import { CountryType } from '../system-admin/countries'
 import { PackageType } from './package'
+import { Media } from '../api/common/Media'
 
 export type CompanyTableRowType = {
   id: number
@@ -30,6 +32,28 @@ export type TenantType = {
   updated_at: string
   registration_types: RegistrationType[]
   fields: TenantTypeFieldType[]
+  code: string
+  commercial_register: string
+  country: CountryType
+  country_id: number
+  created_at: string
+  forms: TenantFormType[]
+  is_email: boolean
+  is_identity: boolean
+  is_phone: boolean
+  media: Media[]
+  registration_type: RegistrationType
+  registration_type_id: number
+  role_id: number
+  status: number
+  tenancy_db_name: string
+  tenant_field_id: number
+  tenant_type_id: number
+  type: TenantTypeFieldType
+  user_id: number
+  website_url: string
+  email: string
+  package: PackageType
 }
 
 export type RegistrationType = {
