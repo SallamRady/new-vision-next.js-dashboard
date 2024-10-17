@@ -21,7 +21,7 @@ import TextFieldControl from '@/components/forms/text-field/TextFieldControl'
 import SelectControlField from '@/components/forms/select-elements/SelectControlField'
 import { validationType } from '@/types/validationType'
 import axiosInstance from '@/libs/axiosConfig'
-import { api } from '@/Constants/api'
+import { api } from '@/Constants/Api'
 import ScreenCenterDialog from '@/components/dialogs/screen-center-dialog'
 
 type BodyType = { [key: string]: string }

@@ -1,4 +1,4 @@
-import { api } from '@/Constants/api'
+import { api } from '@/Constants/Api'
 import axiosInstance from '@/libs/axiosConfig'
 import { CompaniesLookUpsType } from '@/types/companies/CompanyTableRowType'
 import { useQuery } from '@tanstack/react-query'

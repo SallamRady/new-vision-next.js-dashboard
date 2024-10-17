@@ -1,4 +1,4 @@
-import { api } from '@/Constants/api'
+import { api } from '@/Constants/Api'
 import axiosInstance from '@/libs/axiosConfig'
 import { UserType } from '@/types/users/users-page-types'
 import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'

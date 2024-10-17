@@ -1,7 +1,7 @@
 'use client'
 import { z } from 'zod'
 import axios from 'axios'
-import { api } from '@/Constants/api'
+import { api } from '@/Constants/Api'
 import { useForm } from 'react-hook-form'
 import { useContext, useEffect, useState } from 'react'
 import { serialize } from 'object-to-formdata'

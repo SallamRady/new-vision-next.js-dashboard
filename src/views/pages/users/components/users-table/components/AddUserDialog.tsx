@@ -8,7 +8,7 @@ import { CountryType } from '@/types/system-admin/countries'
 import TextFieldControl from '@/components/forms/text-field/TextFieldControl'
 import { UserType } from '@/types/users/users-page-types'
 import { validationType } from '@/types/validationType'
-import { api } from '@/Constants/api'
+import { api } from '@/Constants/Api'
 import ScreenCenterDialog from '@/components/dialogs/screen-center-dialog'
 
 export enum UserIdentifierEnum {
