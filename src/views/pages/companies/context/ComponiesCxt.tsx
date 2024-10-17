@@ -3,6 +3,7 @@
 import useCompaniesData from '@/hooks/useCompaniesData'
 import useCompaniesLookups from '@/hooks/useCompaniesLookups'
 import { CompaniesLookUpsType, TenantType } from '@/types/companies/CompanyTableRowType'
+import { UseQueryResult } from '@tanstack/react-query'
 // types
 import type { ReactNode } from 'react'
 
@@ -16,14 +17,16 @@ export const ComponiesCxt = createContext<ComponiesCxtType>({
   companiesData: undefined,
   handleRefreshCompaniesData: () => {},
   handleChangeCompaniesParams: (str: string) => {}
-})
+} as ComponiesCxtType)
 
 export const ComponiesCxtProvider = ({ children }: { children: ReactNode }) => {
   // ** declare and define component state and variables
   const [params, setParams] = useState('')
   const [companiesParams, setCompaniesParams] = useState('')
-  const { data: companiesData, refetch: refreshCompaniesData } = useCompaniesData(companiesParams)
-  const { data: companiesLookupsData } = useCompaniesLookups(params)
+  const companiesQuery = useCompaniesData(companiesParams)
+  const { data: companiesData, refetch: refreshCompaniesData } = companiesQuery
+  const lookupsQuery = useCompaniesLookups(params)
+  const { data: companiesLookupsData } = lookupsQuery
 
   // ** handle side effects
 
@@ -49,7 +52,9 @@ export const ComponiesCxtProvider = ({ children }: { children: ReactNode }) => {
         handleChangeParams,
         companiesLookupsData,
         handleRefreshCompaniesData,
-        handleChangeCompaniesParams
+        handleChangeCompaniesParams,
+        companiesQuery,
+        lookupsQuery
       }}
     >
       {children}
@@ -64,4 +69,6 @@ type ComponiesCxtType = {
   companiesData: TenantType[] | undefined
   handleRefreshCompaniesData: () => void
   handleChangeCompaniesParams: (str: string) => void
+  companiesQuery: UseQueryResult<TenantType[], Error>
+  lookupsQuery: UseQueryResult<CompaniesLookUpsType, Error>
 }

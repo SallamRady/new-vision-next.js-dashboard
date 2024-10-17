@@ -1,176 +1,208 @@
 'use client'
+
 import { z } from 'zod'
 import axios from 'axios'
 import { api } from '@/Constants/Api'
-import { useForm } from 'react-hook-form'
-import { useContext, useEffect, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { serialize } from 'object-to-formdata'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, FormHelperText, Stack, TextField } from '@mui/material'
+import { MenuItem, Stack, TextField } from '@mui/material'
 import { ComponiesCxt } from '../../../context/ComponiesCxt'
 import { getAuthHeaders } from '@/libs/headers/headerServices'
-import { SelectFieldWithValue } from '@/views/pages/users/components/users-table/components/EditUserDialog'
 import { errorMessage } from '@/utils/notificationsMessages'
+import { CompanyTableRowType } from '@/types/companies/CompanyTableRowType'
+import LoadingButton from '@mui/lab/LoadingButton'
+import { numberStringSchema } from '@/utils/validation/zod/numberStringSchema'
+import { Tenant } from '@/types/api/common/Tenant'
 
-const _hiddenFields = ['tenant_type_id', 'registration_type_id', 'role_id', 'tenant_field_id', 'name', 'email', 'phone']
-type BodyType = { [key: string]: string }
+const initialValues: CompanyFormType = {
+  country_id: null as any,
+  email: '',
+  name: '',
+  phone: '',
+  registration_type_id: null as any,
+  role_id: null as any,
+  tenant_field_id: null as any,
+  tenant_type_id: null as any
+}
 
 export default function SetCompanyDialogForm(props: PropsType) {
   // ** declare and define component state and varibles
-  const { open, OnSuccessDialogAction } = props
-  const [loading, setLoading] = useState(false)
-  const [hiddenFields, setHiddenFields] = useState(_hiddenFields)
-  const { handleChangeParams, companiesLookupsData } = useContext(ComponiesCxt)
-  const [frontErrors, setFrontErrors] = useState<BodyType>({})
+  const { OnSuccessDialogAction, open, company } = props
+  const [isDisabled, setIsDisabled] = useState(false)
+  const { companiesLookupsData, companiesQuery } = useContext(ComponiesCxt)
+  const { refetch } = companiesQuery
   const {
-    reset,
     handleSubmit,
-    setValue,
-    getValues,
-    formState: { errors }
-  } = useForm<companyFormType>({
-    resolver: zodResolver(companyFormSchema)
+    register,
+    control,
+    watch,
+    reset,
+    formState: { errors, isSubmitting }
+  } = useForm<CompanyFormType>({
+    resolver: zodResolver(companyFormSchema),
+    disabled: isDisabled,
+    defaultValues: initialValues
   })
+
+  const tenantTypeId = watch('tenant_type_id')
+  const currentTenantType = useMemo(
+    () => companiesLookupsData?.tenant_types?.find(ele => ele.id == tenantTypeId),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [!!companiesLookupsData?.tenant_types, tenantTypeId]
+  )
 
   // ** handle side effects
   useEffect(() => {
-    reset({})
-    setHiddenFields(_hiddenFields)
-    handleChangeParams('')
+    if (open)
+      reset(
+        company
+          ? {
+              country_id: company.country_id,
+              email: company.email,
+              name: company.name,
+              phone: company.phone,
+              registration_type_id: company.registration_type_id,
+              role_id: company.role_id,
+              tenant_field_id: company.tenant_field_id,
+              tenant_type_id: company.tenant_type_id
+            }
+          : initialValues
+      )
   }, [open])
-
-  console.log('open999', open, getValues('country_id'))
-  // ** declare and define component helper methods
-  const isHiddenField = (key: string) => hiddenFields.indexOf(key) == -1
-
-  const addToHiddenFields = (key: string) => {
-    if (!isHiddenField(key)) setHiddenFields(prev => [...prev, key])
-  }
-
-  const removeFromHiddenFields = (key: string) => {
-    setHiddenFields(prev => prev.filter(ele => ele != key))
-  }
-
-  const deleteKeyFromFrontErrors = (key: string) => {
-    let _errors = frontErrors
-    delete _errors[key]
-    console.log('_errors_errors', _errors)
-    setFrontErrors(_errors ?? {})
-  }
 
   const onSubmit = handleSubmit(async data => {
     const headers = await getAuthHeaders()
-    setLoading(true)
+    setIsDisabled(true)
     // send request
     axios
-      .post(api`tenant`, serialize(data), {
+      .post(company ? api`tenant/update/${company.id}` : api`tenant`, serialize(data), {
         headers
       })
       .then(() => {
         OnSuccessDialogAction()
+        refetch()
       })
       .catch(() => {
         errorMessage('تعذر الأضافة')
       })
       .finally(() => {
-        setLoading(false)
+        setIsDisabled(false)
       })
   })
+
+  console.log(errors)
 
   // ** return component ui
   return (
     <Stack component='form' onSubmit={onSubmit} sx={{ width: '100%', p: 2 }} spacing={4}>
       {/* country id */}
-      <SelectFieldWithValue
-        label={'الدولة'}
-        value={getValues('country_id')}
-        handleChange={val => {
-          setValue('country_id', val)
-          removeFromHiddenFields('tenant_type_id')
-          handleChangeParams(`country_id=${val}`)
-          if (val.length == 0) setFrontErrors(prev => ({ ...prev, country_id: 'دولة الشركة مطلوبة' }))
-          else deleteKeyFromFrontErrors('country_id')
-        }}
-        disabled={loading}
-        options={companiesLookupsData?.countries?.map(ele => ({ label: ele.name_ar, value: ele.id.toString() })) || []}
+      <Controller
+        control={control}
+        name='country_id'
+        render={({ field }) => (
+          <TextField
+            {...field}
+            label='مقر الشركة'
+            select
+            fullWidth
+            error={Boolean(errors.country_id)}
+            helperText={errors.country_id?.message}
+          >
+            {companiesLookupsData?.countries?.map(country => (
+              <MenuItem key={country.id} value={country.id}>
+                {country.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
       />
-      <FormHelperText className='text-error'>
-        {errors.country_id ? errors.country_id.message : frontErrors['country_id']}
-      </FormHelperText>
-
       {/* company type */}
-      {isHiddenField('tenant_type_id') && (
-        <>
-          <SelectFieldWithValue
+      <Controller
+        control={control}
+        name='tenant_type_id'
+        render={({ field }) => (
+          <TextField
+            {...field}
             label='كيان الشركة'
-            value={getValues('tenant_type_id')}
-            handleChange={val => {
-              setValue('tenant_type_id', val)
-              removeFromHiddenFields('registration_type_id')
-              handleChangeParams(`country_id=${getValues('country_id')}&tenant_type_id=${val}`)
-              if (val.length == 0) setFrontErrors(prev => ({ ...prev, tenant_type_id: 'نوع الشركة مطلوبة' }))
-              else deleteKeyFromFrontErrors('tenant_type_id')
-            }}
-            disabled={loading}
-            options={
-              companiesLookupsData?.tenant_types?.map(ele => ({ label: ele.name, value: ele.id.toString() })) || []
-            }
-          />
-          <FormHelperText className='text-error'>
-            {errors.tenant_type_id ? errors.tenant_type_id.message : frontErrors['tenant_type_id']}
-          </FormHelperText>
-        </>
-      )}
-
+            select
+            fullWidth
+            error={Boolean(errors.tenant_type_id)}
+            helperText={errors.tenant_type_id?.message}
+          >
+            {companiesLookupsData?.tenant_types?.map(tenantType => (
+              <MenuItem key={tenantType.id} value={tenantType.id}>
+                {tenantType.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
+      />
       {/* registeration type */}
-      {isHiddenField('registration_type_id') && (
-        <>
-          <SelectFieldWithValue
+      <Controller
+        control={control}
+        name='registration_type_id'
+        render={({ field }) => (
+          <TextField
+            {...field}
             label='نوع التسجيل'
-            value={getValues('registration_type_id')}
-            handleChange={val => {
-              setValue('registration_type_id', val)
-              removeFromHiddenFields('role_id')
-              if (val.length == 0)
-                setFrontErrors(prev => ({ ...prev, registration_type_id: 'طريقة تسجيل الشركة مطلوبة' }))
-              else deleteKeyFromFrontErrors('registration_type_id')
-            }}
-            disabled={loading}
-            options={
-              companiesLookupsData?.tenant_types
-                ?.find(ele => ele.id.toString() == getValues('tenant_type_id'))
-                ?.registration_types?.map(ele => ({ label: ele.name, value: ele.id.toString() })) || []
-            }
-          />
-          <FormHelperText className='text-error'>
-            {errors.registration_type_id ? errors.registration_type_id.message : frontErrors['registration_type_id']}
-          </FormHelperText>
-        </>
-      )}
-
+            select
+            fullWidth
+            error={Boolean(errors.registration_type_id)}
+            helperText={errors.registration_type_id?.message}
+          >
+            {currentTenantType?.registration_types?.map(registrationType => (
+              <MenuItem key={registrationType.id} value={registrationType.id}>
+                {registrationType.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
+      />
       {/* role_id */}
-      {isHiddenField('role_id') && (
-        <>
-          <SelectFieldWithValue
+      <Controller
+        control={control}
+        name='role_id'
+        render={({ field }) => (
+          <TextField
+            {...field}
             label='الباقة'
-            value={getValues('role_id')}
-            handleChange={val => {
-              setValue('role_id', val)
-              removeFromHiddenFields('tenant_field_id')
-              if (val.length == 0) setFrontErrors(prev => ({ ...prev, role_id: 'الباقة مطلوبة' }))
-              else deleteKeyFromFrontErrors('role_id')
-            }}
-            disabled={loading}
-            options={companiesLookupsData?.packages?.map(ele => ({ label: ele.name, value: ele.id.toString() })) || []}
-          />
-          <FormHelperText className='text-error'>
-            {errors.role_id ? errors.role_id.message : frontErrors['role_id']}
-          </FormHelperText>
-        </>
-      )}
-
+            select
+            fullWidth
+            error={Boolean(errors.role_id)}
+            helperText={errors.role_id?.message}
+          >
+            {companiesLookupsData?.packages?.map(packageItem => (
+              <MenuItem key={packageItem.id} value={packageItem.id}>
+                {packageItem.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
+      />
       {/* tenant_field_id */}
-      {isHiddenField('tenant_field_id') && (
+      <Controller
+        control={control}
+        name='tenant_field_id'
+        render={({ field }) => (
+          <TextField
+            {...field}
+            label='مجال الشركة'
+            select
+            fullWidth
+            error={Boolean(errors.tenant_field_id)}
+            helperText={errors.tenant_field_id?.message}
+          >
+            {currentTenantType?.fields?.map(field => (
+              <MenuItem key={field.id} value={field.id}>
+                {field.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
+      />
+      {/* {isHiddenField('tenant_field_id') && (
         <>
           <SelectFieldWithValue
             label='مجال الشركة'
@@ -178,112 +210,75 @@ export default function SetCompanyDialogForm(props: PropsType) {
             handleChange={val => {
               setValue('tenant_field_id', val)
               removeFromHiddenFields('name')
-              if (val.length == 0) setFrontErrors(prev => ({ ...prev, tenant_field_id: 'مجال الشركة مطلوب' }))
-              else deleteKeyFromFrontErrors('tenant_field_id')
             }}
-            disabled={loading}
             options={
               companiesLookupsData?.tenant_types
                 ?.find(ele => ele.id.toString() == getValues('tenant_type_id'))
                 ?.fields?.map(ele => ({ label: ele.name, value: ele.id.toString() })) || []
             }
           />
-          <FormHelperText className='text-error'>
-            {errors.tenant_field_id ? errors.tenant_field_id.message : frontErrors['role_id']}
-          </FormHelperText>
+          <FormHelperText className='text-error'>{errors.tenant_field_id?.message}</FormHelperText>
         </>
-      )}
-
+      )} */}
       {/* company name */}
-      {isHiddenField('name') && (
-        <>
-          <TextField
-            fullWidth
-            label={'أسم الشركة'}
-            size='small'
-            disabled={loading}
-            onChange={e => {
-              setValue('name', e.target.value)
-              removeFromHiddenFields('email')
-              if (e.target.value.length == 0) setFrontErrors(prev => ({ ...prev, name: 'أسم الشركة مطلوبة' }))
-              else deleteKeyFromFrontErrors('name')
-            }}
-            error={Boolean(errors.name) || Boolean(frontErrors['name'])}
-          />
-          <FormHelperText className='text-error'>
-            {errors.name ? errors.name.message : frontErrors['name']}
-          </FormHelperText>
-        </>
-      )}
+      <>
+        <TextField
+          fullWidth
+          label={'أسم الشركة'}
+          {...register('name')}
+          error={Boolean(errors.name)}
+          helperText={errors.name?.message}
+        />
+      </>
       {/* company email */}
-      {isHiddenField('email') && (
-        <>
-          <TextField
-            fullWidth
-            label={'الأيميل الشركة'}
-            size='small'
-            disabled={loading}
-            onChange={e => {
-              setValue('email', e.target.value)
-              removeFromHiddenFields('phone')
-              if (e.target.value.length == 0) setFrontErrors(prev => ({ ...prev, email: 'الأيميل الشركة مطلوبة' }))
-              else deleteKeyFromFrontErrors('email')
-            }}
-            error={Boolean(errors.email) || Boolean(frontErrors['email'])}
-          />
-          <FormHelperText className='text-error'>
-            {errors.email ? errors.email.message : frontErrors['email']}
-          </FormHelperText>
-        </>
-      )}
-
+      <>
+        <TextField
+          fullWidth
+          label={'الأيميل الشركة'}
+          {...register('email')}
+          error={Boolean(errors.email)}
+          helperText={errors.email?.message}
+        />
+      </>
       {/* company phone */}
-      {isHiddenField('phone') && (
-        <>
-          <TextField
-            fullWidth
-            label={'تليفون الشركة'}
-            size='small'
-            disabled={loading}
-            onChange={e => {
-              setValue('phone', e.target.value)
-              // let _error = Boolean(e.target.value.length) == false
-              // if (_error) setFrontErrors(prev => ({ ...prev, phone: 'تليفون الشركة مطلوبة' }))
-              // else deleteKeyFromFrontErrors('phone')
-            }}
-            // error={Boolean(errors.phone) || Boolean(frontErrors['phone'])}
-          />
-          <FormHelperText className='text-error'>
-            {errors.phone ? errors.phone.message : frontErrors['phone']}
-          </FormHelperText>
-        </>
-      )}
 
-      <Button
+      <TextField
+        fullWidth
+        label={'تليفون الشركة'}
+        {...register('phone')}
+        error={Boolean(errors.phone)}
+        helperText={errors.phone?.message}
+      />
+
+      <LoadingButton
+        loading={isSubmitting}
         type='submit'
         variant='contained'
-        disabled={Object.keys(frontErrors).length > 0 || hiddenFields.length > 0}
+        disabled={Boolean(Object.keys(errors).length)}
       >
         حفظ
-      </Button>
+      </LoadingButton>
     </Stack>
   )
 }
 
 export const companyFormSchema = z.object({
   name: z.string().min(1, { message: 'اسم الشركة مطلوب' }),
-  country_id: z.string().min(1, { message: 'دولة الشركة مطلوبة' }),
-  tenant_type_id: z.string().min(1, { message: 'نوع الشركة مطلوبة' }),
-  registration_type_id: z.string().min(1, { message: 'طريقة تسجيل الشركة مطلوبة' }),
-  role_id: z.string().min(1, { message: 'الباقة الشركة مطلوبة' }),
-  tenant_field_id: z.string().min(1, { message: 'مجال الشركة مطلوبة' }),
+  country_id: z.number({ message: 'دولة الشركة مطلوبة' }).min(1, { message: 'دولة الشركة مطلوبة' }),
+  tenant_type_id: z.number({ message: 'نوع الشركة مطلوبة' }).min(1, { message: 'نوع الشركة مطلوبة' }),
+  registration_type_id: z
+    .number({ message: 'طريقة تسجيل الشركة مطلوبة' })
+    .min(1, { message: 'طريقة تسجيل الشركة مطلوبة' }),
+  role_id: z.number({ message: 'الباقة الشركة مطلوبة' }).min(1, { message: 'الباقة الشركة مطلوبة' }),
+  tenant_field_id: z.number({ message: 'مجال الشركة مطلوبة' }).min(1, { message: 'مجال الشركة مطلوبة' }),
   email: z.string().email({ message: 'الايميل المدخل غير صالح' }),
-  phone: z.string().min(1, { message: 'جوال الشركة مطلوب' })
+  phone: numberStringSchema
 })
 
-type companyFormType = z.infer<typeof companyFormSchema>
+type CompanyFormType = z.infer<typeof companyFormSchema>
 
 type PropsType = {
   open: boolean
   OnSuccessDialogAction: () => void
+  company?: Tenant
 }

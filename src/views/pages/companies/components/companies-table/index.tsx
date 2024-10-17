@@ -1,6 +1,6 @@
 'use client'
 // import packages
-import { Checkbox, Chip, IconButton, Typography } from '@mui/material'
+import { Button, Checkbox, Chip, IconButton, Paper, Tooltip, Typography } from '@mui/material'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
@@ -78,9 +78,19 @@ export default function CompaniesDataTable() {
         header: 'الأعدادات',
         cell: () => (
           <>
-            <IconButton color='default'>
-              <i className='ri-more-2-line' />
-            </IconButton>
+            <Tooltip
+              arrow
+              placement='left'
+              title={
+                <Paper>
+                  <Button>Test</Button>
+                </Paper>
+              }
+            >
+              <IconButton color='default'>
+                <i className='ri-more-2-line' />
+              </IconButton>
+            </Tooltip>
           </>
         )
       }
