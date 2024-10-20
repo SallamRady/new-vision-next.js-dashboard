@@ -1,6 +1,6 @@
 'use client'
 // import packages
-import { Card, CardContent } from '@mui/material'
+import { Card, CardContent, Grid, TextField } from '@mui/material'
 
 // Style Imports
 import RenderTable from '@/components/tables/render-table'
@@ -14,7 +14,14 @@ export default function CompaniesDataTable() {
     <>
       <Card>
         <CardContent>
-          <SetCompanyButton />
+          <Grid container spacing={2}>
+            <Grid item xs={6} md={6}>
+              <TextField fullWidth size='small' placeholder='البحث' />
+            </Grid>
+            <Grid item xs={6} md={4}>
+              <SetCompanyButton />
+            </Grid>
+          </Grid>
         </CardContent>
         <CardContent>
           <RenderTable table={table} />

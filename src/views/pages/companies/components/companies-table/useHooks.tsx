@@ -1,6 +1,6 @@
 'use client'
 // import packages
-import { Button, Checkbox, Chip, IconButton, Paper, Tooltip, Typography } from '@mui/material'
+import { Checkbox, Chip, IconButton, Paper, Tooltip, Typography } from '@mui/material'
 import { createColumnHelper, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
@@ -10,6 +10,7 @@ import { TenantType } from '@/types/companies/CompanyTableRowType'
 import { ComponiesCxt } from '../../context/ComponiesCxt'
 import { fuzzyFilter } from '@/utils/table/fuzzyFilter'
 import { getSortedRowModel } from '@/utils/table/getSortedRowModel'
+import { UpdateCompanyButton } from './components/SetCompanyDialog'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<TenantType>()
@@ -79,21 +80,13 @@ export function useHooks() {
       {
         id: 'setting',
         header: 'الأعدادات',
-        cell: () => (
+        cell: ({ row }) => (
           <>
-            <Tooltip
-              arrow
-              placement='left'
-              title={
-                <Paper>
-                  <Button>Test</Button>
-                </Paper>
-              }
-            >
-              <IconButton color='default'>
-                <i className='ri-more-2-line' />
-              </IconButton>
-            </Tooltip>
+            <UpdateCompanyButton company={row.original} />
+
+            <IconButton color='default'>
+              <i className='ri-more-2-line' />
+            </IconButton>
           </>
         )
       }
