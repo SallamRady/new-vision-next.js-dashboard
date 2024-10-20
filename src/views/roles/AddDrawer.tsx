@@ -1,6 +1,6 @@
 'use client'
 
-import { api } from '@/Constants/Api-v2'
+import { api } from '@/Constants/Api'
 import { getClientAuthHeaders } from '@/libs/headers/clientHeaders'
 import { Role } from '@/types/api/common/Role'
 import { getPermissions } from '@/utils/api/permissions/get-permissions'
