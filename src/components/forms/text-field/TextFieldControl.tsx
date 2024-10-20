@@ -1,7 +1,8 @@
 'use client'
-import { FilledInputProps, OutlinedInputProps, TextField } from '@mui/material'
+import { TextField } from '@mui/material'
+import type { FilledInputProps, OutlinedInputProps } from '@mui/material'
 import { HTMLInputTypeAttribute, useState } from 'react'
-import { InputProps } from 'react-otp-input'
+import type { InputProps } from 'react-otp-input'
 
 export default function TextFieldControl(props: TextFieldControlProps) {
   const [error, setError] = useState(false)

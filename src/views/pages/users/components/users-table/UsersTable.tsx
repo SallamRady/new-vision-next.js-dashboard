@@ -118,7 +118,7 @@ export default function UsersDataTable() {
     refreshUserData()
   }
   const OnSuccessDeleteDialogAction = () => {
-    refetch()
+    // refetch()
   }
 
   // ** return component ui

@@ -82,7 +82,7 @@ export function useHooks() {
         header: 'الأعدادات',
         cell: ({ row }) => (
           <>
-            <UpdateCompanyButton company={row.original} />
+            <UpdateCompanyButton company={row.original as any} />
 
             <IconButton color='default'>
               <i className='ri-more-2-line' />

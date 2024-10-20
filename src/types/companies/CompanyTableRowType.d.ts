@@ -23,7 +23,39 @@ export type CompaniesLookUpsType = {
   packages: PackageType[]
 }
 
-export type TenantType = Tenant
+export type TenantType = {
+  id: number
+  name: string
+  description: string
+  responsibility: string
+  partner_number: string
+  created_at: string
+  updated_at: string
+  registration_types: RegistrationType[]
+  fields: TenantTypeFieldType[]
+  code: string
+  commercial_register: string
+  country: CountryType
+  country_id: number
+  created_at: string
+  forms: TenantFormType[]
+  is_email: boolean
+  is_identity: boolean
+  is_phone: boolean
+  media: Media[]
+  registration_type: RegistrationType
+  registration_type_id: number
+  role_id: number
+  status: number
+  tenancy_db_name: string
+  tenant_field_id: number
+  tenant_type_id: number
+  type: TenantTypeFieldType
+  user_id: number
+  website_url: string
+  email: string
+  package: PackageType
+}
 
 export type RegistrationType = {
   id: number

@@ -16,7 +16,7 @@ export default function CompanyCard(props: PropsType) {
       handleChangeView(LoginPageViews.SetPassword)
       return
     }
-    switch (props.tenant.login_ways?.[0]?.lookup?.name) {
+    switch ((props.tenant as any).login_ways?.[0]?.lookup?.name) {
       case LoginPageViews.OTP:
         handleChangeView(LoginPageViews.OTP)
         break

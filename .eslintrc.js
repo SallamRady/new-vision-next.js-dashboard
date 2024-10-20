@@ -1,6 +1,7 @@
 module.exports = {
   extends: ['next/core-web-vitals', 'plugin:@typescript-eslint/recommended', 'plugin:import/recommended', 'prettier'],
   rules: {
+    'prefer-const': 'off',
     'react-hooks/exhaustive-deps': 'off',
     'jsx-a11y/alt-text': 'off',
     'react/display-name': 'off',

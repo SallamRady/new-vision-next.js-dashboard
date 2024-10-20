@@ -81,7 +81,7 @@ function LoginView() {
                 return
               }
               //redirect to correct login page
-              const lookUp = tenants?.[0]?.login_ways?.[0]?.lookup
+              const lookUp = (tenants?.[0] as any)?.login_ways?.[0]?.lookup
               switch (lookUp.name) {
                 case LoginPageViews.PASSWORD:
                   handleChangeView(LoginPageViews.PASSWORD)
