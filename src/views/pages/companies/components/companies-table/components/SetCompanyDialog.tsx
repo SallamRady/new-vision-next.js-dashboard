@@ -99,6 +99,28 @@ export default function SetCompanyDrawer(props: PropsType) {
           انشاء شركة جديدة
         </Typography>
         <Stack component='form' onSubmit={onSubmit} sx={{ width: 350, p: 2 }} spacing={4}>
+          <TextField
+            fullWidth
+            label={'أسم الشركة'}
+            {...register('name')}
+            error={Boolean(errors.name)}
+            helperText={errors.name?.message}
+          />
+          <TextField
+            fullWidth
+            label={'الأيميل الشركة'}
+            {...register('email')}
+            error={Boolean(errors.email)}
+            helperText={errors.email?.message}
+          />
+
+          <TextField
+            fullWidth
+            label={'تليفون الشركة'}
+            {...register('phone')}
+            error={Boolean(errors.phone)}
+            helperText={errors.phone?.message}
+          />
           <Controller
             control={control}
             name='country_id'
@@ -181,29 +203,6 @@ export default function SetCompanyDrawer(props: PropsType) {
                 ))}
               </TextField>
             )}
-          />
-
-          <TextField
-            fullWidth
-            label={'أسم الشركة'}
-            {...register('name')}
-            error={Boolean(errors.name)}
-            helperText={errors.name?.message}
-          />
-          <TextField
-            fullWidth
-            label={'الأيميل الشركة'}
-            {...register('email')}
-            error={Boolean(errors.email)}
-            helperText={errors.email?.message}
-          />
-
-          <TextField
-            fullWidth
-            label={'تليفون الشركة'}
-            {...register('phone')}
-            error={Boolean(errors.phone)}
-            helperText={errors.phone?.message}
           />
 
           <LoadingButton
