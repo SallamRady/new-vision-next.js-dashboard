@@ -1,6 +1,10 @@
 // Third-party Imports
 import 'react-perfect-scrollbar/dist/css/styles.css'
 
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { getServerSession } from 'next-auth'
+
 // Type Imports
 import type { ChildrenType } from '@core/types'
 
@@ -11,9 +15,7 @@ import '@/app/globals.css'
 import '@assets/iconify-icons/generated-icons.css'
 import { PaletteContextProvider } from '@/contexts/paletteContext'
 import { ReduxProvider } from '@/store/redux-provider'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import { getServerSession } from 'next-auth'
+
 import { authOptions } from '@/libs/auth/auth'
 
 export const metadata = {
@@ -24,7 +26,8 @@ export const metadata = {
 const RootLayout = async ({ children }: ChildrenType) => {
   // Vars
   const direction = 'rtl'
-  const session = await getServerSession(authOptions)
+
+  await getServerSession(authOptions)
 
   return (
     <html id='__next' lang='en' dir={direction}>

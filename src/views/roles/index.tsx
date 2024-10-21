@@ -1,15 +1,17 @@
 'use client'
 
 // MUI Imports
+import { useState } from 'react'
+
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
 // Component Imports
-import RoleCards from './RoleCards'
-import { Role } from '@/types/api/common/Role'
 import { Button } from '@mui/material'
+
+import RoleCards from './RoleCards'
+import type { Role } from '@/types/api/common/Role'
 import AddDrawer from './AddDrawer'
-import { useState } from 'react'
 
 const Roles = ({ roles }: { roles?: Role[] }) => {
   const [open, setOpen] = useState(false)

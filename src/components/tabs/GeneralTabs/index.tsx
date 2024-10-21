@@ -1,4 +1,5 @@
 'use client'
+
 // React Imports
 import { useState } from 'react'
 import type { SyntheticEvent } from 'react'
@@ -14,6 +15,7 @@ import { Paper } from '@mui/material'
 export default function GeneralTabsComponent(props: GeneralTabsComponentProps) {
   // extract data from props
   const { tabs, defaultTabId } = props
+
   // States
   const [value, setValue] = useState<string>(defaultTabId)
 

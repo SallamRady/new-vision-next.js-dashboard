@@ -1,6 +1,6 @@
 import { Bounce, toast } from 'react-toastify'
 
-export function SuccessMessage(statment: String) {
+export function SuccessMessage(statment: string) {
   toast.success(statment, {
     position: 'bottom-right',
     autoClose: 5000,
@@ -19,7 +19,7 @@ export function SuccessMessage(statment: String) {
   })
 }
 
-export function errorMessage(statment: String) {
+export function errorMessage(statment: string) {
   toast.error(statment, {
     position: 'bottom-right',
     autoClose: 5000,

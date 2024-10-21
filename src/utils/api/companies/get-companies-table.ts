@@ -1,7 +1,8 @@
-import { api } from '@/Constants/Api'
-import { AuthHeaders } from '@/types/AuthHeaders'
-import { TableSchema, TableSchemaRow } from '@/types/api/table-schema'
 import axios from 'axios'
+
+import { api } from '@/Constants/Api'
+import type { AuthHeaders } from '@/types/AuthHeaders'
+import type { TableSchema, TableSchemaRow } from '@/types/api/table-schema'
 
 interface Root {
   tenants: TableSchemaRow[]

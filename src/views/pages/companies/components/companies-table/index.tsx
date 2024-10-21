@@ -1,4 +1,5 @@
 'use client'
+
 // import packages
 import { Card, CardContent } from '@mui/material'
 
@@ -9,6 +10,7 @@ import { SetCompanyButton } from './components/SetCompanyDialog'
 
 export default function CompaniesDataTable() {
   const { table } = useHooks()
+
   // ** return component ui
   return (
     <>

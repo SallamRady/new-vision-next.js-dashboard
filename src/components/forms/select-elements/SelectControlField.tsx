@@ -1,7 +1,8 @@
 'use client'
-import type { SelectFieldOptionType } from '@/types/input-controls-types'
+
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
-import { useState } from 'react'
+
+import type { SelectFieldOptionType } from '@/types/input-controls-types'
 
 export default function SelectControlField(props: SelectControlFieldProps) {
   // ** declare and define helper variables
@@ -17,7 +18,9 @@ export default function SelectControlField(props: SelectControlFieldProps) {
     errorMsg = 'invalid choice',
     disabled = false
   } = props
-  const [error, setError] = useState(false)
+
+  const error = false
+
   // ** return component UI
   return (
     <FormControl fullWidth={isfullWidth} sx={{ width: !isfullWidth ? '120px' : undefined }} required={isRequired}>
@@ -56,6 +59,7 @@ type SelectControlFieldProps = {
   options: SelectFieldOptionType[]
   handleSelectFieldChange?: (newValue: string) => void
   validationFun?: (str: string) => boolean
+
   //optional
   addNoneOption?: boolean
   defaultValue?: string

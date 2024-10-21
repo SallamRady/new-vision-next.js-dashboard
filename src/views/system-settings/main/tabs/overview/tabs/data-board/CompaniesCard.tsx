@@ -7,8 +7,9 @@ import Typography from '@mui/material/Typography'
 import classnames from 'classnames'
 
 // Components Imports
-import CustomAvatar from '@core/components/mui/Avatar'
 import { Divider } from '@mui/material'
+
+import CustomAvatar from '@core/components/mui/Avatar'
 
 function CompaniesCard() {
   return (

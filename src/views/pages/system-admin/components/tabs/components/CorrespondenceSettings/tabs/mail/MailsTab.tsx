@@ -1,12 +1,15 @@
-import { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
-import GeneralVirticalTabsComponent from '@/components/tabs/verticalTabs'
 import Image from 'next/image'
+
+import { Box } from '@mui/material'
+
+import type { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import GeneralVirticalTabsComponent from '@/components/tabs/verticalTabs'
 
 //assets
 import mailLogo from '@/assets/images/logos/Gmail-Logo.png'
 import yahooLogo from '@/assets/images/logos/yahoo-logo.png'
 import hotmailLogo from '@/assets/images/logos/hotmail-logo.png'
-import { Box } from '@mui/material'
+
 import GmailTab from './components/GmailTab'
 import HotmailTab from './components/HotmailTab'
 import YahooTab from './components/YahooTab'
@@ -44,6 +47,7 @@ export default function MailsTab() {
       tabContent: <HotmailTab />
     }
   ]
+
   //background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(67, 55, 140, 0.1) 100%);
 
   return (

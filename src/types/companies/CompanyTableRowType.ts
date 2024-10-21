@@ -1,7 +1,6 @@
-import { boolean } from 'zod'
-import { CountryType } from '../system-admin/countries'
-import { PackageType } from './package'
-import { Media } from '../api/common/Media'
+import type { CountryType } from '../system-admin/countries'
+import type { PackageType } from './package'
+import type { Media } from '../api/common/Media'
 
 export type CompanyTableRowType = {
   id: number
@@ -36,7 +35,6 @@ export type TenantType = {
   commercial_register: string
   country: CountryType
   country_id: number
-  created_at: string
   forms: TenantFormType[]
   is_email: boolean
   is_identity: boolean

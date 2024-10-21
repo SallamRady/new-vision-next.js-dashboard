@@ -19,6 +19,7 @@ const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexChart
 export default function CurvedLineStatisticsCard(props: CurvedLineStatisticsCardProps) {
   // ** extract data from props
   const { title, status, value, trend, percentage, data, chartName, cardWidth } = props
+
   // Hooks
   const theme = useTheme()
 

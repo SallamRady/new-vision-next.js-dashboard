@@ -1,5 +1,6 @@
 import './index.scss'
 import Image from 'next/image'
+
 import img from '@/assets/images/logos/constrix.png'
 
 export default function LoginLoading() {

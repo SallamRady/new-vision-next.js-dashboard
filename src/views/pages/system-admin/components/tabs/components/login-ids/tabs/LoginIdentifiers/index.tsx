@@ -1,14 +1,15 @@
 'use client'
 
 // import packages
+import { useEffect, useMemo, useState } from 'react'
+
 import { Checkbox, Chip, Stack, Typography } from '@mui/material'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import { useEffect, useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
-import { LoginIDType } from '@/types/system-admin/login-ids'
+import type { LoginIDType } from '@/types/system-admin/login-ids'
 import Loader from '@/components/Loader'
 import ActionMenuButton from './components/ActionMenuBtn'
 import useLoginIdentifiers from '@/hooks/useLoginIdentifiers'
@@ -17,7 +18,6 @@ import useLoginIdentifiers from '@/hooks/useLoginIdentifiers'
 const columnHelper = createColumnHelper<LoginIDType>()
 
 // Function to fetch login identifiers from the new API route
-const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export default function SystemAdminLoginIdentifiersTab() {
   // ** declare and define component state and variables
@@ -51,6 +51,7 @@ export default function SystemAdminLoginIdentifiersTab() {
           <Checkbox
             {...{
               checked: row.getIsSelected(),
+
               // disabled: !row.getCanSelect(),
               indeterminate: row.getIsSomeSelected(),
               onChange: row.getToggleSelectedHandler()
@@ -109,6 +110,7 @@ export default function SystemAdminLoginIdentifiersTab() {
   // ** return component ui
   if (isLoading) return <Loader />
   if (error) return <Typography>Error loading data: {error.message}</Typography>
+
   return (
     <Stack spacing={4} mt={6}>
       <GenericDataTable
@@ -125,5 +127,3 @@ export default function SystemAdminLoginIdentifiersTab() {
     </Stack>
   )
 }
-
-type PropsType = {}

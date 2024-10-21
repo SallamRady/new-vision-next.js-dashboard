@@ -2,13 +2,15 @@
 
 // types
 import type { ReactNode } from 'react'
+
+import { createContext, useState } from 'react'
+
 import type { UserLookUpsType, UserType } from '@/types/users/users-page-types'
 
 // import packages
-import { createContext, useState } from 'react'
 import useUserLookUpsData from '@/hooks/useUserLookUpsData'
 import useValidationData from '@/hooks/useValidationData'
-import { validationType } from '@/types/validationType'
+import type { validationType } from '@/types/validationType'
 import useUsersData from '@/hooks/useUsersData'
 
 export const UsersContext = createContext<UsersContextType>({
@@ -17,9 +19,9 @@ export const UsersContext = createContext<UsersContextType>({
   userLookups: undefined,
   editedUser: undefined,
   validationsRules: undefined,
-  handleChangeFormMode: mode => {},
-  handleStoreEditedUser: user => {},
-  handleChangeSearchParams: str => {},
+  handleChangeFormMode: () => {},
+  handleStoreEditedUser: () => {},
+  handleChangeSearchParams: () => {},
   count_active_users: undefined,
   count_inactive_users: undefined,
   users: undefined,
@@ -82,8 +84,6 @@ export const UsersContextProvider = ({ children }: { children: ReactNode }) => {
     </UsersContext.Provider>
   )
 }
-
-type BodyType = { [key: string]: string }
 
 type UsersContextType = {
   params: string

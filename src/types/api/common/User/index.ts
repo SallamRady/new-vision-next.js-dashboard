@@ -1,7 +1,7 @@
-import { Bank } from '../Bank'
-import { Country } from '../Country'
-import { Currency } from '../Currency'
-import { Media } from '../Media'
+import type { Bank } from '../Bank'
+import type { Country } from '../Country'
+import type { Currency } from '../Currency'
+import type { Media } from '../Media'
 
 export interface User {
   id: number

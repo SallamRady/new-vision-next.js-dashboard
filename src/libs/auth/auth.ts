@@ -4,6 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 
 // Import Types
 import type { NextAuthOptions } from 'next-auth'
+
 import { api } from '@/Constants/Api'
 
 type ResType = {
@@ -22,6 +23,7 @@ export const authOptions: NextAuthOptions = {
         try {
           // declare helper variables
           const url = api`login-with-different-methods`
+
           const body = {
             password: credentials?.password,
             global_id: credentials?.global_id
@@ -57,6 +59,7 @@ export const authOptions: NextAuthOptions = {
         token.global_id = user.global_id
         token.xtenantId = user.xtenantId
       }
+
       return token
     },
     async session({ session, token }) {

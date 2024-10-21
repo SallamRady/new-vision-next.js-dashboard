@@ -1,5 +1,8 @@
+import type { ReactNode } from 'react'
+import { useMemo, useState } from 'react'
+
 import { Tab, Tabs } from '@mui/material'
-import { ReactNode, useMemo, useState } from 'react'
+
 import SettingsTab from './tabs/settings'
 
 const views: Record<number, ReactNode> = {

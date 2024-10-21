@@ -1,13 +1,18 @@
 'use client'
+
 // import packages
-import { UserType } from '@/types/users/users-page-types'
+import { useContext, useMemo, useState } from 'react'
+
 import { Checkbox, Chip, Stack, Typography } from '@mui/material'
+
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
+import type { UserType } from '@/types/users/users-page-types'
+
 // Style Imports
 import Loader from '@/components/Loader'
-import { useContext, useMemo, useState } from 'react'
+
 import GenericDataTable from '@/components/tables/GenericDataTable'
 import AddUserDialogContent from './components/AddUserDialog'
 import ActionButton from './components/ActionButton'
@@ -41,6 +46,7 @@ export default function UsersDataTable() {
           <Checkbox
             {...{
               checked: row.getIsSelected(),
+
               // disabled: !row.getCanSelect(),
               indeterminate: row.getIsSomeSelected(),
               onChange: row.getToggleSelectedHandler()
@@ -53,6 +59,7 @@ export default function UsersDataTable() {
         cell: ({ row }) => <Typography color='text.primary'>{row.original.name}</Typography>,
         enableHiding: true // Allow hiding this column
       }),
+
       // optionals
       {
         id: 'title',
@@ -89,6 +96,7 @@ export default function UsersDataTable() {
         header: 'حالة الموظف',
         cell: ({ row }) => {
           if (row.original.status == -1) return <Chip label='استكمال بيانات' color='warning' variant='tonal' />
+
           return <Chip label='Status unknown' color='error' variant='tonal' />
         },
         enableHiding: true // Allow hiding this column
@@ -113,10 +121,12 @@ export default function UsersDataTable() {
     handleChangeFormMode('Create')
     setDialogOpenned(prev => !prev)
   }
+
   const OnSuccessDialogAction = () => {
     setOpenAddDialog(false)
     refreshUserData()
   }
+
   const OnSuccessDeleteDialogAction = () => {
     refetch()
   }

@@ -1,8 +1,10 @@
 import { Grid } from '@mui/material'
+
 import DetailsCard from './components/DetailsCard'
 import CurvedLineStatisticsCard from '@/components/card-statistics/CurvedLineStatisticsCard'
 import HorizontalWithSubtitle from '@/components/card-statistics/HorizontalWithSubtitle'
-import TwoCardsInfoInOne, { CardIntoTwoCardsInfoInOnePropsType } from '@/components/card-statistics/TwoCardsInfoInOne'
+import type { CardIntoTwoCardsInfoInOnePropsType } from '@/components/card-statistics/TwoCardsInfoInOne'
+import TwoCardsInfoInOne from '@/components/card-statistics/TwoCardsInfoInOne'
 import StatisticsCardWithColumns from '@/components/card-statistics/StatisticsCardWithColumns'
 
 // dummy data

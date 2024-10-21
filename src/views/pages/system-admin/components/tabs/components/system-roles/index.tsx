@@ -1,4 +1,5 @@
-import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import type { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import GeneralTabsComponent from '@/components/tabs/GeneralTabs'
 import UsersRolesTableTab from './tabs/UsersRolesTable'
 
 export default function SystemRolesTabInSystemSettings() {

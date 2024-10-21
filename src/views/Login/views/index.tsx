@@ -1,5 +1,6 @@
 'use client'
 import { useContext, useMemo } from 'react'
+
 import { AuthOperationsContext, LoginPageViews } from '../context'
 import LoginView from './login'
 import ChooseCorrentTenant from './choose-tenant'
@@ -12,7 +13,7 @@ import ResetPassword from './reset-password'
 
 export default function LoginViewsIndex() {
   // ** declare and define component state and variables
-  const { view, handleChangeView } = useContext(AuthOperationsContext)
+  const { view } = useContext(AuthOperationsContext)
 
   const viewComponent = useMemo(() => {
     switch (view) {

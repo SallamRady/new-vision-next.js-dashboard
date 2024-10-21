@@ -4,7 +4,8 @@ import CorrespondenceSettingsTabIndex from './components/CorrespondenceSettings'
 import SystemAdminCountryTab from './components/countries/SystemAdminCountryTab'
 import SystemAdminLoginIDsTab from './components/login-ids'
 import SystemRolesTabInSystemSettings from './components/system-roles'
-import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import type { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import GeneralTabsComponent from '@/components/tabs/GeneralTabs'
 
 //Login IDs
 export default function TabsOfMainystemAdmin() {

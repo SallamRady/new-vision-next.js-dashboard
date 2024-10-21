@@ -8,6 +8,7 @@ const AppReactApexCharts = dynamic(() => import('@/libs/styles/AppReactApexChart
 
 // Third-party Imports
 import type { ApexOptions } from 'apexcharts'
+
 import IssueIcon from '@/components/IssueIcon'
 
 function ShiftTime({ shift }: Props) {

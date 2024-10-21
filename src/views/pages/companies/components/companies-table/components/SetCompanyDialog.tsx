@@ -1,19 +1,25 @@
 'use client'
 
+import { useContext, useEffect, useMemo, useState } from 'react'
+
 import { z } from 'zod'
 import axios from 'axios'
-import { api } from '@/Constants/Api'
+
 import { Controller, useForm } from 'react-hook-form'
-import { useContext, useEffect, useMemo, useState } from 'react'
 import { serialize } from 'object-to-formdata'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Drawer, MenuItem, Stack, TextField, Typography } from '@mui/material'
+
+import LoadingButton from '@mui/lab/LoadingButton'
+
 import { ComponiesCxt } from '../../../context/ComponiesCxt'
 import { getAuthHeaders } from '@/libs/headers/headerServices'
 import { errorMessage } from '@/utils/notificationsMessages'
-import LoadingButton from '@mui/lab/LoadingButton'
+
+import { api } from '@/Constants/Api'
+
 import { numberStringSchema } from '@/utils/validation/zod/numberStringSchema'
-import { Tenant } from '@/types/api/common/Tenant'
+import type { Tenant } from '@/types/api/common/Tenant'
 
 const initialValues: CompanyFormType = {
   country_id: null as any,
@@ -31,6 +37,7 @@ export default function SetCompanyDrawer(props: PropsType) {
   const [isDisabled, setIsDisabled] = useState(false)
   const { companiesLookupsData, companiesQuery } = useContext(ComponiesCxt)
   const { refetch } = companiesQuery
+
   const {
     handleSubmit,
     register,
@@ -45,6 +52,7 @@ export default function SetCompanyDrawer(props: PropsType) {
   })
 
   const tenantTypeId = watch('tenant_type_id')
+
   const currentTenantType = useMemo(
     () => companiesLookupsData?.tenant_types?.find(ele => ele.id == tenantTypeId),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,11 +75,14 @@ export default function SetCompanyDrawer(props: PropsType) {
             }
           : initialValues
       )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
   const onSubmit = handleSubmit(async data => {
     const headers = await getAuthHeaders()
+
     setIsDisabled(true)
+
     // send request
     axios
       .post(company ? api`tenant/update/${company.id}` : api`tenant`, serialize(data), {
@@ -221,6 +232,7 @@ export default function SetCompanyDrawer(props: PropsType) {
 
 export function SetCompanyButton() {
   const [open, setOpen] = useState(false)
+
   return (
     <>
       <SetCompanyDrawer open={open} onClose={() => setOpen(false)} />

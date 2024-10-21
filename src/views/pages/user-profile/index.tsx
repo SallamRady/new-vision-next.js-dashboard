@@ -19,7 +19,7 @@ import type { Data } from '@/types/pages/profileTypes'
 import UserProfileHeader from './UserProfileHeader'
 import CustomTabList from '@core/components/mui/TabList'
 import TopCards from './TopCards'
-import { User } from '@/types/api/common/User'
+import type { User } from '@/types/api/common/User'
 
 const UserProfile = ({
   tabContentList,

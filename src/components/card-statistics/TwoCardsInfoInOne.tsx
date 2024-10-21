@@ -30,6 +30,7 @@ type TwoCardsInfoInOneProps = {
 export default function TwoCardsInfoInOne(props: TwoCardsInfoInOneProps) {
   // ** extract data from props
   const { cardWidth, cards } = props
+
   // ** return component ui
   return (
     <Card sx={{ width: cardWidth ?? '275px', m: '1rem auto' }}>

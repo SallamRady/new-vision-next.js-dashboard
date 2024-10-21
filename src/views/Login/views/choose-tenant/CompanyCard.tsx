@@ -1,21 +1,27 @@
 'use client'
 
-import Image from 'next/image'
 import { useContext } from 'react'
-import { TenentType } from '@/types/tenant'
+
+import Image from 'next/image'
+
+import { Grid, Stack, Typography } from '@mui/material'
+
+import type { TenentType } from '@/types/tenant'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
-import { Card, CardActionArea, CardContent, CardMedia, Grid, Stack, Typography } from '@mui/material'
 
 export default function CompanyCard(props: PropsType) {
   const { handleChangeView, storeSelectedTenant, setPassword, handleSetPassword } = useContext(AuthOperationsContext)
 
   const handleClick = () => {
     storeSelectedTenant(props.tenant)
+
     if (setPassword) {
       handleSetPassword(false)
       handleChangeView(LoginPageViews.SetPassword)
+
       return
     }
+
     switch (props.tenant.login_ways?.[0]?.lookup?.name) {
       case LoginPageViews.OTP:
         handleChangeView(LoginPageViews.OTP)

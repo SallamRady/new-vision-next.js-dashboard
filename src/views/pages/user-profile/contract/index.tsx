@@ -1,7 +1,10 @@
 'use client'
 
+import type { FC } from 'react'
+import { useMemo, useState } from 'react'
+
 import { Tab, Tabs } from '@mui/material'
-import { FC, useMemo, useState } from 'react'
+
 import PersonalDetails from './Tabs/personal-details'
 
 const tabs: Record<number, FC | undefined> = {
@@ -10,9 +13,12 @@ const tabs: Record<number, FC | undefined> = {
 
 function ContractView() {
   const [tab, setTab] = useState(0)
+
   const renderActiveTab = useMemo(() => {
     const Tab = tabs[tab]
+
     if (!Tab) return null
+
     return <Tab />
   }, [tab])
 

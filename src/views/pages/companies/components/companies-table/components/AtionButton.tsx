@@ -1,17 +1,22 @@
 'use client'
+import type { SetStateAction } from 'react'
+
+import { useState } from 'react'
+
 import axiosInstance from '@/libs/axiosConfig'
-import { Typography } from '@mui/material'
-import { UserType } from '@/types/users/users-page-types'
-import { SetStateAction, useContext, useState } from 'react'
+import type { UserType } from '@/types/users/users-page-types'
+
 import ScreenCenterDialog from '@/components/dialogs/screen-center-dialog'
 import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
-import GlobelDropDownMenu, { GenericMenuButton } from '@/components/drop-down-menu/GlobelDropDownMenu'
+import type { GenericMenuButton } from '@/components/drop-down-menu/GlobelDropDownMenu'
+import GlobelDropDownMenu from '@/components/drop-down-menu/GlobelDropDownMenu'
 import { api } from '@/Constants/Api'
 
 export default function ActionButton(props: PropsType) {
   // ** declare and define component state and variables
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
   const { row, OnSuccessDeleteDialogAction, setOpenAddDialog } = props
+
   // const { handleChangeFormMode, handleStoreEditedUser } = useContext(UsersContext)
 
   const buttons: GenericMenuButton[] = [
@@ -64,7 +69,7 @@ export default function ActionButton(props: PropsType) {
 
   // ** declare and define actions
   const handleDeleteUser = () => {
-    let body = row?.tenants?.length > 0 ? { tenant_id: [row?.tenants?.[0]?.id] } : {}
+    const body = row?.tenants?.length > 0 ? { tenant_id: [row?.tenants?.[0]?.id] } : {}
 
     axiosInstance
       .post(api`user/delete/${row.id}`, body)
@@ -72,7 +77,7 @@ export default function ActionButton(props: PropsType) {
         OnSuccessDeleteDialogAction()
         SuccessMessage('تم حذف المستخدم بنجاح')
       })
-      .catch(err => {
+      .catch(() => {
         errorMessage('تعذر الحذف')
       })
   }
@@ -89,6 +94,7 @@ export default function ActionButton(props: PropsType) {
       <GlobelDropDownMenu
         btnTitle='أجراء'
         buttons={buttons}
+
         //btnColor='inherit'
       />
       <ScreenCenterDialog open={openDeleteDialog} setOpen={setOpenDeleteDialog} title={<></>} dialogContent={<></>} />

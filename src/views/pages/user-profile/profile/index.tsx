@@ -6,9 +6,6 @@ import type { ProfileTabType } from '@/types/pages/profileTypes'
 
 // Component Imports
 import AboutOverview from './AboutOverview'
-import ActivityTimeline from './ActivityTimeline'
-import ConnectionsTeams from './ConnectionsTeams'
-import ProjectListTable from './ProjectListTable'
 
 const ProfileTab = ({ data }: { data?: ProfileTabType }) => {
   return (

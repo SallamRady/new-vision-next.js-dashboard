@@ -1,7 +1,10 @@
 'use client'
-import HorizontalWithSubtitle from '@/components/card-statistics/HorizontalWithSubtitle'
-import { Stack } from '@mui/material'
 import { useContext } from 'react'
+
+import { Stack } from '@mui/material'
+
+import HorizontalWithSubtitle from '@/components/card-statistics/HorizontalWithSubtitle'
+
 import { UsersContext } from '../../context'
 
 export default function UsersTopCards() {
@@ -16,6 +19,7 @@ export default function UsersTopCards() {
         avatarIcon='ri-user-3-line'
         avatarColor='primary'
         trend='positive'
+
         // trendNumber='18%'
       />
       <HorizontalWithSubtitle
@@ -25,6 +29,7 @@ export default function UsersTopCards() {
         avatarIcon='ri-arrow-right-up-line'
         avatarColor='primary'
         trend='negative'
+
         // trendNumber='14%'
       />
       <HorizontalWithSubtitle
@@ -34,6 +39,7 @@ export default function UsersTopCards() {
         avatarIcon='ri-checkbox-circle-line'
         avatarColor='primary'
         trend='positive'
+
         // trendNumber='18%'
       />
       <HorizontalWithSubtitle
@@ -43,6 +49,7 @@ export default function UsersTopCards() {
         avatarIcon='ri-bar-chart-fill'
         avatarColor='primary'
         trend='negative'
+
         // trendNumber='14%'
       />
     </Stack>

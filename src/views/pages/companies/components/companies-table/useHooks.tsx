@@ -1,12 +1,14 @@
 'use client'
+
 // import packages
+import { useContext, useMemo } from 'react'
+
 import { Button, Checkbox, Chip, IconButton, Paper, Tooltip, Typography } from '@mui/material'
 import { createColumnHelper, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import { useContext, useMemo } from 'react'
-import { TenantType } from '@/types/companies/CompanyTableRowType'
+import type { TenantType } from '@/types/companies/CompanyTableRowType'
 import { ComponiesCxt } from '../../context/ComponiesCxt'
 import { fuzzyFilter } from '@/utils/table/fuzzyFilter'
 import { getSortedRowModel } from '@/utils/table/getSortedRowModel'
@@ -36,6 +38,7 @@ export function useHooks() {
           <Checkbox
             {...{
               checked: row.getIsSelected(),
+
               // disabled: !row.getCanSelect(),
               indeterminate: row.getIsSomeSelected(),
               onChange: row.getToggleSelectedHandler()
@@ -72,6 +75,7 @@ export function useHooks() {
         header: 'الحالة',
         cell: ({ row }) => {
           if (row.original.status == -1) return <Chip label='استكمال بيانات' color='warning' variant='tonal' />
+
           return <Chip label='Unkowen' color='error' variant='tonal' />
         },
         enableHiding: true // Allow hiding this column

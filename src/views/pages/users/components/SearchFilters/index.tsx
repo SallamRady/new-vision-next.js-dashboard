@@ -1,7 +1,10 @@
 'use client'
-import SelectControlField from '@/components/forms/select-elements/SelectControlField'
-import { Button, Stack, Typography } from '@mui/material'
 import { useContext, useState } from 'react'
+
+import { Button, Stack, Typography } from '@mui/material'
+
+import SelectControlField from '@/components/forms/select-elements/SelectControlField'
+
 import { UsersContext } from '../../context'
 import { SelectFieldWithValue } from '../users-table/components/EditUserDialog'
 
@@ -9,6 +12,7 @@ export default function UsersSearchFilters() {
   // ** handle declare and handleChangeSearchParamsdefine component state and variables
   const [search, setSearch] = useState<BodyType>({})
   const { handleChangeSearchParams, userLookups } = useContext(UsersContext)
+
   // ** handle declare and define component helper methods
   const handleChange = (key: string, value: string) => {
     setSearch(prev => ({ ...prev, [key]: value }))
@@ -16,6 +20,7 @@ export default function UsersSearchFilters() {
 
   const handleSearch = () => {
     let params = ''
+
     //prepare serach
     for (const key in search) {
       if (search.hasOwnProperty(key)) {
@@ -27,6 +32,7 @@ export default function UsersSearchFilters() {
         }
       }
     }
+
     console.log('paramsparams', params)
     handleChangeSearchParams(params)
   }
@@ -74,6 +80,7 @@ export default function UsersSearchFilters() {
           label='حالة الموظف'
           options={[]}
           addNoneOption={true}
+
           // handleSelectFieldChange={(newValue: string) => {
           //   handleChange('tenant_id', newValue)
           // }}

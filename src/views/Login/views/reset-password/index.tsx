@@ -1,19 +1,10 @@
 'use client'
 
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography
-} from '@mui/material'
+import { useContext, useState } from 'react'
+
+import { Button, Card, CardContent, CardHeader, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
 
 import { api } from '@/Constants/Api'
-import { useContext, useState } from 'react'
 import axiosInstance from '@/libs/axiosConfig'
 import { retriveFromLocalStorage } from '@/utils/local.storage'
 import { SuccessMessage } from '@/utils/notificationsMessages'
@@ -35,12 +26,14 @@ function ResetPassword() {
   // ** declare and define component helper methods
   function handleReSetPassword() {
     if (!(error.password == false && error.confirmPassword == false)) return //invalid
+
     //prepare body of form
     const body = {
       global_id: retriveFromLocalStorage(`globalId`),
       password: password,
       password_confirmation: confirmPassword
     }
+
     //start sending request
     setLoading(true)
     axiosInstance
@@ -49,15 +42,16 @@ function ResetPassword() {
           'X-Tenant': retriveFromLocalStorage(`xTenentId`)
         }
       })
-      .then(response => {
+      .then(() => {
         SuccessMessage('تم تغير حفظ كلمة المرور بنجاح, سيتم تحويلك لتجسيل الدخول الأن')
         handleChangeView(LoginPageViews.MAIN_PAGE)
       })
-      .catch(err => {})
+      .catch(() => {})
       .finally(() => {
         setLoading(false)
       })
   }
+
   function handlePasswordChange(str: string) {
     if (str.length == 0) setErrorMessage(err => ({ ...err, password: 'كلمة المرور مطلوبة' }))
     else if (!new RegExp('[A-Z]').test(str)) {
@@ -88,6 +82,7 @@ function ResetPassword() {
 
     setPassword(str)
   }
+
   function handleChangeConfirmPassword(str: string) {
     if (str !== password) {
       setError(prev => ({ ...prev, confirmPassword: true }))

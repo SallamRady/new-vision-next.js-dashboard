@@ -1,4 +1,3 @@
-import logo from '@assets/images/logos/new-vision.png'
 import {
   Avatar,
   Button,
@@ -13,6 +12,8 @@ import {
   ListItemText,
   Typography
 } from '@mui/material'
+
+import logo from '@assets/images/logos/new-vision.png'
 
 function DetailsCard() {
   return (

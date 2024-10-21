@@ -1,5 +1,5 @@
-import { CountryType } from '../system-admin/countries'
-import { TenentType } from '../tenant'
+import type { CountryType } from '../system-admin/countries'
+import type { TenentType } from '../tenant'
 
 export type UserType = {
   id: number

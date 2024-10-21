@@ -1,5 +1,7 @@
-import Image from 'next/image'
 import React, { Suspense, useState } from 'react'
+
+import Image from 'next/image'
+
 import {
   Button,
   Card,
@@ -23,9 +25,11 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import type { ColumnDef, FilterFn } from '@tanstack/react-table'
+
 // Import styles
 import classNames from 'classnames'
 import { rankItem } from '@tanstack/match-sorter-utils'
+
 import tableStyles from '@core/styles/table.module.css'
 
 // Import media
@@ -35,7 +39,9 @@ import LeftSlideInDialog from '@/components/dialogs/left-dialog'
 // Define a fuzzy filter function
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
   const itemRank = rankItem(row.getValue(columnId), value)
+
   addMeta({ itemRank })
+
   return itemRank.passed
 }
 
@@ -68,7 +74,6 @@ export default function GenericDataTable<T>({
   durringFireAddFun,
   hideTableHeader = false,
   disableSearch = false,
-  disableExport = false,
   openAddDialog,
   setOpenAddDialog,
   addDialogTitile
@@ -80,7 +85,7 @@ export default function GenericDataTable<T>({
   const [columnsVisibilityFilters, setColumnsVisibilityFilters] = useState('')
   const [openColumnVisibilityControlDialog, setOpenColumnVisibilityControlDialog] = useState(false)
   const [pageIndex, setPageIndex] = useState(0)
-  const [pageSize, _] = useState(10)
+  const [pageSize] = useState(10)
 
   // ** declare the table instance
   const table = useReactTable({

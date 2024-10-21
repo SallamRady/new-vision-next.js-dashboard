@@ -14,4 +14,4 @@ export type LoginWayType = {
   lookup: LoginWayLookUpType
 }
 
-export type LoginWayLookUpType = { name: String }
+export type LoginWayLookUpType = { name: string }

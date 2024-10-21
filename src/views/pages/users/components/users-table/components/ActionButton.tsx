@@ -1,13 +1,20 @@
 'use client'
-import GlobelDropDownMenu, { GenericMenuButton } from '@/components/drop-down-menu/GlobelDropDownMenu'
+import type { SetStateAction } from 'react'
+
+import { useContext, useState } from 'react'
+
+import { Typography } from '@mui/material'
+
+import type { GenericMenuButton } from '@/components/drop-down-menu/GlobelDropDownMenu'
+import GlobelDropDownMenu from '@/components/drop-down-menu/GlobelDropDownMenu'
 import { api } from '@/Constants/Api'
 import axiosInstance from '@/libs/axiosConfig'
 import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
-import { SetStateAction, useContext, useState } from 'react'
+
 import { UsersContext } from '../../../context'
-import { UserType } from '@/types/users/users-page-types'
+import type { UserType } from '@/types/users/users-page-types'
 import ScreenCenterDialog from '@/components/dialogs/screen-center-dialog'
-import { Typography } from '@mui/material'
+
 import DeleteUserDialogContent from './DeleteDialogContent'
 
 export default function ActionButton(props: PropsType) {
@@ -66,7 +73,7 @@ export default function ActionButton(props: PropsType) {
 
   // ** declare and define actions
   const handleDeleteUser = () => {
-    let body = row?.tenants?.length > 0 ? { tenant_id: [row?.tenants?.[0]?.id] } : {}
+    const body = row?.tenants?.length > 0 ? { tenant_id: [row?.tenants?.[0]?.id] } : {}
 
     axiosInstance
       .post(api`user/delete/${row.id}`, body)
@@ -74,7 +81,7 @@ export default function ActionButton(props: PropsType) {
         OnSuccessDeleteDialogAction()
         SuccessMessage('تم حذف المستخدم بنجاح')
       })
-      .catch(err => {
+      .catch(() => {
         errorMessage('تعذر الحذف')
       })
   }
@@ -91,6 +98,7 @@ export default function ActionButton(props: PropsType) {
       <GlobelDropDownMenu
         btnTitle='أجراء'
         buttons={buttons}
+
         //btnColor='inherit'
       />
       <ScreenCenterDialog

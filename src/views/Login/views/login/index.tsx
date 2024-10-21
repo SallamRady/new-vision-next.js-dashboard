@@ -1,33 +1,29 @@
 'use client'
 
 // MUI
+import { useContext, useState } from 'react'
+
 import { Button, Card, CardContent, CardHeader, TextField, Typography } from '@mui/material'
 
 // import packages
 import axios from 'axios'
+
 import { api } from '@/Constants/Api'
-import { useContext, useState } from 'react'
-import { TenentType } from '@/types/tenant'
+import type { TenentType } from '@/types/tenant'
 import { errorMessage } from '@/utils/notificationsMessages'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
 import { StoreInLocalStorage } from '@/utils/local.storage'
 
 // assets
-import NafazImg from '@/assets/images/logos/nfaz.png'
-import gmailImg from '@/assets/images/logos/Gmail-Logo.png'
-import yahooImg from '@/assets/images/logos/yahoo-logo.png'
 
 function LoginView() {
   // ** declare and define component state and variables
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [identifier, setIdentifier] = useState('')
+
   const { handleChangeView, storeTenants, storeGlobalId, storeSelectedTenant, handleSetPassword, handleSetIdentifier } =
     useContext(AuthOperationsContext)
-
-  const ImgStyle = {
-    cursor: 'pointer'
-  }
 
   // ** declare and define component helper methods
   function handleSendIdentifier() {
@@ -37,6 +33,7 @@ function LoginView() {
     // declare helper variables
     const url = api`identifier-check`
     const body = { identifier }
+
     const headers = {
       'Content-Type': 'application/json'
     }
@@ -71,6 +68,7 @@ function LoginView() {
               if (response.data?.can_set_pass) {
                 handleSetPassword(true)
               }
+
               storeTenants(tenants)
               handleChangeView(LoginPageViews.Multi_TENANTS)
             } else if (tenants.length == 1) {
@@ -78,10 +76,13 @@ function LoginView() {
 
               if (response.data?.can_set_pass) {
                 handleChangeView(LoginPageViews.SetPassword)
+
                 return
               }
+
               //redirect to correct login page
               const lookUp = tenants?.[0]?.login_ways?.[0]?.lookup
+
               switch (lookUp.name) {
                 case LoginPageViews.PASSWORD:
                   handleChangeView(LoginPageViews.PASSWORD)
@@ -94,7 +95,7 @@ function LoginView() {
           }
         }
       })
-      .catch(err => {
+      .catch(() => {
         errorMessage('خطا غير متوقع برجاء المحاولة فى وقت اخر')
       })
       .finally(() => {

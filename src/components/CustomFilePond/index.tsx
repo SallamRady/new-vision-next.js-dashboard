@@ -1,5 +1,7 @@
 import React from 'react'
-import { FilePond, FilePondProps } from 'react-filepond'
+
+import type { FilePondProps } from 'react-filepond'
+import { FilePond } from 'react-filepond'
 
 interface CustomFilePondProps extends FilePondProps {
   labelIdle?: string

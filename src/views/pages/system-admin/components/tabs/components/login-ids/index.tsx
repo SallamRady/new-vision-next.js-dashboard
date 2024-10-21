@@ -1,4 +1,5 @@
-import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import type { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import GeneralTabsComponent from '@/components/tabs/GeneralTabs'
 import SystemAdminLoginIdentifiersTab from './tabs/LoginIdentifiers'
 import SystemAdminLoginsWaysTab from './tabs/loginsApps/LoginsWaysTab'
 
@@ -30,5 +31,3 @@ export default function SystemAdminLoginIDsTab() {
   // return component ui
   return <GeneralTabsComponent defaultTabId='GT-SA-LS-1' tabs={tabsData} />
 }
-
-type PropsType = {}

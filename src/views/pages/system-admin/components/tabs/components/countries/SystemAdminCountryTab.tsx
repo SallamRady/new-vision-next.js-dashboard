@@ -1,12 +1,15 @@
 'use client'
+
 // import packages
+import { useMemo, useState } from 'react'
+
 import Image from 'next/image'
+
 import { Checkbox, Chip, IconButton, Typography } from '@mui/material'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import { useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
 import type { CountryType } from '@/types/system-admin/countries'
 
@@ -63,7 +66,6 @@ const mockData: CountryType[] = [
 
 export default function SystemAdminCountryTab() {
   // ** declare and define component state and variables
-  const [data, setData] = useState<CountryType[]>(mockData)
   const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // declare tanstack table columns
@@ -84,6 +86,7 @@ export default function SystemAdminCountryTab() {
           <Checkbox
             {...{
               checked: row.getIsSelected(),
+
               // disabled: !row.getCanSelect(),
               indeterminate: row.getIsSomeSelected(),
               onChange: row.getToggleSelectedHandler()
@@ -115,6 +118,7 @@ export default function SystemAdminCountryTab() {
         header: 'الحالة',
         cell: ({ row }) => {
           if (row.original.status == true) return <Chip label='فعالة' color='success' variant='tonal' />
+
           return <Chip label='غير فعالة' color='warning' variant='tonal' />
         },
         enableHiding: true // Allow hiding this column
@@ -129,7 +133,7 @@ export default function SystemAdminCountryTab() {
       {
         id: 'setting',
         header: 'الأعدادات',
-        cell: ({ row }) => (
+        cell: () => (
           <>
             <IconButton color='default'>
               <i className='ri-more-2-line' />
@@ -156,5 +160,3 @@ export default function SystemAdminCountryTab() {
     />
   )
 }
-
-type PropsType = {}

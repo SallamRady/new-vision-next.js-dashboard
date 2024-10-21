@@ -1,4 +1,6 @@
 // Type Imports
+import Image from 'next/image'
+
 import { Container, Stack, Typography } from '@mui/material'
 
 // assets
@@ -15,7 +17,6 @@ import { ParticlesComponent } from '@/components/particles'
 import RoundedBackgroundContainer from '@/components/rounded-background-container'
 import LoginViewsIndex from './views'
 import PageHeader from './components/PageHeader'
-import Image from 'next/image'
 import ConstraxImg from '@/assets/images/logos/constrix.png'
 
 const LoginV1 = ({}: { mode: Mode }) => {

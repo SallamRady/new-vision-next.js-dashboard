@@ -1,15 +1,16 @@
 'use client'
 
+import { useContext, useState } from 'react'
+
 import { Button, Card, CardContent, CardHeader, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
 
 import { api } from '@/Constants/Api'
-import { useContext, useState } from 'react'
 import { retriveFromLocalStorage } from '@/utils/local.storage'
 import { SuccessMessage } from '@/utils/notificationsMessages'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
 import axiosInstance from '@/libs/axiosConfig'
 import SelectControlField from '@/components/forms/select-elements/SelectControlField'
-import { SelectFieldOptionType } from '@/types/input-controls-types'
+import type { SelectFieldOptionType } from '@/types/input-controls-types'
 import WarningAlert from '@/components/alerts/WarningAlert'
 
 function SetPasswordView() {
@@ -30,12 +31,14 @@ function SetPasswordView() {
   // ** declare and define component helper methods
   function handleSetPassword() {
     if (!(error.password == false && error.confirmPassword == false)) return //invalid
+
     //prepare body of form
     const body = {
       global_id: retriveFromLocalStorage(`globalId`),
       password: password,
       password_confirmation: confirmPassword
     }
+
     //start sending request
     setLoading(true)
     axiosInstance
@@ -44,15 +47,16 @@ function SetPasswordView() {
           'X-Tenant': retriveFromLocalStorage(`xTenentId`)
         }
       })
-      .then(response => {
+      .then(() => {
         SuccessMessage('تم تغير حفظ كلمة المرور بنجاح, سيتم تحويلك لتجسيل الدخول الأن')
         handleChangeView(LoginPageViews.MAIN_PAGE)
       })
-      .catch(err => {})
+      .catch(() => {})
       .finally(() => {
         setLoading(false)
       })
   }
+
   function handlePasswordChange(str: string) {
     if (str.length == 0) setErrorMessage(err => ({ ...err, password: 'كلمة المرور مطلوبة' }))
     else if (!new RegExp('[A-Z]').test(str)) {
@@ -83,6 +87,7 @@ function SetPasswordView() {
 
     setPassword(str)
   }
+
   function handleChangeConfirmPassword(str: string) {
     if (str !== password) {
       setError(prev => ({ ...prev, confirmPassword: true }))

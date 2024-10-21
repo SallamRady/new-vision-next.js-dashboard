@@ -1,12 +1,18 @@
 'use client'
 
 import { Controller } from 'react-hook-form'
-import { getGridItem } from '@/components/get-grid-item'
+
 import { Card, CardContent, Grid, MenuItem, TextField } from '@mui/material'
+
 import LoadingButton from '@mui/lab/LoadingButton'
-import { useHooks } from './useHooks'
-import { UserBankAccount } from '@/types/api/common/User'
+
 import axios from 'axios'
+
+import { getGridItem } from '@/components/get-grid-item'
+
+import { useHooks } from './useHooks'
+import type { UserBankAccount } from '@/types/api/common/User'
+
 import { getClientAuthHeaders } from '@/libs/headers/clientHeaders'
 import { api } from '@/Constants/Api'
 import { SuccessMessage, errorMessage } from '@/utils/notificationsMessages'
@@ -31,6 +37,7 @@ function SingleBankForm({ bankAccount, refresh }: Props) {
   const onSubmit = handleSubmit(async data => {
     try {
       const headers = await getClientAuthHeaders()
+
       await axios.request({
         headers,
         data,

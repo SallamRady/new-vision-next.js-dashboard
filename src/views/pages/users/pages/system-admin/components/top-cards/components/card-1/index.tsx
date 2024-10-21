@@ -1,5 +1,6 @@
-import HorizontalWithSubtitle from '@/components/card-statistics/HorizontalWithSubtitle'
 import { Card, CardContent } from '@mui/material'
+
+import HorizontalWithSubtitle from '@/components/card-statistics/HorizontalWithSubtitle'
 
 export default function UsersAdmanCardNUm1() {
   return (

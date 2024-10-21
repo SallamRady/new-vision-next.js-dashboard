@@ -1,4 +1,5 @@
 import { Stack } from '@mui/material'
+
 import TabsOfMainystemAdmin from '../tabs'
 
 export default function SystemAdminEntryPoint() {

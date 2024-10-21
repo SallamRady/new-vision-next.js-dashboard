@@ -1,31 +1,36 @@
 'use client'
 
-import { api } from '@/Constants/Api-v2'
-import { getClientAuthHeaders } from '@/libs/headers/clientHeaders'
-import { Role } from '@/types/api/common/Role'
-import { getPermissions } from '@/utils/api/permissions/get-permissions'
+import { useRouter } from 'next/navigation'
+
 import { zodResolver } from '@hookform/resolvers/zod'
+
 import LoadingButton from '@mui/lab/LoadingButton'
 import { Box, Chip, MenuItem, Stack, TextField, Typography } from '@mui/material'
 import Drawer from '@mui/material/Drawer'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import { permission } from 'process'
+
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
+
+import { getPermissions } from '@/utils/api/permissions/get-permissions'
+import type { Role } from '@/types/api/common/Role'
+import { getClientAuthHeaders } from '@/libs/headers/clientHeaders'
+import { api } from '@/Constants/api-v2'
 
 const addRoleSchema = z.object({
   name: z.string().min(4).max(64),
   permissions: z.array(z.string())
 })
+
 type AddRoleSchemaType = z.infer<typeof addRoleSchema>
 
-function AddDrawer({ onClose, open, role }: Props) {
+function AddDrawer({ onClose, open }: Props) {
   const { data: permissions } = useQuery({
     queryKey: ['all permissions'],
     queryFn: async () => {
       const headers = await getClientAuthHeaders()
+
       return await getPermissions(headers)
     }
   })
@@ -34,7 +39,7 @@ function AddDrawer({ onClose, open, role }: Props) {
     register,
     control,
     handleSubmit,
-    formState: { errors, isSubmitting }
+    formState: { isSubmitting }
   } = useForm<AddRoleSchemaType>({
     resolver: zodResolver(addRoleSchema),
     defaultValues: {
@@ -42,11 +47,15 @@ function AddDrawer({ onClose, open, role }: Props) {
       permissions: []
     }
   })
+
   const router = useRouter()
+
   const onSubmit = handleSubmit(async data => {
     try {
       const headers = await getClientAuthHeaders()
-      const res = await axios.post(api`create-role`, data, { headers })
+
+      await axios.post(api`create-role`, data, { headers })
+
       onClose()
       router.refresh()
     } catch (error) {

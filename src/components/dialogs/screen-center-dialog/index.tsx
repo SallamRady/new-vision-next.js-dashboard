@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { SetStateAction } from 'react'
+import type { SetStateAction } from 'react'
 
 // MUI Imports
 import Dialog from '@mui/material/Dialog'

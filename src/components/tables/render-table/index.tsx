@@ -1,9 +1,12 @@
 import React, { Suspense } from 'react'
+
 import { flexRender } from '@tanstack/react-table'
 import type { Table } from '@tanstack/react-table'
 import classNames from 'classnames'
-import tableStyles from '@core/styles/table.module.css'
+
 import { LinearProgress } from '@mui/material'
+
+import tableStyles from '@core/styles/table.module.css'
 
 // declare props type
 type Props<T> = {

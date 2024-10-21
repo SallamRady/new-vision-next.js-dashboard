@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 
+// eslint-disable-next-line import/no-named-as-default
 import Particles, { initParticlesEngine } from '@tsparticles/react'
 import { type Container, type ISourceOptions } from '@tsparticles/engine'
 import { loadSlim } from '@tsparticles/slim'
@@ -543,6 +544,7 @@ export const ParticlesComponent = () => {
           }
         }
       }) as any,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [theme.palette.background.default]
   )
 

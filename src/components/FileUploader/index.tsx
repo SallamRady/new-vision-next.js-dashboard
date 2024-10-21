@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { SetStateAction } from 'react'
+import type { SetStateAction } from 'react'
 
 // MUI Imports
 import List from '@mui/material/List'
@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography'
 
 // Icon Imports
 import { useDropzone } from 'react-dropzone'
+
 import { errorMessage } from '@/utils/notificationsMessages'
 
 type FileProp = {
@@ -41,6 +42,7 @@ export default function FileUploader(props: PropsType) {
     },
     onDrop: (acceptedFiles: File[]) => {
       setFiles(acceptedFiles.map((file: File) => Object.assign(file)))
+
       if (handleChange) {
         handleChange(acceptedFiles)
       }
@@ -65,6 +67,7 @@ export default function FileUploader(props: PropsType) {
     if (handleChange) {
       handleChange([...filtered])
     }
+
     setFiles([...filtered])
   }
 

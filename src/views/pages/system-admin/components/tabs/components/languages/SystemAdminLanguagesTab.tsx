@@ -1,13 +1,15 @@
 'use client'
+
 // import packages
+import { useMemo, useState } from 'react'
+
 import { Checkbox, IconButton, Typography } from '@mui/material'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import { useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
-import { LanguageType } from '@/types/system-admin/laguages'
+import type { LanguageType } from '@/types/system-admin/laguages'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<LanguageType>()
@@ -77,7 +79,6 @@ const mockData: LanguageType[] = [
 
 export default function SystemAdminLanguagesTab() {
   // ** declare and define component state and variables
-  const [data, setData] = useState<LanguageType[]>(mockData)
   const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // declare tanstack table columns
@@ -98,6 +99,7 @@ export default function SystemAdminLanguagesTab() {
           <Checkbox
             {...{
               checked: row.getIsSelected(),
+
               // disabled: !row.getCanSelect(),
               indeterminate: row.getIsSomeSelected(),
               onChange: row.getToggleSelectedHandler()
@@ -132,7 +134,7 @@ export default function SystemAdminLanguagesTab() {
       {
         id: 'setting',
         header: 'الأعدادات',
-        cell: ({ row }) => (
+        cell: () => (
           <>
             <IconButton color='default'>
               <i className='ri-more-2-line' />
@@ -159,5 +161,3 @@ export default function SystemAdminLanguagesTab() {
     />
   )
 }
-
-type PropsType = {}

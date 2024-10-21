@@ -1,13 +1,15 @@
 'use client'
+
 // import packages
+import { useMemo, useState } from 'react'
+
 import { Checkbox, Switch, Typography } from '@mui/material'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import { useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
-import { UserAdminPageSearchFiltersControlType } from '@/types/users/users-system-admin-types'
+import type { UserAdminPageSearchFiltersControlType } from '@/types/users/users-system-admin-types'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<UserAdminPageSearchFiltersControlType>()
@@ -20,7 +22,6 @@ const mockData: UserAdminPageSearchFiltersControlType[] = [
 
 export default function SearchFiltersControl() {
   // ** declare and define component state and variables
-  const [data, setData] = useState<UserAdminPageSearchFiltersControlType[]>(mockData)
   const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // declare tanstack table columns
@@ -41,6 +42,7 @@ export default function SearchFiltersControl() {
           <Checkbox
             {...{
               checked: row.getIsSelected(),
+
               // disabled: !row.getCanSelect(),
               indeterminate: row.getIsSomeSelected(),
               onChange: row.getToggleSelectedHandler()
@@ -85,5 +87,3 @@ export default function SearchFiltersControl() {
     </>
   )
 }
-
-type PropsType = {}

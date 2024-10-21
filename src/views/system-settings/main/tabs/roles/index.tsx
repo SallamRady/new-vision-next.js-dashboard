@@ -1,5 +1,8 @@
+import type { ReactNode } from 'react'
+import { useMemo, useState } from 'react'
+
 import { Tab, Tabs } from '@mui/material'
-import { ReactNode, useMemo, useState } from 'react'
+
 import UsersRoles from './tabs/users-roles'
 
 const views: Record<number, ReactNode> = {

@@ -1,13 +1,15 @@
 'use client'
+
 // import packages
+import { useMemo, useState } from 'react'
+
 import { Checkbox, Chip, IconButton, Stack, Typography } from '@mui/material'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import { useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
-import { UsersRolesType } from '@/types/users/users-system-admin-types'
+import type { UsersRolesType } from '@/types/users/users-system-admin-types'
 import AddUserRole from './AddUserRole'
 
 // define column helper that will help to create tanstack table columns
@@ -41,6 +43,7 @@ export default function UserRolesTab() {
           <Checkbox
             {...{
               checked: row.getIsSelected(),
+
               // disabled: !row.getCanSelect(),
               indeterminate: row.getIsSomeSelected(),
               onChange: row.getToggleSelectedHandler()

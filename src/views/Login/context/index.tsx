@@ -1,10 +1,13 @@
 'use client'
 
-import { TenentType } from '@/types/tenant'
-import { existInLocalStorage, StoreInLocalStorage } from '@/utils/local.storage'
-import { redirect } from 'next/navigation'
 import type { ReactNode } from 'react'
+
 import { createContext, useState, useEffect } from 'react'
+
+import { redirect } from 'next/navigation'
+
+import type { TenentType } from '@/types/tenant'
+import { existInLocalStorage, StoreInLocalStorage } from '@/utils/local.storage'
 
 export enum LoginPageViews {
   MAIN_PAGE = 'login',
@@ -19,17 +22,17 @@ export enum LoginPageViews {
 
 export const AuthOperationsContext = createContext<AuthOperationsContextType>({
   view: LoginPageViews.MAIN_PAGE,
-  handleChangeView: _view => {},
+  handleChangeView: () => {},
   tenants: [],
-  storeTenants: _tenants => {},
+  storeTenants: () => {},
   globalId: -1,
   identifier: '',
-  storeGlobalId: id => {},
+  storeGlobalId: () => {},
   selectedTenant: undefined,
-  storeSelectedTenant: tenant => {},
-  handleSetPassword: set => {},
+  storeSelectedTenant: () => {},
+  handleSetPassword: () => {},
   setPassword: false,
-  handleSetIdentifier: str => {}
+  handleSetIdentifier: () => {}
 })
 
 export const AuthOperationsContextProvider = ({ children }: { children: ReactNode }) => {
@@ -47,6 +50,7 @@ export const AuthOperationsContextProvider = ({ children }: { children: ReactNod
       return redirect('/home')
     }
   }, [])
+
   // ** declare and define component helper methods
   function handleSetIdentifier(str: string) {
     setIdentifier(str)

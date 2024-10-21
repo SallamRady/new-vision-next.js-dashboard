@@ -1,11 +1,13 @@
 'use client'
+
 // import packages
+import { useMemo, useState } from 'react'
+
 import { Checkbox, Switch, Typography } from '@mui/material'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import { useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
 import type { UserAdminPageTableColumnsControlType } from '@/types/users/users-system-admin-types'
 
@@ -26,7 +28,6 @@ const mockData: UserAdminPageTableColumnsControlType[] = [
 
 export default function TableColumnsControl() {
   // ** declare and define component state and variables
-  const [data, setData] = useState<UserAdminPageTableColumnsControlType[]>(mockData)
   const [openAddDialog, setOpenAddDialog] = useState(false)
 
   // declare tanstack table columns
@@ -47,6 +48,7 @@ export default function TableColumnsControl() {
           <Checkbox
             {...{
               checked: row.getIsSelected(),
+
               // disabled: !row.getCanSelect(),
               indeterminate: row.getIsSomeSelected(),
               onChange: row.getToggleSelectedHandler()
@@ -91,5 +93,3 @@ export default function TableColumnsControl() {
     </>
   )
 }
-
-type PropsType = {}

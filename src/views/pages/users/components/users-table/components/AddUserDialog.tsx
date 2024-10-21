@@ -1,13 +1,16 @@
 'use client'
-import SelectControlField from '@/components/forms/select-elements/SelectControlField'
+import { useContext, useEffect, useState } from 'react'
+
 import { Button, FormControlLabel, FormHelperText, Radio, RadioGroup, Skeleton, Stack, Typography } from '@mui/material'
+
+import SelectControlField from '@/components/forms/select-elements/SelectControlField'
 import axiosInstance from '@/libs/axiosConfig'
 import { UsersContext } from '../../../context'
-import { useContext, useEffect, useState } from 'react'
-import { CountryType } from '@/types/system-admin/countries'
+
+import type { CountryType } from '@/types/system-admin/countries'
 import TextFieldControl from '@/components/forms/text-field/TextFieldControl'
-import { UserType } from '@/types/users/users-page-types'
-import { validationType } from '@/types/validationType'
+import type { UserType } from '@/types/users/users-page-types'
+import type { validationType } from '@/types/validationType'
 import { api } from '@/Constants/Api'
 import ScreenCenterDialog from '@/components/dialogs/screen-center-dialog'
 
@@ -90,6 +93,7 @@ export default function AddUserDialogContent(props: PropsType) {
 
   const addFromInvalidFields = (key: string) => {
     setInvalidFields(prev => prev.filter(field => field != key))
+
     if (invalidFields.indexOf(key) == -1) {
       setInvalidFields(prev => [...prev, key])
     }
@@ -98,6 +102,7 @@ export default function AddUserDialogContent(props: PropsType) {
   const handleSaveUser = () => {
     // prepare variables
     setLoading(true)
+
     const formBody = {
       name: body['name'] ?? null,
       email: body['email'] ?? null,
@@ -111,6 +116,7 @@ export default function AddUserDialogContent(props: PropsType) {
       iqama: UserIdentifierEnum.Iqama == identifierType ? (body['identifier'] ?? null) : null,
       border_number: UserIdentifierEnum.BorderNumber == identifierType ? (body['identifier'] ?? null) : null
     }
+
     //send request
     axiosInstance
       .post<{ user: UserType }>(api`register`, formBody)
@@ -190,23 +196,28 @@ export default function AddUserDialogContent(props: PropsType) {
                 setDisabledFields(prev => prev.filter(ele => ele != 'name'))
                 delete body['tenant_id']
                 setUserEnumType(UserTypeEnum.Client)
+
                 if (identifierType == UserIdentifierEnum.BorderNumber || identifierType == UserIdentifierEnum.Iqama) {
                   setIdentifierLabel('رقم الهوية الوطنية')
                   setIdentifierType(UserIdentifierEnum.NationalIdentity)
                   handleChange('identifier', '')
                 }
+
                 break
               case '13': //freelance
                 setDisabledFields(prev => prev.filter(ele => ele != 'name'))
                 delete body['tenant_id']
                 setUserEnumType(UserTypeEnum.Freelance)
+
                 if (identifierType == UserIdentifierEnum.BorderNumber || identifierType == UserIdentifierEnum.Iqama) {
                   setIdentifierLabel('رقم الهوية الوطنية')
                   setIdentifierType(UserIdentifierEnum.NationalIdentity)
                   handleChange('identifier', '')
                 }
+
                 break
             }
+
             handleChange('user_type_id', newValue)
           }}
           validationFun={newValue => newValue.length > 0}
@@ -223,6 +234,7 @@ export default function AddUserDialogContent(props: PropsType) {
                 handleChange('tenant_id', newValue)
                 setDisabledFields(prev => prev.filter(ele => ele != 'name'))
                 const _country_id = userLookups?.tenants?.find(ele => ele.id == +newValue)?.country_id
+
                 setCompanyCountryId(_country_id ?? -1)
               }}
               validationFun={newValue => newValue.length > 0}
@@ -250,10 +262,11 @@ export default function AddUserDialogContent(props: PropsType) {
             type='text'
             value={userName}
             handleChange={newValue => {
-              let val = newValue
+              const val = newValue
                 .replace(/[^a-zA-Z\u0600-\u06FF]]/g, '')
                 .replace(/[0-9]/g, '')
                 .replace(/[+.!@#$%^&*()\-_=/*?|}{[~?//|\\><`]/g, '')
+
               handleChange('name', val)
               setUserName(val)
               setDisabledFields(prev => prev.filter(ele => ele != 'country_id'))
@@ -262,14 +275,17 @@ export default function AddUserDialogContent(props: PropsType) {
               if (newValue.length > 0 && newValue.split(' ').filter(ele => ele.length).length >= 3) {
                 removeFromInvalidFields('name')
                 setNameErrorMessage('')
+
                 return true
               } else if (newValue.length == 0) {
                 addFromInvalidFields('name')
                 setNameErrorMessage('أسم المستخدم مطلوب')
+
                 return false
               } else {
                 addFromInvalidFields('name')
                 setNameErrorMessage('أسم المستخدم لابد ان يتكون من 3 كلمات')
+
                 return false
               }
             }}
@@ -282,12 +298,12 @@ export default function AddUserDialogContent(props: PropsType) {
         {canShowInputField('country_id') && (
           <SelectControlField
             label='الجنسية'
-            // defaultValue='191'
             options={userLookups?.countries?.map(ele => ({ label: ele.name_ar, value: ele.id + '' })) || []}
             handleSelectFieldChange={newValue => {
               setUserCountry(userLookups?.countries?.find(ele => ele.id == +newValue))
               handleChange('country_id', newValue)
               setDisabledFields(prev => prev.filter(ele => ele != 'identifier'))
+
               if (userEnumType == UserTypeEnum.Admin || userEnumType == UserTypeEnum.Employee) {
                 if (newValue == companyCountryId + '') setIdentifierType(UserIdentifierEnum.NationalIdentity)
                 else setIdentifierType(UserIdentifierEnum.Passport)
@@ -299,9 +315,12 @@ export default function AddUserDialogContent(props: PropsType) {
             validationFun={newValue => {
               if (newValue.length > 0) {
                 removeFromInvalidFields('country_id')
+
                 return true
               }
+
               addFromInvalidFields('country_id')
+
               return false
             }}
             errorMsg='الجنسية مطلوبة'
@@ -356,9 +375,12 @@ export default function AddUserDialogContent(props: PropsType) {
               validationFun={newValue => {
                 if (newValue.length > 0) {
                   removeFromInvalidFields('identifier')
+
                   return true
                 }
+
                 addFromInvalidFields('identifier')
+
                 return false
               }}
               errorMsg={`${identifierLabel} مطلوب`}
@@ -380,42 +402,57 @@ export default function AddUserDialogContent(props: PropsType) {
               if (emailsRules == undefined) {
                 // there is no email validation rules so use default email validation
                 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+
                 if (newValue.length > 0 && emailRegex.test(newValue)) {
                   removeFromInvalidFields('email')
+
                   return true
                 }
+
                 addFromInvalidFields('email')
+
                 return false
               } else {
                 console.log('emailsRules exist :', emailsRules, newValue)
+
                 if (emailsRules.start_with) {
-                  let arr = emailsRules.start_with?.split(',') ?? []
+                  const arr = emailsRules.start_with?.split(',') ?? []
+
                   for (let idx = 0; idx < arr.length; idx++) {
                     if (!newValue.startsWith(arr[idx])) {
                       addFromInvalidFields('email')
+
                       return false
                     }
                   }
                 }
+
                 if (emailsRules.end_with) {
-                  let arr = emailsRules.end_with?.split(',') ?? []
+                  const arr = emailsRules.end_with?.split(',') ?? []
+
                   for (let idx = 0; idx < arr.length; idx++) {
                     if (!newValue.endsWith(arr[idx])) {
                       addFromInvalidFields('email')
+
                       return false
                     }
                   }
                 }
+
                 if (emailsRules.contains) {
-                  let arr = emailsRules.contains?.split(',') ?? []
+                  const arr = emailsRules.contains?.split(',') ?? []
+
                   for (let idx = 0; idx < arr.length; idx++) {
                     if (!newValue.includes(arr[idx])) {
                       addFromInvalidFields('email')
+
                       return false
                     }
                   }
                 }
+
                 removeFromInvalidFields('email')
+
                 return true
               }
             }}
@@ -435,9 +472,12 @@ export default function AddUserDialogContent(props: PropsType) {
               validationFun={newValue => {
                 if (newValue.length > 0) {
                   removeFromInvalidFields('phone')
+
                   return true
                 }
+
                 addFromInvalidFields('phone')
+
                 return false
               }}
               errorMsg={'رقم الجوال مطلوب'}
@@ -494,6 +534,6 @@ export default function AddUserDialogContent(props: PropsType) {
 }
 
 type PropsType = {
-  open: Boolean
+  open: boolean
   OnSuccessDialogAction: () => void
 }

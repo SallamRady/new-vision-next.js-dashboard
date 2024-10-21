@@ -22,9 +22,10 @@ import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 
 // Hook Imports
+import { signOut } from 'next-auth/react'
+
 import { useSettings } from '@core/hooks/useSettings'
 import { removeKeyFromLocalStorage } from '@/utils/local.storage'
-import { signOut } from 'next-auth/react'
 
 // Styled component for badge content
 const BadgeContentSpan = styled('span')({
@@ -68,6 +69,7 @@ const UserDropdown = () => {
     removeKeyFromLocalStorage('globalId')
     removeKeyFromLocalStorage('xTenentId')
     removeKeyFromLocalStorage('token')
+
     // Redirect to login page
     // router.push('/auth/login')
     signOut()

@@ -1,9 +1,15 @@
 'use client'
 
-import IssueIcon from '@/components/IssueIcon'
+import type { FC } from 'react'
+
+import { useMemo, useState } from 'react'
+
 import { Grid, ListItemIcon, ListItemText, MenuItem, MenuList, Paper } from '@mui/material'
+
 import type { MenuItemProps } from '@mui/material'
-import { FC, useMemo, useState } from 'react'
+
+import IssueIcon from '@/components/IssueIcon'
+
 import PersonalDetails from './personal-details'
 import BankInfo from './bank-info'
 
@@ -34,9 +40,12 @@ const TabItem = ({
 
 function PersonalDetailsTabs() {
   const [tab, setTab] = useState(0)
+
   const renderActiveTab = useMemo(() => {
     const Tab = tabs[tab]
+
     if (!Tab) return null
+
     return <Tab />
   }, [tab])
 

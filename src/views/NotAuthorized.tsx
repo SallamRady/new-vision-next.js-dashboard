@@ -13,7 +13,6 @@ import { signOut } from 'next-auth/react'
 const NotAuthorized = () => {
   // Vars
   const darkImg = '/images/pages/misc-mask-4-dark.png'
-  const lightImg = '/images/pages/misc-mask-4-light.png'
 
   // Hooks
   // const miscBackground = useImageVariant(mode, lightImg, darkImg)

@@ -1,4 +1,3 @@
-import logo from '@assets/images/logos/new-vision.png'
 import {
   Avatar,
   Button,
@@ -10,9 +9,10 @@ import {
   Grid,
   List,
   ListItem,
-  ListItemText,
   Typography
 } from '@mui/material'
+
+import logo from '@assets/images/logos/new-vision.png'
 
 const SingleListItem = (props: SingleListItemProps) => (
   <ListItem>
@@ -97,5 +97,5 @@ type SingleListItemProps = {
 type SimpleStatisticsCardProps = {
   icon: string
   count: number
-  statment: String
+  statment: string
 }

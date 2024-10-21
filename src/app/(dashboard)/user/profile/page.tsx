@@ -5,6 +5,8 @@ import type { ReactElement } from 'react'
 import dynamic from 'next/dynamic'
 
 // Type Imports
+import { notFound } from 'next/navigation'
+
 import type { Data } from '@/types/pages/profileTypes'
 
 // Component Imports
@@ -15,7 +17,6 @@ import { getProfileData } from '@/app/server/actions'
 import ContractView from '@/views/pages/user-profile/contract'
 import { getMe } from '@/utils/api/user/get-me'
 import { getAuthHeaders } from '@/libs/headers/headerServices'
-import { notFound } from 'next/navigation'
 
 const ProfileTab = dynamic(() => import('@views/pages/user-profile/profile'))
 const TeamsTab = dynamic(() => import('@views/pages/user-profile/teams'))

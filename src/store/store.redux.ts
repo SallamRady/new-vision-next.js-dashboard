@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+
 // import reducers
 import lookupReducer from './slices/lookups.slice'
 

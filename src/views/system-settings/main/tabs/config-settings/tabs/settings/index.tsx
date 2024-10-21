@@ -1,4 +1,5 @@
 import { Button, Stack } from '@mui/material'
+
 import ConfigsTable from './ConfigsTable'
 
 function SettingsTab() {

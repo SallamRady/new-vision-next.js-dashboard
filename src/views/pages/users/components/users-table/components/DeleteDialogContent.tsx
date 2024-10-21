@@ -1,7 +1,5 @@
-import { api } from '@/Constants/Api'
-import axiosInstance from '@/libs/axiosConfig'
-import { UserType } from '@/types/users/users-page-types'
-import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
+import { useState } from 'react'
+
 import {
   Button,
   Checkbox,
@@ -13,7 +11,11 @@ import {
   ListItemText,
   Stack
 } from '@mui/material'
-import { useState } from 'react'
+
+import { api } from '@/Constants/Api'
+import axiosInstance from '@/libs/axiosConfig'
+import type { UserType } from '@/types/users/users-page-types'
+import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
 
 export default function DeleteUserDialogContent(props: PropsType) {
   // states and variables
@@ -37,7 +39,7 @@ export default function DeleteUserDialogContent(props: PropsType) {
 
   const handleClick = () => {
     setLoading(true)
-    let body = { tenant_id: checked }
+    const body = { tenant_id: checked }
 
     axiosInstance
       .post(api`user/delete/${user.id}`, body)
@@ -45,7 +47,7 @@ export default function DeleteUserDialogContent(props: PropsType) {
         OnSuccessDeleteDialogAction()
         SuccessMessage('تم حذف المستخدم بنجاح')
       })
-      .catch(err => {
+      .catch(() => {
         errorMessage('تعذر الحذف')
       })
       .finally(() => {

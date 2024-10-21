@@ -1,5 +1,5 @@
-import { LoginWayType } from './login-way'
-import { MediaType } from './media'
+import type { LoginWayType } from './login-way'
+import type { MediaType } from './media'
 
 export type TenentType = {
   code: string

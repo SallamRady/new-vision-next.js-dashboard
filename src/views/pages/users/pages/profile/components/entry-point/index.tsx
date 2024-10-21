@@ -1,4 +1,5 @@
 import { Grid } from '@mui/material'
+
 import UserProfileHeaderCard from '../profile-header'
 
 export default function UserProfileEntryPoint() {

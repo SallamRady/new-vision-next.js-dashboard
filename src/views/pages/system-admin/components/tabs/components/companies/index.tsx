@@ -1,4 +1,5 @@
-import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import type { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import GeneralTabsComponent from '@/components/tabs/GeneralTabs'
 import CompanyDashboardTab from './tabs/company-dashboard'
 
 export default function SystemAdminCompaniesTab() {

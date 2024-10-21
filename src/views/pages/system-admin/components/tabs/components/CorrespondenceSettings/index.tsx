@@ -1,4 +1,5 @@
-import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import type { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import GeneralTabsComponent from '@/components/tabs/GeneralTabs'
 import MailsTab from './tabs/mail/MailsTab'
 import { CorrespondenceSettingsCxtProvider } from './context/CorrespondenceSettingsCxt'
 
@@ -44,5 +45,3 @@ export default function CorrespondenceSettingsTabIndex() {
     </CorrespondenceSettingsCxtProvider>
   )
 }
-
-type PropsType = {}

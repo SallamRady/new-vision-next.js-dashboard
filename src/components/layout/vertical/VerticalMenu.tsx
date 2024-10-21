@@ -83,6 +83,7 @@ const VerticalMenu = ({ scrollMenu }: Props) => {
                 ))}
               </SubMenu>
             )
+
           return (
             <MenuItem key={`${link.href}-${index}`} href={link.href} icon={<i className={link.icon} />}>
               {link.label}

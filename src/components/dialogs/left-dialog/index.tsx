@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+
 import { Dialog, Slide, DialogContent, DialogTitle } from '@mui/material'
 import type { TransitionProps } from '@mui/material/transitions'
 import './index.scss'
@@ -15,10 +16,12 @@ const Transition = React.forwardRef(function Transition(
 export default function LeftSlideInDialog(props: LeftSlideInDialogProps) {
   // ** declare and define component state and variables
   const { open, setOpen, title, dialogContent } = props
+
   // ** declare and define component helper methods
   const handleClose = () => {
     setOpen(false)
   }
+
   // ** return component ui
   return (
     <Dialog
@@ -32,7 +35,6 @@ export default function LeftSlideInDialog(props: LeftSlideInDialogProps) {
           minWidth: '20rem'
         }
       }}
-      // sx={{ width: dialogWidth }}
       aria-labelledby='slide-dialog-title'
     >
       <DialogTitle id='slide-dialog-title'>{title}</DialogTitle>

@@ -1,23 +1,20 @@
 'use client'
 
-import useCompaniesData from '@/hooks/useCompaniesData'
-import useCompaniesLookups from '@/hooks/useCompaniesLookups'
-import { CompaniesLookUpsType, TenantType } from '@/types/companies/CompanyTableRowType'
-import { UseQueryResult } from '@tanstack/react-query'
-// types
 import type { ReactNode } from 'react'
 
-// import packages
 import { createContext, useState } from 'react'
 
-export const ComponiesCxt = createContext<ComponiesCxtType>({
-  params: '',
-  handleChangeParams: str => {},
-  companiesLookupsData: undefined,
-  companiesData: undefined,
-  handleRefreshCompaniesData: () => {},
-  handleChangeCompaniesParams: (str: string) => {}
-} as ComponiesCxtType)
+import type { UseQueryResult } from '@tanstack/react-query'
+
+import useCompaniesData from '@/hooks/useCompaniesData'
+import useCompaniesLookups from '@/hooks/useCompaniesLookups'
+import type { CompaniesLookUpsType, TenantType } from '@/types/companies/CompanyTableRowType'
+
+// types
+
+// import packages
+
+export const ComponiesCxt = createContext<ComponiesCxtType>({} as ComponiesCxtType)
 
 export const ComponiesCxtProvider = ({ children }: { children: ReactNode }) => {
   // ** declare and define component state and variables

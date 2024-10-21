@@ -1,24 +1,29 @@
 'use client'
 
 // MUI Imports
+import { useRouter } from 'next/navigation'
+
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { serialize } from 'object-to-formdata'
 
 // Type Imports
-import type { ProfileHeaderType } from '@/types/pages/profileTypes'
 import { Box, Paper } from '@mui/material'
-import VisuallyHiddenInput from '@/components/ViduallyHiddenInput'
-import { User } from '@/types/api/common/User'
+
 import axios from 'axios'
+
+import type { ProfileHeaderType } from '@/types/pages/profileTypes'
+import VisuallyHiddenInput from '@/components/ViduallyHiddenInput'
+import type { User } from '@/types/api/common/User'
+
 import { api } from '@/Constants/Api'
-import { useRouter } from 'next/navigation'
 import { getClientAuthHeaders } from '@/libs/headers/clientHeaders'
 
 const UserProfileHeader = ({ data, user }: { data?: ProfileHeaderType; user: User }) => {
   const profileImage = user?.pictures?.image?.[0]?.original_url
   const router = useRouter()
+
   return (
     <Card>
       <CardContent className='flex justify-center flex-col items-center gap-6 md:items-end md:flex-row md:justify-start'>
@@ -48,6 +53,7 @@ const UserProfileHeader = ({ data, user }: { data?: ProfileHeaderType; user: Use
                   try {
                     const image = e.target.files?.[0]
                     const headers = await getClientAuthHeaders()
+
                     await axios.post(api`add-image-for-me`, serialize({ image }), { headers })
                     router.refresh()
                   } catch (error) {

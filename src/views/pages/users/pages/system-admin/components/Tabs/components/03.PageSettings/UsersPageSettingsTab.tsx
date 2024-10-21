@@ -1,4 +1,5 @@
 import { Stack } from '@mui/material'
+
 import StatisticsCardsControl from './components/01.StatisticsCardsControl'
 import SearchFiltersControl from './components/02.SearchFiltersControl'
 import TableColumnsControl from './components/03.TableColumnsControl'
@@ -17,5 +18,3 @@ export default function UsersPageSettingsTab() {
     </Stack>
   )
 }
-
-type PropsType = {}

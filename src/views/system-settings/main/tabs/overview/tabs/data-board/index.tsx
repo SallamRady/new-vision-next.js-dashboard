@@ -1,4 +1,5 @@
 import { Grid } from '@mui/material'
+
 import DetailsCard from './DetailsCard'
 import ProfitsCard from './ProfitsCard'
 import PackagesCard from './PackagesCard'

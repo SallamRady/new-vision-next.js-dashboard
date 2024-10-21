@@ -1,4 +1,5 @@
 'use client'
+
 // React Imports
 import React, { useState, type MouseEvent } from 'react'
 
@@ -17,6 +18,7 @@ export default function GlobelDropDownMenu(props: PropsType) {
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
+
   const handleClose = () => {
     setAnchorEl(null)
   }
@@ -24,9 +26,10 @@ export default function GlobelDropDownMenu(props: PropsType) {
   const handleMenuBtnClick = (btn: GenericMenuButton) => {
     setLoading(true)
     handleClose()
+
     try {
-      new Promise(async (resove, reject) => {
-        if (btn?.onClick) await btn?.onClick()
+      new Promise(async resove => {
+        btn?.onClick?.()
         resove('function is executed!')
       }).then(() => {
         setLoading(false)

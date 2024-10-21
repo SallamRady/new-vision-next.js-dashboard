@@ -1,17 +1,20 @@
 'use client'
 
 // react mui
+import { useContext, useState } from 'react'
+
+import { useRouter } from 'next/navigation'
+
 import { Button, Card, CardContent, CardHeader, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
 
 // import packages
-import { api } from '@/Constants/Api'
 import { signIn } from 'next-auth/react'
-import { useContext, useState } from 'react'
+
+import { api } from '@/Constants/Api'
 import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
-import { useRouter } from 'next/navigation'
+
 import axiosInstance from '@/libs/axiosConfig'
-import { retriveFromLocalStorage } from '@/utils/local.storage'
 
 function PasswordView() {
   // ** declare and define component state and variables
@@ -61,6 +64,7 @@ function PasswordView() {
   function handleForgetPassword() {
     setLoading(true)
     const body = { identifier }
+
     axiosInstance
       .post(api`identifier-check?forget_password=1`, body)
       .then(() => {

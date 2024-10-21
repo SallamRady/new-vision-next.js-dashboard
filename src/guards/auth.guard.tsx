@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 
 // import packages
 import axios from 'axios'
+
 import { api } from '@/Constants/Api'
 import { getAuthHeaders } from '@/libs/headers/headerServices'
 import { getAuthSession } from '@/libs/auth/getAuthSession'
@@ -22,6 +23,7 @@ async function isAuthorized(headers: Record<string, string>) {
     }
   })
 }
+
 // Higher Order Function for auth check
 export function withAuth<T extends FC<any>>(ServerComponent: T) {
   // Returns a new function component

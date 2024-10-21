@@ -1,5 +1,5 @@
-import { Country } from '../Country'
-import { Media } from '../Media'
+import type { Country } from '../Country'
+import type { Media } from '../Media'
 
 export interface Tenant {
   id: number

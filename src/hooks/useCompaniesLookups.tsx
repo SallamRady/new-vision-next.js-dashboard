@@ -1,11 +1,12 @@
+import { useQuery } from '@tanstack/react-query'
+
 import { api } from '@/Constants/Api'
 import axiosInstance from '@/libs/axiosConfig'
-import { CompaniesLookUpsType } from '@/types/companies/CompanyTableRowType'
-import { useQuery } from '@tanstack/react-query'
+import type { CompaniesLookUpsType } from '@/types/companies/CompanyTableRowType'
 
 const fetchData = async (params: string) => {
   // prepare helper methods
-  let url = params.length > 0 ? `lookup/tenant/lookups?${params}` : `lookup/tenant/lookups`
+  const url = params.length > 0 ? `lookup/tenant/lookups?${params}` : `lookup/tenant/lookups`
   const Response = await axiosInstance.get<CompaniesLookUpsType>(api`${url}`)
 
   return Response.data

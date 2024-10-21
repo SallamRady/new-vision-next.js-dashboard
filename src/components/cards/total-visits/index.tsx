@@ -9,8 +9,9 @@ import MuiLinearProgress from '@mui/material/LinearProgress'
 import { styled } from '@mui/material/styles'
 
 // Components Imports
-import CustomAvatar from '@core/components/mui/Avatar'
 import { Button } from '@mui/material'
+
+import CustomAvatar from '@core/components/mui/Avatar'
 import IssueIcon from '@/components/IssueIcon'
 
 // Styled Components

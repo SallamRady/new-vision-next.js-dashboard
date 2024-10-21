@@ -1,6 +1,9 @@
 'use client'
-import { ImgHTMLAttributes, useContext } from 'react'
+import type { ImgHTMLAttributes } from 'react'
+import { useContext } from 'react'
+
 import { Stack, Typography } from '@mui/material'
+
 import { AuthOperationsContext } from '../context'
 
 const LogoImage = (props: ImgHTMLAttributes<HTMLImageElement>) => (

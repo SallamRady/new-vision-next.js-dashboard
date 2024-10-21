@@ -3,6 +3,7 @@
 import { useContext, useState } from 'react'
 
 import { Button, Card, Container, Grid, Stack, Typography } from '@mui/material'
+
 import CompanyCard from './CompanyCard'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
 import { removeKeyFromLocalStorage } from '@/utils/local.storage'

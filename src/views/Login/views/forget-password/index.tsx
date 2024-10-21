@@ -1,19 +1,19 @@
 'use client'
 
+import { useContext, useEffect, useState } from 'react'
+
 import { Button, Card, CardContent, CardHeader, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
 
 import axios from 'axios'
+
 import { api } from '@/Constants/Api'
-import { useRouter } from 'next/navigation'
-import { useContext, useEffect, useState } from 'react'
+
 import { errorMessage } from '@/utils/notificationsMessages'
 import { AuthOperationsContext, LoginPageViews } from '../../context'
-import { StoreInLocalStorage } from '@/utils/local.storage'
 import axiosInstance from '@/libs/axiosConfig'
 
 function ForgetPassword() {
   // ** declare and define component state and variables
-  const router = useRouter()
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState('')
@@ -27,6 +27,7 @@ function ForgetPassword() {
     // If the timer reaches 0, stop the timer
     if (timeLeft <= 0) {
       setPasswordExpired(true)
+
       return
     }
 
@@ -44,17 +45,19 @@ function ForgetPassword() {
     // declare helper variables
     const url = api`check-reset-password`
     const body = { password_temp: password, global_id: globalId }
+
     const headers = {
       'Content-Type': 'application/json',
       'X-Tenant': selectedTenant?.id
     }
+
     // send request
     setLoading(true)
     axios
       .post(url, body, {
         headers: headers
       })
-      .then(response => {
+      .then(() => {
         // check error message is exist ?
         handleChangeView(LoginPageViews.ResetPassword)
       })
@@ -66,20 +69,24 @@ function ForgetPassword() {
         setLoading(false)
       })
   }
+
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60)
     const seconds = time % 60
+
     return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
   }
+
   function handleSendOTPAgain() {
     setLoading(true)
     const body = { identifier }
+
     axiosInstance
       .post(api`identifier-check?forget_password=1`, body)
-      .then(response => {
+      .then(() => {
         setTimeLeft(900)
       })
-      .catch(err => {})
+      .catch(() => {})
       .finally(() => {
         setLoading(false)
       })

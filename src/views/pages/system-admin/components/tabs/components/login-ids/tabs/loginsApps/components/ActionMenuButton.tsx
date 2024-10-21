@@ -1,11 +1,13 @@
 // React Imports
-import { SetStateAction } from 'react'
+import type { SetStateAction } from 'react'
 
 // MUI Imports
 import { FormControlLabel, Switch } from '@mui/material'
+
 import { errorMessage } from '@/utils/notificationsMessages'
-import GlobelDropDownMenu, { GenericMenuButton } from '@/components/drop-down-menu/GlobelDropDownMenu'
-import { LoginWayType } from '@/types/login-way'
+import type { GenericMenuButton } from '@/components/drop-down-menu/GlobelDropDownMenu'
+import GlobelDropDownMenu from '@/components/drop-down-menu/GlobelDropDownMenu'
+import type { LoginWayType } from '@/types/login-way'
 
 export default function ActionMenuButton(props: PropsType) {
   // ** declare and define component state abd variables

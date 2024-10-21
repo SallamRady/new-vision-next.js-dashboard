@@ -1,5 +1,6 @@
-import axiosInstance from '@/libs/axiosConfig'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+
+import axiosInstance from '@/libs/axiosConfig'
 
 interface LookUpsSliceType {
   data: any[]
@@ -16,6 +17,7 @@ const initialState: LookUpsSliceType = {
 export const fetchLookups = createAsyncThunk('lookups/fetchLookups', async (_, { rejectWithValue }) => {
   try {
     const response = await axiosInstance.get('/api/lookups') // Adjust the URL as needed
+
     return response.data
   } catch (error: any) {
     return rejectWithValue(error.response?.data || 'Failed to fetch lookup data')

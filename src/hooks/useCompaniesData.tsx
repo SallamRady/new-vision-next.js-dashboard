@@ -1,7 +1,8 @@
+import { useQuery } from '@tanstack/react-query'
+
 import { api } from '@/Constants/Api'
 import axiosInstance from '@/libs/axiosConfig'
-import { TenantType } from '@/types/companies/CompanyTableRowType'
-import { useQuery } from '@tanstack/react-query'
+import type { TenantType } from '@/types/companies/CompanyTableRowType'
 
 const fetchData = async (params: string) => {
   // prepare helper methods

@@ -1,4 +1,5 @@
 import { Stack } from '@mui/material'
+
 import CompaniesTopCards from '../top-cards'
 import CompaniesDataTable from '../companies-table'
 

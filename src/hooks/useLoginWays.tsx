@@ -1,7 +1,8 @@
+import { useQuery } from '@tanstack/react-query'
+
 import { api } from '@/Constants/Api'
 import axiosInstance from '@/libs/axiosConfig'
-import { LoginWayType } from '@/types/login-way'
-import { useQuery } from '@tanstack/react-query'
+import type { LoginWayType } from '@/types/login-way'
 
 const fetchData = async () => {
   const Response = await axiosInstance.get<{ login_ways: LoginWayType[] }>(api`login-ways`)

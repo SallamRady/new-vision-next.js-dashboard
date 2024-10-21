@@ -1,4 +1,5 @@
-import GeneralProfileHeaderCard, { ProfileHeaderTagType } from '@/components/cards/profiles/GeneralProfileHeaderCard'
+import type { ProfileHeaderTagType } from '@/components/cards/profiles/GeneralProfileHeaderCard'
+import GeneralProfileHeaderCard from '@/components/cards/profiles/GeneralProfileHeaderCard'
 
 const dummyTags: ProfileHeaderTagType[] = [
   { icon: 'ri-palette-line', title: 'مهندس برمجة' },

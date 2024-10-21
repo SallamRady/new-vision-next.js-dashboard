@@ -1,6 +1,7 @@
 // Data Imports
-import { getAuthHeaders } from '@/libs/headers/headerServices'
 import { notFound } from 'next/navigation'
+
+import { getAuthHeaders } from '@/libs/headers/headerServices'
 import Roles from '@/views/roles'
 import { getRoles } from '@/utils/api/roles/get-roles'
 

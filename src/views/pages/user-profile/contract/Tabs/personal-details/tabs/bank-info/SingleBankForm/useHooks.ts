@@ -2,10 +2,10 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQuery } from '@tanstack/react-query'
+
 import { getClientAuthHeaders } from '@/libs/headers/clientHeaders'
 import { getMainLookups } from '@/utils/api/lookups/main-lookups'
-import { Bank } from '@/types/api/common/Bank'
-import { UserBankAccount } from '@/types/api/common/User'
+import type { UserBankAccount } from '@/types/api/common/User'
 
 // Define the Zod schema
 const addBankSchema = z.object({
@@ -42,6 +42,7 @@ export const useHooks = ({ bankAccount }: Props) => {
         }
       : undefined
   })
+
   const { watch } = form
   const country_id = watch('country_id')
 
@@ -50,6 +51,7 @@ export const useHooks = ({ bankAccount }: Props) => {
     queryFn: async () => {
       const headers = await getClientAuthHeaders()
       const res = await getMainLookups({ country_id }, headers)
+
       return res
     }
   })

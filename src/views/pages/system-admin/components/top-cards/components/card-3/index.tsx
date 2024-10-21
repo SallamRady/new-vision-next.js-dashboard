@@ -1,5 +1,5 @@
 import CircularStatisticsCard from '@/components/card-statistics/CircularStatisticsCard'
-import { StatisticsOptionType } from '@/types/cards/circlar-statistics-card'
+import type { StatisticsOptionType } from '@/types/cards/circlar-statistics-card'
 
 export default function SystemAdmanCardNUm3() {
   // ** declare and define component state and variables

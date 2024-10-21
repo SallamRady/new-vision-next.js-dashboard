@@ -2,8 +2,9 @@ import type { HTMLInputTypeAttribute } from 'react'
 
 import { MenuItem, TextField } from '@mui/material'
 
-import type { FieldDefaultProps } from '../../types/Field'
 import { Controller } from 'react-hook-form'
+
+import type { FieldDefaultProps } from '../../types/Field'
 
 function GenerateSelectField({ name, form, type, label, options }: GenerateSelectFieldProps) {
   return (

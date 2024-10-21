@@ -7,5 +7,6 @@ export function api(strings: TemplateStringsArray, ...values: unknown[]): string
   }, '')
 
   const api = `${Domain()}api/`
+
   return api + path
 }

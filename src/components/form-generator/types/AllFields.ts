@@ -1,9 +1,7 @@
-import { GenerateSelectFieldProps } from '../fields/select'
+import type { GenerateSelectFieldProps } from '../fields/select'
 import type { GenerateTextFieldProps } from '../fields/text'
 import type { ValidateTextOptions } from '../validate/text'
-import type { FieldOptions, FieldType } from './Field'
-
-type CreateRenderFieldProps<T> = T
+import type { FieldType } from './Field'
 
 /*
   * Add All fields you want to include using the FieldType geniric type

@@ -5,17 +5,12 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
-import AvatarGroup from '@mui/material/AvatarGroup'
 import IconButton from '@mui/material/IconButton'
-import Button from '@mui/material/Button'
-import type { TypographyProps } from '@mui/material/Typography'
-import type { CardProps } from '@mui/material/Card'
 
 // Component Imports
-import Link from '@components/Link'
-import CustomAvatar from '@core/components/mui/Avatar'
-import { Role } from '@/types/api/common/Role'
 import { Divider, ListItem, ListItemText, MenuList } from '@mui/material'
+
+import type { Role } from '@/types/api/common/Role'
 
 const RoleCards = ({ roles }: { roles: Role[] }) => {
   // Vars

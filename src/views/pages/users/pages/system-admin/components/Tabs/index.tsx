@@ -1,7 +1,8 @@
 // MUI Imports
 import UsersTabIndexOfUserSystemAdmin from './components/01.UsersIndex'
 import UsersPageSettingsTab from './components/03.PageSettings/UsersPageSettingsTab'
-import GeneralTabsComponent, { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import type { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
+import GeneralTabsComponent from '@/components/tabs/GeneralTabs'
 
 export default function TabsOfUserSystemAdmin() {
   // declare and define component state and variables

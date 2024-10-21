@@ -1,7 +1,10 @@
 'use client'
 
+import type { ReactNode } from 'react'
+import { useMemo, useState } from 'react'
+
 import { Tab, Tabs } from '@mui/material'
-import { ReactNode, useMemo, useState } from 'react'
+
 import OverviewTab from './tabs/overview'
 import RolesTab from './tabs/roles'
 import ConfigSettingsTab from './tabs/config-settings'

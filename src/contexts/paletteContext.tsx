@@ -2,17 +2,20 @@
 
 import type { ReactNode } from 'react'
 import { createContext, useState, useEffect, useMemo } from 'react'
+
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { FilePond, registerPlugin } from 'react-filepond'
+import { registerPlugin } from 'react-filepond'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
 import 'filepond/dist/filepond.min.css' // FilePond core styles
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css' // Image preview styles
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
+import { SessionProvider } from 'next-auth/react'
+
 import type { DeepPartialTheme } from '@/configs/color-palettes'
 import { colorPalettes } from '@/configs/color-palettes'
-import { SessionProvider } from 'next-auth/react'
 
 // Register FilePond plugins
 registerPlugin(FilePondPluginImagePreview, FilePondPluginFileValidateType)

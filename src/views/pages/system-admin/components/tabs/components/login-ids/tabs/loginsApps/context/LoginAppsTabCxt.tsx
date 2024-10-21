@@ -1,16 +1,13 @@
 'use client'
 
-import { LoginWayType } from '@/types/login-way'
 import type { ReactNode } from 'react'
-import { createContext, useState } from 'react'
+import { createContext } from 'react'
 
 export const LoginAppsTabCxt = createContext<LoginAppsTabCxtType>({})
 
 export const LoginAppsTabCxtProvider = (props: PropsType) => {
   // ** declare and define component state and variables
   const { children } = props
-  const [formMode, setFormMode] = useState<'Create' | 'Edit'>('Create')
-  const [edittedLoginWay, setEdittedLoginWay] = useState<undefined | LoginWayType>(undefined)
 
   // ** handle side effects
 

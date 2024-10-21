@@ -1,15 +1,15 @@
 'use client'
 
 // import packages
+import { useEffect, useMemo, useState } from 'react'
+
 import { Button, Checkbox, Chip, Stack, Typography } from '@mui/material'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import { useEffect, useMemo, useState } from 'react'
 import GenericDataTable from '@/components/tables/GenericDataTable'
-import Loader from '@/components/Loader'
-import { LoginWayType } from '@/types/login-way'
+import type { LoginWayType } from '@/types/login-way'
 import useLoginWays from '@/hooks/useLoginWays'
 import ActionMenuButton from './components/ActionMenuButton'
 
@@ -19,7 +19,7 @@ const columnHelper = createColumnHelper<LoginWayType>()
 export default function SystemAdminLoginsWaysTab() {
   // ** declare and define component state and variables
   // Fetch data using SWR
-  const { data, error, isLoading } = useLoginWays()
+  const { data, error } = useLoginWays()
   const [tableData, setTableData] = useState<LoginWayType[]>([])
   const [openAddDialog, setOpenAddDialog] = useState(false)
 
@@ -48,6 +48,7 @@ export default function SystemAdminLoginsWaysTab() {
           <Checkbox
             {...{
               checked: row.getIsSelected(),
+
               // disabled: !row.getCanSelect(),
               indeterminate: row.getIsSomeSelected(),
               onChange: row.getToggleSelectedHandler()
@@ -118,5 +119,3 @@ export default function SystemAdminLoginsWaysTab() {
     </Stack>
   )
 }
-
-type PropsType = {}

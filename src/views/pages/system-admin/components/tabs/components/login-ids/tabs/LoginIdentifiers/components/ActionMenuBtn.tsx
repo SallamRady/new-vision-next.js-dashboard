@@ -1,13 +1,16 @@
 'use client'
+
 // React Imports
-import { SetStateAction } from 'react'
+import type { SetStateAction } from 'react'
 
 // MUI Imports
 import { FormControlLabel, Switch } from '@mui/material'
-import { LoginIDType } from '@/types/system-admin/login-ids'
+
+import type { LoginIDType } from '@/types/system-admin/login-ids'
 import { errorMessage, SuccessMessage } from '@/utils/notificationsMessages'
 import { api } from '@/Constants/Api'
-import GlobelDropDownMenu, { GenericMenuButton } from '@/components/drop-down-menu/GlobelDropDownMenu'
+import type { GenericMenuButton } from '@/components/drop-down-menu/GlobelDropDownMenu'
+import GlobelDropDownMenu from '@/components/drop-down-menu/GlobelDropDownMenu'
 import axiosInstance from '@/libs/axiosConfig'
 
 export default function ActionMenuButton(props: PropsType) {
@@ -56,13 +59,16 @@ export default function ActionMenuButton(props: PropsType) {
       await axiosInstance.post(api`active-inactive-identifier`, {
         identifier_id: props.id
       })
+
       // change data in table
       props.setTableData(prev => {
         return prev.map(ele => {
           if (ele.id == props.id) return { ...ele, status: !ele.status }
+
           return ele
         })
       })
+
       // show feedback message for user
       SuccessMessage('تم تغير حالة المعرف بنجاح')
     } catch (error) {

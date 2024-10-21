@@ -1,6 +1,7 @@
 'use server'
 import { NextResponse } from 'next/server'
-import { LoginIDType } from '@/types/system-admin/login-ids'
+
+import type { LoginIDType } from '@/types/system-admin/login-ids'
 
 import axiosInstance from '@/libs/axiosConfig'
 import { api } from '@/Constants/Api'

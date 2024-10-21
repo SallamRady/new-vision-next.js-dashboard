@@ -1,4 +1,4 @@
-export default function UsersRolesTableTab(props: PropsType) {
+export default function UsersRolesTableTab() {
   // ** declare and define component state and variables
 
   // ** declare and define component helper methods
@@ -6,5 +6,3 @@ export default function UsersRolesTableTab(props: PropsType) {
   // ** return component ui
   return <>Users Roles</>
 }
-
-type PropsType = {}

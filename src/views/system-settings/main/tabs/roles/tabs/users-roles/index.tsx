@@ -1,17 +1,5 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  Grid,
-  ListItemIcon,
-  ListItemText,
-  MenuItem,
-  MenuList,
-  Paper,
-  Stack
-} from '@mui/material'
-import RolesTab from '../..'
+import { Grid, ListItemIcon, ListItemText, MenuItem, MenuList, Paper } from '@mui/material'
+
 import RolesTable from './RolesTable'
 
 function UsersRoles() {

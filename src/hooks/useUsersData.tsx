@@ -1,8 +1,8 @@
+import { useQuery } from '@tanstack/react-query'
+
 import { api } from '@/Constants/Api'
 import axiosInstance from '@/libs/axiosConfig'
-import { useQuery } from '@tanstack/react-query'
-import { UserType } from '@/types/users/users-page-types'
-import { getAuthSession } from '@/libs/auth/getAuthSession'
+import type { UserType } from '@/types/users/users-page-types'
 
 type ResponseType = {
   count_active_users: number
@@ -11,9 +11,10 @@ type ResponseType = {
   users_count: number
   users_count_last_month: number
 }
+
 const fetchData = async (params: string) => {
   // prepare helper methods
-  let url = params.length > 0 ? `user?${params}` : `user`
+  const url = params.length > 0 ? `user?${params}` : `user`
   const Response = await axiosInstance.get<ResponseType>(api`${url}`)
 
   return Response.data

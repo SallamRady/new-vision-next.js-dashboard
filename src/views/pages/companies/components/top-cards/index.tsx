@@ -1,8 +1,10 @@
+import { Stack } from '@mui/material'
+
 import CurvedLineStatisticsCard from '@/components/card-statistics/CurvedLineStatisticsCard'
 import HorizontalWithSubtitle from '@/components/card-statistics/HorizontalWithSubtitle'
 import StatisticsCardWithColumns from '@/components/card-statistics/StatisticsCardWithColumns'
-import TwoCardsInfoInOne, { CardIntoTwoCardsInfoInOnePropsType } from '@/components/card-statistics/TwoCardsInfoInOne'
-import { Stack } from '@mui/material'
+import type { CardIntoTwoCardsInfoInOnePropsType } from '@/components/card-statistics/TwoCardsInfoInOne'
+import TwoCardsInfoInOne from '@/components/card-statistics/TwoCardsInfoInOne'
 
 // dummy data
 const cards: CardIntoTwoCardsInfoInOnePropsType[] = [

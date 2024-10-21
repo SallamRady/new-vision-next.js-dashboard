@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { UsersContext } from '../../../context'
-// types
+
 import {
   Button,
   FormControl,
@@ -14,12 +13,14 @@ import {
   TextField,
   Typography
 } from '@mui/material'
+
+import { UsersContext } from '../../../context'
+
+// types
 import Loader from '@/components/Loader'
-import { SelectFieldOptionType } from '@/types/input-controls-types'
+import type { SelectFieldOptionType } from '@/types/input-controls-types'
 import { UserIdentifierEnum, userIdentifiersWays, UserTypeEnum } from './AddUserDialog'
-import TextFieldControl from '@/components/forms/text-field/TextFieldControl'
-import SelectControlField from '@/components/forms/select-elements/SelectControlField'
-import { validationType } from '@/types/validationType'
+import type { validationType } from '@/types/validationType'
 import axiosInstance from '@/libs/axiosConfig'
 import { api } from '@/Constants/Api'
 import ScreenCenterDialog from '@/components/dialogs/screen-center-dialog'
@@ -47,6 +48,7 @@ export default function EditUserDialog(props: PropsType) {
     setInvalidFields([])
     setnotFirstChange(false)
     setLoadingEditiedUserData(true)
+
     // determined user enum.
     switch (editedUser?.user_type_id.toString()) {
       case '1': //system-admin
@@ -95,12 +97,13 @@ export default function EditUserDialog(props: PropsType) {
       phone_code: editedUser?.phone_code ?? ''
     })
     setLoadingEditiedUserData(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.open])
 
   useEffect(() => {
     if (notFirstChange) {
-      let userCountry = userLookups?.countries?.find(ele => ele.id.toString() == body['country_id'])
-      let tenant = editedUser?.tenants?.find(ele => ele.id.toString() == body['tenant_id'])
+      const userCountry = userLookups?.countries?.find(ele => ele.id.toString() == body['country_id'])
+      const tenant = editedUser?.tenants?.find(ele => ele.id.toString() == body['tenant_id'])
 
       if (userEnumType == UserTypeEnum.Admin || userEnumType == UserTypeEnum.Employee) {
         if (userCountry?.id == tenant?.country_id) {
@@ -129,6 +132,7 @@ export default function EditUserDialog(props: PropsType) {
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [body['country_id'], body['tenant_id']])
 
   const handleChange = (key: string, value: string) => {
@@ -148,7 +152,8 @@ export default function EditUserDialog(props: PropsType) {
   }
 
   const handleEditAction = () => {
-    let url = `user/${editedUser?.id}`
+    const url = `user/${editedUser?.id}`
+
     //prepare form body
     if (UserTypeEnum.Employee || userEnumType == UserTypeEnum.Freelance) {
       delete body['tenant_id']
@@ -167,6 +172,7 @@ export default function EditUserDialog(props: PropsType) {
       iqama: UserIdentifierEnum.Iqama == identifierType ? (body['identifier'] ?? null) : null,
       border_number: UserIdentifierEnum.BorderNumber == identifierType ? (body['identifier'] ?? null) : null
     }
+
     // end edit request
     axiosInstance
       .post(api`${url}`, formBody)
@@ -230,23 +236,28 @@ export default function EditUserDialog(props: PropsType) {
                 break
               case '12': //client
                 setUserEnumType(UserTypeEnum.Client)
+
                 if (identifierType == UserIdentifierEnum.BorderNumber || identifierType == UserIdentifierEnum.Iqama) {
                   setIdentifierLabel('رقم الهوية الوطنية')
                   setIdentifierType(UserIdentifierEnum.NationalIdentity)
                   handleChange('identifier', '')
                   AddToInvalidField('identifier')
                 }
+
                 break
               case '13': //freelance
                 setUserEnumType(UserTypeEnum.Freelance)
+
                 if (identifierType == UserIdentifierEnum.BorderNumber || identifierType == UserIdentifierEnum.Iqama) {
                   setIdentifierLabel('رقم الهوية الوطنية')
                   setIdentifierType(UserIdentifierEnum.NationalIdentity)
                   handleChange('identifier', '')
                   AddToInvalidField('identifier')
                 }
+
                 break
             }
+
             handleChange('user_type_id', val)
           }}
           options={userLookups?.user_types?.map(ele => ({ label: ele.name, value: ele.id + '' })) || []}
@@ -274,12 +285,15 @@ export default function EditUserDialog(props: PropsType) {
           value={body['name']}
           size='small'
           onChange={e => {
-            let newValue = e.target.value ?? ''
-            let val = newValue
+            const newValue = e.target.value ?? ''
+
+            const val = newValue
               .replace(/[^a-zA-Z\u0600-\u06FF]]/g, '')
               .replace(/[0-9]/g, '')
               .replace(/[+.!@#$%^&*()\-_=/*?|}{[~?//|\\><`]/g, '')
+
             handleChange('name', val)
+
             //validation
             if (val.length > 0 && val.split(' ').filter(ele => ele.length).length >= 3) {
               setErrorField('name', '')
@@ -358,6 +372,7 @@ export default function EditUserDialog(props: PropsType) {
               RemoveFromInvalidField('identifier')
               setErrorField('identifier', '')
             }
+
             handleChange('identifier', e.target.value)
           }}
           error={fieldsErrorMessages['identifier']?.length > 0}
@@ -376,11 +391,12 @@ export default function EditUserDialog(props: PropsType) {
           value={body['email']}
           size='small'
           onChange={e => {
-            let newValue = e.target.value
+            const newValue = e.target.value
 
             if (emailsRules == undefined) {
               // there is no email validation rules so use default email validation
               const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+
               if (newValue.length > 0 && emailRegex.test(newValue)) {
                 setErrorField('email', '')
                 RemoveFromInvalidField('email')
@@ -390,8 +406,9 @@ export default function EditUserDialog(props: PropsType) {
               }
             } else {
               let error = false
+
               if (emailsRules.start_with) {
-                let arr = emailsRules.start_with?.split(',') ?? []
+                const arr = emailsRules.start_with?.split(',') ?? []
 
                 for (let idx = 0; idx < arr.length; idx++) {
                   if (!newValue.startsWith(arr[idx])) {
@@ -400,8 +417,9 @@ export default function EditUserDialog(props: PropsType) {
                   }
                 }
               }
+
               if (emailsRules.end_with) {
-                let arr = emailsRules.end_with?.split(',') ?? []
+                const arr = emailsRules.end_with?.split(',') ?? []
 
                 for (let idx = 0; idx < arr.length; idx++) {
                   if (!newValue.endsWith(arr[idx])) {
@@ -410,8 +428,9 @@ export default function EditUserDialog(props: PropsType) {
                   }
                 }
               }
+
               if (emailsRules.contains) {
-                let arr = emailsRules.contains?.split(',') ?? []
+                const arr = emailsRules.contains?.split(',') ?? []
 
                 for (let idx = 0; idx < arr.length; idx++) {
                   if (!newValue.includes(arr[idx])) {
@@ -457,6 +476,7 @@ export default function EditUserDialog(props: PropsType) {
                 RemoveFromInvalidField('phone')
                 setErrorField('phone', '')
               }
+
               handleChange('phone', e.target.value)
             }}
             error={fieldsErrorMessages['phone']?.length > 0}
@@ -549,6 +569,6 @@ export const SelectFieldWithValue = ({
 )
 
 type PropsType = {
-  open: Boolean
+  open: boolean
   OnSuccessDialogAction: () => void
 }

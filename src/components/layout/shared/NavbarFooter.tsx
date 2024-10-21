@@ -1,5 +1,7 @@
-import { Stack } from '@mui/material'
 import Image from 'next/image'
+
+import { Stack } from '@mui/material'
+
 import newVisionLogo from '@assets/images/logos/new-vision.png'
 
 export default function NavbarFooter() {

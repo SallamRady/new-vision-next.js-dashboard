@@ -1,10 +1,16 @@
 'use client'
-import { FilledInputProps, OutlinedInputProps, TextField } from '@mui/material'
-import { HTMLInputTypeAttribute, useState } from 'react'
-import { InputProps } from 'react-otp-input'
+import type { HTMLInputTypeAttribute } from 'react'
+
+import { useState } from 'react'
+
+import type { FilledInputProps, OutlinedInputProps } from '@mui/material'
+import { TextField } from '@mui/material'
+
+import type { InputProps } from 'react-otp-input'
 
 export default function TextFieldControl(props: TextFieldControlProps) {
   const [error, setError] = useState(false)
+
   const {
     label,
     isRequired = false,
@@ -31,8 +37,10 @@ export default function TextFieldControl(props: TextFieldControlProps) {
         if (handleChange) {
           handleChange(e.target.value)
         }
+
         if (validationFun) {
-          let valid = validationFun(e.target.value)
+          const valid = validationFun(e.target.value)
+
           if (!valid) setError(true)
           else setError(false)
         }
