@@ -64,7 +64,7 @@ export default function UsersDataTable() {
       {
         id: 'title',
         header: 'المسمى الوظيفي',
-        cell: ({ row }) => <Typography color='text.primary'>_</Typography>
+        cell: () => <Typography color='text.primary'>_</Typography>
       },
       columnHelper.accessor('email', {
         header: 'البريد الالكتروني',
@@ -79,7 +79,7 @@ export default function UsersDataTable() {
       {
         id: 'branch',
         header: 'الفرع',
-        cell: ({ row }) => <Typography color='text.primary'>_</Typography>
+        cell: () => <Typography color='text.primary'>_</Typography>
       },
       columnHelper.accessor('tenants', {
         header: 'الشركة',
@@ -128,7 +128,7 @@ export default function UsersDataTable() {
   }
 
   const OnSuccessDeleteDialogAction = () => {
-    refetch()
+    refreshUserData()
   }
 
   // ** return component ui
