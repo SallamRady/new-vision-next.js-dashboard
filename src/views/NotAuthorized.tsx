@@ -33,7 +33,7 @@ const NotAuthorized = () => {
           className='object-cover bs-[400px] md:bs-[450px] lg:bs-[500px]'
         />
         <div className='flex gap-2'>
-          <Button href={'/home'} component={Link} variant='contained'>
+          <Button href={'/users'} component={Link} variant='contained'>
             العودة إلى الصفحة الرئيسية
           </Button>
           <Button

@@ -51,7 +51,7 @@ export type Config = {
 
 const themeConfig: Config = {
   templateName: 'New Vision',
-  homePageUrl: '/home',
+  homePageUrl: '/users',
   settingsCookieName: 'new-vison-next-dashboard',
   mode: 'system', // 'system', 'light', 'dark'
   skin: 'default', // 'default', 'bordered'
