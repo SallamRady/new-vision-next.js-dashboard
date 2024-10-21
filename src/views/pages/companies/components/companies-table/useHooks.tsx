@@ -3,27 +3,48 @@
 // import packages
 import { useContext, useMemo } from 'react'
 
-import { Button, Checkbox, Chip, IconButton, Paper, Tooltip, Typography } from '@mui/material'
+import { Button, Checkbox, Chip, Typography } from '@mui/material'
 import { createColumnHelper, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import type { TenantType } from '@/types/companies/CompanyTableRowType'
-import { ComponiesCxt } from '../../context/ComponiesCxt'
+import { Menu, MenuItem } from '@szhsin/react-menu'
+
 import { fuzzyFilter } from '@/utils/table/fuzzyFilter'
 import { getSortedRowModel } from '@/utils/table/getSortedRowModel'
 import { UpdateCompanyButton } from './components/SetCompanyDialog'
+import { CompaniesContext } from '../../context/Companies'
+import { ApiSchemaToTable } from '@/utils/table/api-schema-to-table'
+import type { Tenant } from '@/types/api/common/Tenant'
 
 // define column helper that will help to create tanstack table columns
-const columnHelper = createColumnHelper<TenantType>()
+const columnHelper = createColumnHelper<Tenant>()
 
 export function useHooks() {
-  const comapniesContext = useContext(ComponiesCxt)
-  const { companiesData } = comapniesContext
+  const companiesContextV2 = useContext(CompaniesContext)
+
+  const {
+    query: { data }
+  } = companiesContextV2
 
   // declare tanstack table columns
-  const columns = useMemo<ColumnDef<TenantType, any>[]>(
-    () => [
+  const columns = useMemo<ColumnDef<Tenant, any>[]>(() => {
+    let additionalCols: ColumnDef<Tenant, any>[] = []
+
+    if (data) {
+      console.log(data)
+      const { headers, rows } = ApiSchemaToTable(data.schema, data.tenants_preview.data)
+
+      additionalCols = headers.map(({ key, label }) => {
+        return {
+          id: 'id',
+          header: label,
+          cell: ({ row }) => rows[row.index][key]
+        }
+      })
+    }
+
+    return [
       {
         id: 'id',
         header: ({ table }) => (
@@ -81,40 +102,33 @@ export function useHooks() {
         },
         enableHiding: true // Allow hiding this column
       }),
+      ...additionalCols,
       {
         id: 'setting',
         header: 'الأعدادات',
         cell: ({ row }) => (
           <>
-            <UpdateCompanyButton company={row.original as any} />
-            <Tooltip
-              arrow
-              placement='left'
-              title={
-                <Paper>
-                  <Button>Test</Button>
-                </Paper>
-              }
-            >
-              <IconButton color='default'>
-                <i className='ri-more-2-line' />
-              </IconButton>
-            </Tooltip>
+            <Menu menuButton={<Button variant='contained'>اجراء</Button>} transition>
+              <MenuItem>
+                <UpdateCompanyButton company={row.original as any} />
+              </MenuItem>
+            </Menu>
           </>
         )
       }
-    ],
-    []
-  )
+    ]
+  }, [!data?.schema])
 
-  const table = useReactTable<TenantType>({
+  console.log('hooks rerenders')
+
+  const table = useReactTable<Tenant>({
     columns,
-    data: companiesData || [],
+    data: data?.tenants?.data || [],
     filterFns: { fuzzy: fuzzyFilter },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel,
     globalFilterFn: fuzzyFilter
   })
 
-  return { table, comapniesContext }
+  return { table, companiesContext: companiesContextV2 }
 }

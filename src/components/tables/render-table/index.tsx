@@ -14,6 +14,12 @@ type Props<T> = {
 }
 
 export default function RenderTable<T>({ table }: Props<T>) {
+  console.log('Table rerender')
+
+  const rowModel = table.getRowModel()
+
+  console.log(rowModel)
+
   return (
     <div className='overflow-x-auto'>
       <table className={tableStyles.table}>
@@ -58,7 +64,7 @@ export default function RenderTable<T>({ table }: Props<T>) {
                 </td>
               </tr>
             ) : (
-              table.getRowModel().rows.map(row => (
+              rowModel.rows.map(row => (
                 <tr key={row.id} className={classNames({ selected: row.getIsSelected() })}>
                   {row.getVisibleCells().map(cell => (
                     <td key={cell.id} className='text-center'>

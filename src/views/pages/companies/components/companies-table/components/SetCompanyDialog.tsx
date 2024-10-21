@@ -20,6 +20,7 @@ import { api } from '@/Constants/Api'
 
 import { numberStringSchema } from '@/utils/validation/zod/numberStringSchema'
 import type { Tenant } from '@/types/api/common/Tenant'
+import { CompaniesContext } from '../../../context/Companies'
 
 const initialValues: CompanyFormType = {
   country_id: null as any,
@@ -35,8 +36,12 @@ export default function SetCompanyDrawer(props: PropsType) {
   // ** declare and define component state and varibles
   const { onClose, open, company } = props
   const [isDisabled, setIsDisabled] = useState(false)
-  const { companiesLookupsData, companiesQuery } = useContext(ComponiesCxt)
-  const { refetch } = companiesQuery
+
+  const {
+    query: { refetch }
+  } = useContext(CompaniesContext)
+
+  const { companiesLookupsData } = useContext(ComponiesCxt)
 
   const {
     handleSubmit,
