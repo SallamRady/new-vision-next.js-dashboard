@@ -123,6 +123,7 @@ const Navigation = (props: Props) => {
           background: `linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, ${alpha(theme.palette.background.default, 0.6)} 100%)`
         }
       }}
+      className='contrast-text-container'
       collapsedWidth={71}
       backgroundColor={alpha(theme.palette.background.default, 0.1)}
       // eslint-disable-next-line lines-around-comment

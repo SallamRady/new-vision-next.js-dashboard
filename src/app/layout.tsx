@@ -9,9 +9,9 @@ import { getServerSession } from 'next-auth'
 import type { ChildrenType } from '@core/types'
 
 // Style Imports
-import '@/app/globals.css'
 import '@szhsin/react-menu/dist/index.css'
 import '@szhsin/react-menu/dist/transitions/zoom.css'
+import '@/app/globals.scss'
 
 // Generated Icon CSS Imports
 import '@assets/iconify-icons/generated-icons.css'

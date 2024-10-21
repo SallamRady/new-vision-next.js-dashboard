@@ -54,12 +54,13 @@ const VerticalMenu = ({ scrollMenu }: Props) => {
     <ScrollWrapper
       {...(isBreakpointReached
         ? {
-            className: 'bs-full overflow-y-auto overflow-x-hidden',
+            className: 'bs-full overflow-y-auto overflow-x-hidden contrast-text-container',
             onScroll: container => scrollMenu(container, false)
           }
         : {
             options: { wheelPropagation: false, suppressScrollX: true },
-            onScrollY: container => scrollMenu(container, true)
+            onScrollY: container => scrollMenu(container, true),
+            className: 'contrast-text-container'
           })}
       style={{ display: 'flex', height: '100%', flexDirection: 'column', justifyContent: 'space-between' }}
     >
