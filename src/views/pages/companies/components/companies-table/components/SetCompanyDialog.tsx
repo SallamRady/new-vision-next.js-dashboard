@@ -248,6 +248,24 @@ export function SetCompanyButton() {
   )
 }
 
+export function UpdateCompanyButton({ company }: { company?: Tenant }) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <SetCompanyDrawer open={open} company={company} onClose={() => setOpen(false)} />
+      <Button
+        onClick={() => {
+          setOpen(true)
+        }}
+        variant='contained'
+      >
+        تعديل الشركة
+      </Button>
+    </>
+  )
+}
+
 export const companyFormSchema = z.object({
   name: z.string().min(1, { message: 'اسم الشركة مطلوب' }),
   country_id: z.number({ message: 'دولة الشركة مطلوبة' }).min(1, { message: 'دولة الشركة مطلوبة' }),

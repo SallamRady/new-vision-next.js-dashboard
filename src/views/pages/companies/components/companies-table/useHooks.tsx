@@ -12,6 +12,7 @@ import type { TenantType } from '@/types/companies/CompanyTableRowType'
 import { ComponiesCxt } from '../../context/ComponiesCxt'
 import { fuzzyFilter } from '@/utils/table/fuzzyFilter'
 import { getSortedRowModel } from '@/utils/table/getSortedRowModel'
+import { UpdateCompanyButton } from './components/SetCompanyDialog'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<TenantType>()
@@ -83,8 +84,9 @@ export function useHooks() {
       {
         id: 'setting',
         header: 'الأعدادات',
-        cell: () => (
+        cell: ({ row }) => (
           <>
+            <UpdateCompanyButton company={row.original as any} />
             <Tooltip
               arrow
               placement='left'
