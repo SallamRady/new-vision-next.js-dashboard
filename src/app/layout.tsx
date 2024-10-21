@@ -9,7 +9,7 @@ import { getServerSession } from 'next-auth'
 import type { ChildrenType } from '@core/types'
 
 // Style Imports
-import '@/app/globals.css'
+import '@/app/globals.scss'
 
 // Generated Icon CSS Imports
 import '@assets/iconify-icons/generated-icons.css'

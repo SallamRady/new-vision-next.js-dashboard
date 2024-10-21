@@ -47,7 +47,7 @@ export const AuthOperationsContextProvider = ({ children }: { children: ReactNod
   // ** handle side effects
   useEffect(() => {
     if (existInLocalStorage('token')) {
-      return redirect('/home')
+      return redirect('/users')
     }
   }, [])
 

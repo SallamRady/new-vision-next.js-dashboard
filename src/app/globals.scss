@@ -34,6 +34,11 @@
   border-color: theme('borderColor.DEFAULT', currentColor);
 }
 
+.contrast-text-container * {
+  color: var(--mui-palette-warning-contrastText);
+  fill: var(--mui-palette-warning-contrastText);
+}
+
 html {
   display: flex;
   inline-size: 100%;

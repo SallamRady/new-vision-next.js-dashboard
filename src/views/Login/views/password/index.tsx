@@ -45,8 +45,8 @@ function PasswordView() {
         if (response.status == 401) errorMessage('كلمة المرور غير صحيحة')
         else errorMessage('خطا غير متوقع برجاء المحاولة فى وقت اخر')
       } else if (response?.ok) {
-        SuccessMessage('تم تسجيل الدخول بنجاح ستم تحويلك الى الصفحة الرئيسية')
-        router.push('/home')
+        SuccessMessage('تم تسجيل الدخول بنجاح ستم تحويلك الى الصفحة المستخدمسن')
+        router.push('/users')
         setTimeout(() => {
           handleChangeView(LoginPageViews.LoggedIn)
         }, 1000)
