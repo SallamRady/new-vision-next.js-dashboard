@@ -53,7 +53,7 @@ export function withNoAuth<T extends FC<any>>(ServerComponent: T) {
       try {
         await isAuthorized(headers)
 
-        redirect('/home')
+        redirect('/users')
       } catch (error) {
         return <NotAuthorized />
       }
@@ -79,6 +79,6 @@ export async function requireNoAuth() {
   const session = await getAuthSession()
 
   if (session) {
-    redirect('/home')
+    redirect('/users')
   }
 }
