@@ -19,7 +19,8 @@ export default function CompanyPackageCard() {
         background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(67, 55, 140, 0.1) 100%)',
         border: '0.79px solid var(--Pink, #F42588)',
         p: 3,
-        borderRadius: '4px'
+        borderRadius: '4px',
+        minHeight: '230px'
       }}
       alignItems={'center'}
       justifyContent={'center'}

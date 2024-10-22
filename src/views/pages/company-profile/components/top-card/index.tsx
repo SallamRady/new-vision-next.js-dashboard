@@ -46,7 +46,7 @@ const CompanyProfileHeader = () => {
             >
               <i className='ri-camera-2-line' />
               <Typography variant='body1' textAlign='center' color={'black'}>
-                يلزم اضافة صورة خلفية بيضاء 6*4
+                يلزم اضافة logo الشركة
               </Typography>
               <VisuallyHiddenInput
                 type='file'
