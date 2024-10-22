@@ -9,7 +9,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { MenuItem as SzhsinMenuItem } from '@szhsin/react-menu'
 import { serialize } from 'object-to-formdata'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Drawer, MenuItem, Stack, TextField, Typography } from '@mui/material'
+import { Box, Drawer, MenuItem, Stack, TextField, Typography } from '@mui/material'
 
 import LoadingButton from '@mui/lab/LoadingButton'
 
@@ -111,11 +111,11 @@ export default function SetCompanyDrawer(props: PropsType) {
   // ** return component ui
   return (
     <Drawer open={open} variant='temporary' anchor='right' onClose={onClose}>
-      <div className='p-4'>
+      <div className='p-4 flex flex-col' style={{ minHeight: '100vh' }}>
         <Typography variant='h5' gutterBottom>
           انشاء شركة جديدة
         </Typography>
-        <Stack component='form' onSubmit={onSubmit} sx={{ width: 350, p: 2 }} spacing={4}>
+        <Stack component='form' flexGrow={1} onSubmit={onSubmit} sx={{ width: 350, p: 2, px: 6 }} spacing={4}>
           <TextField
             fullWidth
             label={'أسم الشركة'}
@@ -201,26 +201,28 @@ export default function SetCompanyDrawer(props: PropsType) {
             )}
           />
 
-          <Controller
-            control={control}
-            name='tenant_field_id'
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label='مجال الشركة'
-                select
-                fullWidth
-                error={Boolean(errors.tenant_field_id)}
-                helperText={errors.tenant_field_id?.message}
-              >
-                {currentTenantType?.fields?.map(field => (
-                  <MenuItem key={field.id} value={field.id}>
-                    {field.name}
-                  </MenuItem>
-                ))}
-              </TextField>
-            )}
-          />
+          <Box flexGrow={1}>
+            <Controller
+              control={control}
+              name='tenant_field_id'
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label='مجال الشركة'
+                  select
+                  fullWidth
+                  error={Boolean(errors.tenant_field_id)}
+                  helperText={errors.tenant_field_id?.message}
+                >
+                  {currentTenantType?.fields?.map(field => (
+                    <MenuItem key={field.id} value={field.id}>
+                      {field.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
+            />
+          </Box>
 
           <LoadingButton
             loading={isSubmitting}
