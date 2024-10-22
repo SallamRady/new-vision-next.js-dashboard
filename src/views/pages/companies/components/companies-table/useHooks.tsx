@@ -4,14 +4,12 @@
 import { useContext, useMemo } from 'react'
 
 import { Button, Checkbox, Chip, Typography } from '@mui/material'
-import { createColumnHelper, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
 import { Menu, MenuItem } from '@szhsin/react-menu'
 
-import { fuzzyFilter } from '@/utils/table/fuzzyFilter'
-import { getSortedRowModel } from '@/utils/table/getSortedRowModel'
 import { UpdateCompanyButton } from './components/SetCompanyDialog'
 import { CompaniesContext } from '../../context/Companies'
 import { ApiSchemaToTable } from '@/utils/table/api-schema-to-table'
@@ -120,14 +118,5 @@ export function useHooks() {
 
   console.log('hooks rerenders')
 
-  const table = useReactTable<Tenant>({
-    columns,
-    data: data?.tenants?.data || [],
-    filterFns: { fuzzy: fuzzyFilter },
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel,
-    globalFilterFn: fuzzyFilter
-  })
-
-  return { table, companiesContext: companiesContextV2 }
+  return { columns, companiesContext: companiesContextV2 }
 }
