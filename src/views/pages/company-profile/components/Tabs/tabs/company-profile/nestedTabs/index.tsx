@@ -6,6 +6,7 @@ import CompanyDetailsProfileMainInformation from './MainData'
 import CompanyDetailsLegalData from './LegalData'
 import CompanyAdminsUsersData from './adminsUsersData'
 import CompanyDetailsAddressData from './addressData'
+import OfficialDocuments from './OfficialDocuments'
 
 export default function CompanyProfileNestedTabs() {
   // declare and define component state and variables
@@ -24,6 +25,7 @@ export default function CompanyProfileNestedTabs() {
           <CompanyDetailsLegalData />
           <CompanyAdminsUsersData />
           <CompanyDetailsAddressData />
+          <OfficialDocuments />
         </Stack>
       )
     },
