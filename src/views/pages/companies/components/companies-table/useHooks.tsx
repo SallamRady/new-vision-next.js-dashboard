@@ -37,7 +37,6 @@ export function useHooks() {
 
       additionalCols = headers.map(({ key, label }) => {
         return {
-          id: 'id',
           header: label,
           cell: ({ row }) => rows[row.index][key]
         }
