@@ -3,26 +3,45 @@
 // import packages
 import { useContext, useMemo } from 'react'
 
-import { Button, Checkbox, Chip, IconButton, Paper, Tooltip, Typography } from '@mui/material'
-import { createColumnHelper, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { Avatar, Box, Button, Checkbox, Chip, Typography } from '@mui/material'
+import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import type { TenantType } from '@/types/companies/CompanyTableRowType'
-import { ComponiesCxt } from '../../context/ComponiesCxt'
-import { fuzzyFilter } from '@/utils/table/fuzzyFilter'
-import { getSortedRowModel } from '@/utils/table/getSortedRowModel'
+import { Menu } from '@szhsin/react-menu'
+
+import { UpdateCompanyButton } from './components/SetCompanyDialog'
+import { CompaniesContext } from '../../context/Companies'
+import { ApiSchemaToTable } from '@/utils/table/api-schema-to-table'
+import type { Tenant } from '@/types/api/common/Tenant'
 
 // define column helper that will help to create tanstack table columns
-const columnHelper = createColumnHelper<TenantType>()
+const columnHelper = createColumnHelper<Tenant>()
 
 export function useHooks() {
-  const comapniesContext = useContext(ComponiesCxt)
-  const { companiesData } = comapniesContext
+  const companiesContextV2 = useContext(CompaniesContext)
+
+  const {
+    query: { data }
+  } = companiesContextV2
 
   // declare tanstack table columns
-  const columns = useMemo<ColumnDef<TenantType, any>[]>(
-    () => [
+  const columns = useMemo<ColumnDef<Tenant, any>[]>(() => {
+    let additionalCols: ColumnDef<Tenant, any>[] = []
+
+    if (data) {
+      console.log(data)
+      const { headers, rows } = ApiSchemaToTable(data.schema, data.tenants_preview.data)
+
+      additionalCols = headers.map(({ key, label }) => {
+        return {
+          header: label,
+          cell: ({ row }) => rows[row.index]?.[key]
+        }
+      })
+    }
+
+    return [
       {
         id: 'id',
         header: ({ table }) => (
@@ -48,7 +67,18 @@ export function useHooks() {
       },
       columnHelper.accessor('name', {
         header: 'الشركة',
-        cell: ({ row }) => <Typography color='text.primary'>{row.original.name}</Typography>,
+        cell: ({ row }) => (
+          <div className='flex gap-2'>
+            <Avatar src={row.original.media?.[0]?.original_url}>{row.original.name?.slice(0, 2)}</Avatar>
+            <div>
+              <Typography align='left'>{row.original.name}</Typography>
+              <Typography align='left' variant='subtitle2'>
+                @{row.original.tenancy_db_name}
+              </Typography>
+            </div>
+          </div>
+        ),
+
         enableHiding: true // Allow hiding this column
       }),
       columnHelper.accessor('email', {
@@ -74,45 +104,42 @@ export function useHooks() {
       columnHelper.accessor('status', {
         header: 'الحالة',
         cell: ({ row }) => {
-          if (row.original.status == -1) return <Chip label='استكمال بيانات' color='warning' variant='tonal' />
+          let children = <></>
 
-          return <Chip label='Unkowen' color='error' variant='tonal' />
+          if (row.original.status == -1) children = <Chip label='استكمال بيانات' color='warning' variant='tonal' />
+          else children = <Chip label='Unkowen' color='error' variant='tonal' />
+
+          return (
+            <Box sx={{ borderRight: '2px solid transparent', borderRightColor: 'text.primary', pr: 1, width: 1 }}>
+              {children}
+            </Box>
+          )
         },
         enableHiding: true // Allow hiding this column
       }),
+      ...additionalCols,
       {
         id: 'setting',
         header: 'الأعدادات',
-        cell: () => (
+        cell: ({ row }) => (
           <>
-            <Tooltip
-              arrow
-              placement='left'
-              title={
-                <Paper>
-                  <Button>Test</Button>
-                </Paper>
+            <Menu
+              menuButton={
+                <Button variant='contained' endIcon={<i className='ri-arrow-down-s-fill' />}>
+                  اجراء
+                </Button>
               }
+              transition
             >
-              <IconButton color='default'>
-                <i className='ri-more-2-line' />
-              </IconButton>
-            </Tooltip>
+              <UpdateCompanyButton company={row.original as any} />
+            </Menu>
           </>
         )
       }
-    ],
-    []
-  )
+    ]
+  }, [!data?.schema])
 
-  const table = useReactTable<TenantType>({
-    columns,
-    data: companiesData || [],
-    filterFns: { fuzzy: fuzzyFilter },
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel,
-    globalFilterFn: fuzzyFilter
-  })
+  console.log('hooks rerenders')
 
-  return { table, comapniesContext }
+  return { columns, companiesContext: companiesContextV2 }
 }

@@ -1,25 +1,50 @@
 'use client'
 
-// import packages
-import { Card, CardContent } from '@mui/material'
+import { Card, CardContent, MenuItem, Pagination, Stack, TextField } from '@mui/material'
 
 // Style Imports
-import RenderTable from '@/components/tables/render-table'
 import { useHooks } from './useHooks'
-import { SetCompanyButton } from './components/SetCompanyDialog'
+import SearchInput from './components/SearchInput'
+import RenderCompainesTable from './components/Table'
 
 export default function CompaniesDataTable() {
-  const { table } = useHooks()
+  const { columns, companiesContext } = useHooks()
+  const { page, setPage, query, search, limit, setLimit } = companiesContext
 
   // ** return component ui
   return (
     <>
       <Card>
+        <RenderCompainesTable
+          searchElement={<SearchInput />}
+          key={[page, search, limit].join()}
+          columns={columns}
+          data={query.data?.tenants.data}
+        />
         <CardContent>
-          <SetCompanyButton />
-        </CardContent>
-        <CardContent>
-          <RenderTable table={table} />
+          <Stack direction='row'>
+            <Pagination
+              sx={{ flexGrow: 1 }}
+              page={page}
+              onChange={(e, page) => setPage(page)}
+              count={query.data?.tenants.last_page || 1}
+            />
+
+            <TextField
+              select
+              value={limit}
+              onChange={e => {
+                setLimit(e.target.value)
+              }}
+              label='الصفوف في الصفحة'
+              sx={{ minWidth: 200 }}
+            >
+              <MenuItem value={10}>10</MenuItem>
+              <MenuItem value={25}>25</MenuItem>
+              <MenuItem value={100}>100</MenuItem>
+              <MenuItem value={200}>200</MenuItem>
+            </TextField>
+          </Stack>
         </CardContent>
       </Card>
     </>
