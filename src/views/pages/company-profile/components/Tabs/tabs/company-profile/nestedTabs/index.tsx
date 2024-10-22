@@ -1,6 +1,6 @@
 import type { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
 import GeneralTabsComponent from '@/components/tabs/GeneralTabs'
-import CompanyDetailsProfileMainInformation from './MainInformation'
+import CompanyDetailsProfileMainInformation from './MainData'
 
 export default function CompanyProfileNestedTabs() {
   // declare and define component state and variables
