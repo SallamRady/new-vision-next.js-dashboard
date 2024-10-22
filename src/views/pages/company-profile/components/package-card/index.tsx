@@ -1,5 +1,6 @@
 import {
   Button,
+  Chip,
   LinearProgress,
   List,
   ListItem,
@@ -20,11 +21,26 @@ export default function CompanyPackageCard() {
         border: '0.79px solid var(--Pink, #F42588)',
         p: 3,
         borderRadius: '4px',
-        minHeight: '230px'
+        minHeight: '230px',
+        position: 'relative'
       }}
       alignItems={'center'}
       justifyContent={'center'}
     >
+      {/* package type */}
+      <Chip
+        label='فضية'
+        color='primary'
+        variant='tonal'
+        sx={{
+          position: 'absolute',
+          top: '3%',
+          right: '3%',
+          backgroundColor: '#18003A',
+          borderRadius: '8px',
+          fontSize: '14px'
+        }}
+      />
       {/* package information (price & features list) */}
       <Stack direction={'row'} spacing={2} alignItems={'center'} justifyContent={'start'} width={'100%'}>
         {/* package price */}
