@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { useRouter } from 'next/navigation'
+
 import {
   Checkbox,
   Drawer,
@@ -62,6 +64,8 @@ function SetSchemaDrawer({ onClose, open, schema, schemaId, onSuccess }: Props) 
     schema.filter(({ selected }) => Boolean(selected)).map(({ key }) => key) || []
   )
 
+  const router = useRouter()
+
   const { mutate, isPending } = useMutation({
     mutationFn: async () => {
       const zodSchema = z.array(TableSchemaColumnSchema)
@@ -73,6 +77,7 @@ function SetSchemaDrawer({ onClose, open, schema, schemaId, onSuccess }: Props) 
       SuccessMessage('تم حفظ اعدادات الجدول بنجاح')
       onSuccess()
       onClose()
+      router.refresh()
 
       return res
     }
