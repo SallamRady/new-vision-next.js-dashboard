@@ -4,6 +4,7 @@ import type { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
 import GeneralTabsComponent from '@/components/tabs/GeneralTabs'
 import CompanyDetailsProfileMainInformation from './MainData'
 import CompanyDetailsLegalData from './LegalData'
+import CompanyAdminsUsersData from './adminsUsersData'
 
 export default function CompanyProfileNestedTabs() {
   // declare and define component state and variables
@@ -20,6 +21,7 @@ export default function CompanyProfileNestedTabs() {
         <Stack spacing={6}>
           <CompanyDetailsProfileMainInformation />
           <CompanyDetailsLegalData />
+          <CompanyAdminsUsersData />
         </Stack>
       )
     },

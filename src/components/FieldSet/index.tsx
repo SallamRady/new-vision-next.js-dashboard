@@ -18,7 +18,7 @@ export default function FieldSet(props: FieldSetProps) {
         direction={'row'}
         alignItems={'center'}
         justifyContent={'space-between'}
-        width={'97%'}
+        width={Boolean(rightTitle) ? '97%' : undefined}
         mx={4}
       >
         {leftTitle}
