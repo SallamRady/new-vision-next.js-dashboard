@@ -3,12 +3,12 @@
 // import packages
 import { useContext, useMemo } from 'react'
 
-import { Button, Checkbox, Chip, Typography } from '@mui/material'
+import { Avatar, Box, Button, Checkbox, Chip, Typography } from '@mui/material'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
 
 // Style Imports
-import { Menu, MenuItem } from '@szhsin/react-menu'
+import { Menu } from '@szhsin/react-menu'
 
 import { UpdateCompanyButton } from './components/SetCompanyDialog'
 import { CompaniesContext } from '../../context/Companies'
@@ -36,7 +36,7 @@ export function useHooks() {
       additionalCols = headers.map(({ key, label }) => {
         return {
           header: label,
-          cell: ({ row }) => rows[row.index][key]
+          cell: ({ row }) => rows[row.index]?.[key]
         }
       })
     }
@@ -67,7 +67,18 @@ export function useHooks() {
       },
       columnHelper.accessor('name', {
         header: 'الشركة',
-        cell: ({ row }) => <Typography color='text.primary'>{row.original.name}</Typography>,
+        cell: ({ row }) => (
+          <div className='flex gap-2'>
+            <Avatar src={row.original.media?.[0]?.original_url}>{row.original.name?.slice(0, 2)}</Avatar>
+            <div>
+              <Typography align='left'>{row.original.name}</Typography>
+              <Typography align='left' variant='subtitle2'>
+                @{row.original.tenancy_db_name}
+              </Typography>
+            </div>
+          </div>
+        ),
+
         enableHiding: true // Allow hiding this column
       }),
       columnHelper.accessor('email', {
@@ -93,9 +104,16 @@ export function useHooks() {
       columnHelper.accessor('status', {
         header: 'الحالة',
         cell: ({ row }) => {
-          if (row.original.status == -1) return <Chip label='استكمال بيانات' color='warning' variant='tonal' />
+          let children = <></>
 
-          return <Chip label='Unkowen' color='error' variant='tonal' />
+          if (row.original.status == -1) children = <Chip label='استكمال بيانات' color='warning' variant='tonal' />
+          else children = <Chip label='Unkowen' color='error' variant='tonal' />
+
+          return (
+            <Box sx={{ borderRight: '2px solid transparent', borderRightColor: 'text.primary', pr: 1, width: 1 }}>
+              {children}
+            </Box>
+          )
         },
         enableHiding: true // Allow hiding this column
       }),
@@ -105,10 +123,15 @@ export function useHooks() {
         header: 'الأعدادات',
         cell: ({ row }) => (
           <>
-            <Menu menuButton={<Button variant='contained'>اجراء</Button>} transition>
-              <MenuItem>
-                <UpdateCompanyButton company={row.original as any} />
-              </MenuItem>
+            <Menu
+              menuButton={
+                <Button variant='contained' endIcon={<i className='ri-arrow-down-s-fill' />}>
+                  اجراء
+                </Button>
+              }
+              transition
+            >
+              <UpdateCompanyButton company={row.original as any} />
             </Menu>
           </>
         )

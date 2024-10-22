@@ -25,5 +25,6 @@ export const getCompaniesTable = async (headers: AuthHeaders, params: GetCompani
 
 export type GetCompaniesTableParams = {
   page?: number
-  search?: string
+  name?: string
+  limit?: any
 }

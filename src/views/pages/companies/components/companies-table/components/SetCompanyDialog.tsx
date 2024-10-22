@@ -6,9 +6,10 @@ import { z } from 'zod'
 import axios from 'axios'
 
 import { Controller, useForm } from 'react-hook-form'
+import { MenuItem as SzhsinMenuItem } from '@szhsin/react-menu'
 import { serialize } from 'object-to-formdata'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Drawer, MenuItem, Stack, TextField, Typography } from '@mui/material'
+import { Drawer, MenuItem, Stack, TextField, Typography } from '@mui/material'
 
 import LoadingButton from '@mui/lab/LoadingButton'
 
@@ -109,7 +110,7 @@ export default function SetCompanyDrawer(props: PropsType) {
 
   // ** return component ui
   return (
-    <Drawer open={open} variant='temporary' onClose={onClose}>
+    <Drawer open={open} variant='temporary' anchor='right' onClose={onClose}>
       <div className='p-4'>
         <Typography variant='h5' gutterBottom>
           انشاء شركة جديدة
@@ -241,14 +242,13 @@ export function SetCompanyButton() {
   return (
     <>
       <SetCompanyDrawer open={open} onClose={() => setOpen(false)} />
-      <Button
+      <SzhsinMenuItem
         onClick={() => {
           setOpen(true)
         }}
-        variant='contained'
       >
-        انشاء شركة جديدة
-      </Button>
+        شركة جديدة
+      </SzhsinMenuItem>
     </>
   )
 }
@@ -259,14 +259,13 @@ export function UpdateCompanyButton({ company }: { company?: Tenant }) {
   return (
     <>
       <SetCompanyDrawer open={open} company={company} onClose={() => setOpen(false)} />
-      <Button
+      <SzhsinMenuItem
         onClick={() => {
           setOpen(true)
         }}
-        variant='contained'
       >
         تعديل الشركة
-      </Button>
+      </SzhsinMenuItem>
     </>
   )
 }
