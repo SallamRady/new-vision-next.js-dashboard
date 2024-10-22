@@ -1,59 +1,66 @@
-// MUI Imports
-
 import type { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
 import GeneralTabsComponent from '@/components/tabs/GeneralTabs'
-import CompanyProfileTab from './tabs/company-profile'
+import CompanyDetailsProfileMainInformation from './MainInformation'
 
-export default function CompanyDetailsPageTabs() {
+export default function CompanyProfileNestedTabs() {
   // declare and define component state and variables
   const tabsData: GeneralTabsComponentTabType[] = [
     {
-      id: 'GT-SA-CD-1',
+      id: 'GT-SA-CD-NT-1',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-user-line'></i>
-          ملف الشركة
+          البيانات الرسمية
         </div>
       ),
-      tabContent: <CompanyProfileTab />
+      tabContent: <CompanyDetailsProfileMainInformation />
     },
     {
-      id: 'GT-SA-CD-2',
+      id: 'GT-SA-CD-NT-2',
+      label: (
+        <div className='flex items-center gap-2 text-lg'>
+          <i className='ri-map-pin-line'></i>
+          الفروع
+        </div>
+      ),
+      tabContent: <></>
+    },
+    {
+      id: 'GT-SA-CD-NT-3',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-briefcase-line'></i>
-          المشاريع
-          <i className='ri-arrow-down-s-line'></i>
+          الادارات
         </div>
       ),
       tabContent: <></>
     },
     {
-      id: 'GT-SA-CD-3',
-      label: (
-        <div className='flex items-center gap-2 text-lg'>
-          <i className='ri-money-dollar-circle-line'></i>
-          البيانات المالية
-        </div>
-      ),
-      tabContent: <></>
-    },
-    {
-      id: 'GT-SA-CD-4',
-      label: (
-        <div className='flex items-center gap-2 text-lg'>
-          <i className='ri-flight-takeoff-line'></i>
-          الاجازات
-        </div>
-      ),
-      tabContent: <></>
-    },
-    {
-      id: 'GT-SA-CD-6',
+      id: 'GT-SA-CD-NT-4',
       label: (
         <div className='flex items-center gap-2 text-lg'>
           <i className='ri-briefcase-line'></i>
-          اجراءات المستخدم
+          الاقسام
+        </div>
+      ),
+      tabContent: <></>
+    },
+    {
+      id: 'GT-SA-CD-NT-6',
+      label: (
+        <div className='flex items-center gap-2 text-lg'>
+          <i className='ri-briefcase-line'></i>
+          البيانات الوظيفية
+        </div>
+      ),
+      tabContent: <></>
+    },
+    {
+      id: 'GT-SA-CD-NT-7',
+      label: (
+        <div className='flex items-center gap-2 text-lg'>
+          <i className='ri-briefcase-line'></i>
+          الاوراق الرسمية
         </div>
       ),
       tabContent: <></>
@@ -61,5 +68,5 @@ export default function CompanyDetailsPageTabs() {
   ]
 
   // return component ui
-  return <GeneralTabsComponent defaultTabId='GT-SA-CD-1' tabs={tabsData} />
+  return <GeneralTabsComponent defaultTabId='GT-SA-CD-NT-1' tabs={tabsData} />
 }
