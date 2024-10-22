@@ -3,7 +3,7 @@
 // import packages
 import { useMemo, useState } from 'react'
 
-import { Checkbox, Stack, Typography } from '@mui/material'
+import { Box, Checkbox, Stack, Typography } from '@mui/material'
 
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -11,6 +11,7 @@ import type { ColumnDef } from '@tanstack/react-table'
 import GenericDataTable from '@/components/tables/GenericDataTable'
 import type { UserType } from '@/types/users/users-page-types'
 import FieldSet from '@/components/FieldSet'
+import SettingBtnMenu from './components/SettingBtnMenu'
 
 // define column helper that will help to create tanstack table columns
 const columnHelper = createColumnHelper<UserType>()
@@ -18,6 +19,7 @@ const columnHelper = createColumnHelper<UserType>()
 export default function CompanyAdminsUsersData() {
   // ** declare and define component state and variables
   const [dialogOpenned, setDialogOpenned] = useState(false)
+  const [continueEditting, setContinueEditting] = useState(false)
 
   // declare tanstack table columns
   const columns = useMemo<ColumnDef<UserType, any>[]>(
@@ -104,18 +106,40 @@ export default function CompanyAdminsUsersData() {
           بيانات المستخدم الرئيسي
         </Typography>
       }
+      rightTitle={continueEditting ? null : <SettingBtnMenu setContinueEditting={setContinueEditting} />}
     >
       <Stack m={2} p={2}>
-        <GenericDataTable
-          data={[]}
-          columns={columns}
-          exportButtonLabel='تصدير'
-          globalFilterPlaceholder='بحث...'
-          onExport={() => console.log('Export users clicked')}
-          openAddDialog={dialogOpenned}
-          setOpenAddDialog={setDialogOpenned}
-          hideTableHeader={true}
-        />
+        {continueEditting ? (
+          <GenericDataTable
+            data={[]}
+            columns={columns}
+            exportButtonLabel='تصدير'
+            globalFilterPlaceholder='بحث...'
+            onExport={() => console.log('Export users clicked')}
+            openAddDialog={dialogOpenned}
+            setOpenAddDialog={setDialogOpenned}
+            hideTableHeader={true}
+          />
+        ) : (
+          <Stack width={'100%'} alignItems={'center'} justifyContent={'center'} my={3}>
+            <Box
+              sx={{
+                width: '260px',
+                height: '170px',
+                boxShadow: '0px 8.07px 24.22px -4.04px #0000001F',
+                bgcolor: '#2D174D',
+                textAlign: 'center',
+                p: '41px'
+              }}
+            >
+              <i className='ri-error-warning-line text-warning text-lg'></i>
+              <Typography variant='body2' fontSize={18} fontWeight={600}>
+                سيتم التشغيل بعد اضافة <br />
+                مستخدم رئيسي واحد اولا
+              </Typography>
+            </Box>
+          </Stack>
+        )}
       </Stack>
     </FieldSet>
   )
