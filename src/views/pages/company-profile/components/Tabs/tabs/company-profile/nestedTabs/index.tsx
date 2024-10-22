@@ -1,6 +1,9 @@
+import { Stack } from '@mui/material'
+
 import type { GeneralTabsComponentTabType } from '@/components/tabs/GeneralTabs'
 import GeneralTabsComponent from '@/components/tabs/GeneralTabs'
 import CompanyDetailsProfileMainInformation from './MainData'
+import CompanyDetailsLegalData from './LegalData'
 
 export default function CompanyProfileNestedTabs() {
   // declare and define component state and variables
@@ -13,7 +16,12 @@ export default function CompanyProfileNestedTabs() {
           البيانات الرسمية
         </div>
       ),
-      tabContent: <CompanyDetailsProfileMainInformation />
+      tabContent: (
+        <Stack spacing={6}>
+          <CompanyDetailsProfileMainInformation />
+          <CompanyDetailsLegalData />
+        </Stack>
+      )
     },
     {
       id: 'GT-SA-CD-NT-2',
