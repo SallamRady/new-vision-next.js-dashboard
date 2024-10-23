@@ -32,7 +32,7 @@ function ContractView() {
         <Tab label='الاجازات ' value={4} />
         <Tab label='اجرائات المستخدم ' value={5} />
       </Tabs>
-      <div className='py-4'>{renderActiveTab}</div>
+      <div className='py-10'>{renderActiveTab}</div>
     </div>
   )
 }
