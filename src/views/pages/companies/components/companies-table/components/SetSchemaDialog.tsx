@@ -1,6 +1,17 @@
 import { useState } from 'react'
 
-import { Drawer, FormControl, FormControlLabel, IconButton, Stack, Switch, Typography } from '@mui/material'
+import { useRouter } from 'next/navigation'
+
+import {
+  Checkbox,
+  Drawer,
+  FormControl,
+  FormControlLabel,
+  IconButton,
+  Stack,
+  TextField,
+  Typography
+} from '@mui/material'
 
 import { useMutation } from '@tanstack/react-query'
 
@@ -42,7 +53,7 @@ export function SetSchemaButton({
         schemaId={schemaId}
       />
       <IconButton onClick={() => setOpen(true)}>
-        <i className='ri-settings-5-line' />
+        <i className='ri-equalizer-3-fill' />
       </IconButton>
     </>
   )
@@ -52,6 +63,8 @@ function SetSchemaDrawer({ onClose, open, schema, schemaId, onSuccess }: Props) 
   const [selected, setSelected] = useState<string[]>(
     schema.filter(({ selected }) => Boolean(selected)).map(({ key }) => key) || []
   )
+
+  const router = useRouter()
 
   const { mutate, isPending } = useMutation({
     mutationFn: async () => {
@@ -64,41 +77,69 @@ function SetSchemaDrawer({ onClose, open, schema, schemaId, onSuccess }: Props) 
       SuccessMessage('تم حفظ اعدادات الجدول بنجاح')
       onSuccess()
       onClose()
+      router.refresh()
 
       return res
     }
   })
 
+  const [search, setSearch] = useState('')
+
   return (
     <Drawer open={open} variant='temporary' anchor='right' onClose={onClose}>
-      <div className='p-6'>
+      <div className='p-6 flex flex-col' style={{ minHeight: '100vh' }}>
         <Typography variant='h4' gutterBottom>
-          تعديل اعدادات العرض
+          التنقية
         </Typography>
-        <Stack component='form' onSubmit={undefined} sx={{ width: 350, px: 4 }} spacing={4}>
-          {schema.map(({ key, label }) => {
-            const found = selected.includes(key)
-
-            return (
-              <FormControl key={[key, label].join()}>
-                <FormControlLabel
-                  label={label}
-                  control={
-                    <Switch
-                      checked={found}
-                      onChange={() => {
-                        if (found) {
-                          setSelected(s => s.filter(x => x !== key))
-                        } else {
-                          setSelected(s => [...s, key])
-                        }
-                      }}
-                    />
-                  }
+        <Stack component='form' onSubmit={undefined} sx={{ width: 350, px: 4, flexGrow: 1 }} spacing={4}>
+          <TextField value={search} onChange={e => setSearch(e.target.value)} placeholder={'بحث'} />
+          <FormControl>
+            <FormControlLabel
+              label={'اظهار الكل'}
+              control={
+                <Checkbox
+                  checked={selected.length === schema.length}
+                  onChange={(e, checked) => {
+                    if (checked) setSelected(schema.map(x => x.key))
+                    else setSelected([])
+                  }}
                 />
+              }
+            />
+          </FormControl>
+          {['الشركة', 'الحالة']
+            .filter(x => x.includes(search))
+            .map(label => (
+              <FormControl key={[label].join()}>
+                <FormControlLabel disabled label={label} control={<Checkbox checked={true} />} />
               </FormControl>
-            )
-          })}
+            ))}
+          {schema
+            .filter(x => x.label.includes(search))
+            .map(({ key, label }) => {
+              const found = selected.includes(key)
+
+              return (
+                <FormControl key={[key, label].join()}>
+                  <FormControlLabel
+                    label={label}
+                    control={
+                      <Checkbox
+                        checked={found}
+                        onChange={() => {
+                          if (found) {
+                            setSelected(s => s.filter(x => x !== key))
+                          } else {
+                            setSelected(s => [...s, key])
+                          }
+                        }}
+                      />
+                    }
+                  />
+                </FormControl>
+              )
+            })}
+          <div style={{ flexGrow: 1 }}></div>
           <LoadingButton variant='contained' onClick={() => mutate()} loading={isPending}>
             حفظ
           </LoadingButton>
