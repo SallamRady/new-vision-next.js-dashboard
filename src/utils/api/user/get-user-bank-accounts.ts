@@ -8,7 +8,7 @@ export const getUserBankAccounts = async (headers: AuthHeaders) => {
   try {
     const res = await axios.get<{
       new_banks: UserBankAccount[]
-    }>(api`user-bank`, { headers })
+    }>(api`user-bank/get-me`, { headers })
 
     return res.data.new_banks
   } catch (error: any) {

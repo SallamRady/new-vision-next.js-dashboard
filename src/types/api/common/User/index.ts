@@ -43,6 +43,7 @@ export interface UserBankAccount {
   bank?: Bank
   country?: Country
   currency?: Currency
+  active: number
 }
 
 interface Pictures {

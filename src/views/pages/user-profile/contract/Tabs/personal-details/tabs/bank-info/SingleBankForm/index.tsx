@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 
 import { Controller } from 'react-hook-form'
 
-import { Grid, IconButton, MenuItem, Stack, TextField } from '@mui/material'
+import { Button, Grid, IconButton, MenuItem, Stack, Switch, TextField } from '@mui/material'
 
 import axios from 'axios'
 
@@ -17,8 +17,15 @@ import { getClientAuthHeaders } from '@/libs/headers/clientHeaders'
 import { api } from '@/Constants/Api'
 import { SuccessMessage, errorMessage } from '@/utils/notificationsMessages'
 import CardWithFloatingActions from '@/components/cards/CardWithFloatingActions'
+import CustomMenu from '@/components/custom-menu'
 
 const GridItem = getGridItem({ xs: 12, md: 6 })
+
+const bankAccountTypeValues: Record<string, string> = {
+  '-1': 'افتراضي',
+  '1': 'الرواتب',
+  '2': 'السلف'
+}
 
 enum $FormMode {
   CREATE,
@@ -86,6 +93,18 @@ function SingleBankForm({ bankAccount, refresh }: Props) {
       onSubmit={acctualMode !== $FormMode.NONE ? onSubmit : undefined}
       actionsContent={
         <Stack direction={'row'}>
+          <Controller
+            control={control}
+            name='active'
+            render={({ field }) => (
+              <Switch
+                disabled={disabled}
+                checked={Boolean(field.value)}
+                onChange={(e, checked) => field.onChange(checked ? 1 : 0)}
+              />
+            )}
+          />
+
           {acctualMode === $FormMode.NONE ? (
             <>
               <IconButton key='2'>
@@ -97,6 +116,32 @@ function SingleBankForm({ bankAccount, refresh }: Props) {
             </>
           ) : (
             <>
+              <Controller
+                control={control}
+                name='status'
+                render={({ field }) => (
+                  <CustomMenu
+                    renderAnchor={({ onClick }) => (
+                      <Button onClick={onClick} endIcon={<i className='ri-arrow-down-s-line' />}>
+                        {bankAccountTypeValues[field.value]}{' '}
+                      </Button>
+                    )}
+                  >
+                    {Object.entries(bankAccountTypeValues).map(([key, value]) => (
+                      <MenuItem
+                        onClick={() => {
+                          console.log(value)
+                          field.onChange(key)
+                        }}
+                        key={key}
+                      >
+                        {value}
+                      </MenuItem>
+                    ))}
+                  </CustomMenu>
+                )}
+              />
+
               <IconButton key='3' color='error' onClick={() => setMode($FormMode.NONE)}>
                 <i className='ri-close-line' />
               </IconButton>
@@ -150,30 +195,6 @@ function SingleBankForm({ bankAccount, refresh }: Props) {
                 {lookups?.banks?.map(bank => (
                   <MenuItem key={bank.id} value={bank.id}>
                     {bank.official_name}
-                  </MenuItem>
-                ))}
-              </TextField>
-            )}
-          />
-        </GridItem>
-
-        <GridItem>
-          <Controller
-            control={control}
-            name='tenant_id'
-            render={({ field, fieldState: { error } }) => (
-              <TextField
-                label='اسم الشركة'
-                fullWidth
-                {...field}
-                error={!!error?.message}
-                helperText={error?.message}
-                disabled={disabled}
-                select
-              >
-                {lookups?.tenants?.map(tenant => (
-                  <MenuItem key={tenant.id} value={tenant.id}>
-                    {tenant.name}
                   </MenuItem>
                 ))}
               </TextField>
