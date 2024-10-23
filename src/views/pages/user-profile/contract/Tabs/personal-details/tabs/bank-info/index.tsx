@@ -30,7 +30,7 @@ function BankInfo() {
         {bankAccounts?.map(bankAccount => (
           <SingleBankForm key={bankAccount.id} refresh={refetch} bankAccount={bankAccount} />
         ))}
-        <SingleBankForm refresh={refetch} />
+        <SingleBankForm key={`${bankAccounts?.length}-create`} refresh={refetch} />
       </Stack>
     </>
   )
