@@ -7,10 +7,11 @@ import { Typography } from '@mui/material'
 import GlobelDropDownMenu from '@/components/drop-down-menu/GlobelDropDownMenu'
 import type { GenericMenuButton } from '@/components/drop-down-menu/GlobelDropDownMenu'
 import ScreenCenterDialog from '@/components/dialogs/screen-center-dialog'
+import SetOfficialDocument from './SetOfficialDocument'
 
 export default function SettingBtnMenu(props: PropsType) {
   // ** declare and define component state and variables
-  const [openSetUser, setOpenSetUser] = useState(false)
+  const [openSetOfficaialDocs, setOpenSetOfficaialDocs] = useState(false)
 
   const buttons: GenericMenuButton[] = [
     {
@@ -22,7 +23,7 @@ export default function SettingBtnMenu(props: PropsType) {
         </div>
       ),
       onClick: () => {
-        setOpenSetUser(true)
+        setOpenSetOfficaialDocs(true)
 
         props.setContinueEditting(prev => !prev)
       }
@@ -36,14 +37,16 @@ export default function SettingBtnMenu(props: PropsType) {
     <>
       <GlobelDropDownMenu btnTitle='أجراء' buttons={buttons} iconButon={true} icon='ri-settings-3-line' />
       <ScreenCenterDialog
-        open={openSetUser}
-        setOpen={setOpenSetUser}
+        open={openSetOfficaialDocs}
+        setOpen={setOpenSetOfficaialDocs}
+        dialogMaxWidth='md'
+        isFullWidth={true}
         title={
-          <Typography variant='body1' fontWeight={600} fontSize={19} mt={6} mb={2}>
+          <Typography variant='body1' fontWeight={600} fontSize={19} mt={6} mb={2} textAlign={'center'}>
             اضافة المستندات الرسمية
           </Typography>
         }
-        dialogContent={<></>}
+        dialogContent={<SetOfficialDocument setOpen={setOpenSetOfficaialDocs} />}
       />
     </>
   )
