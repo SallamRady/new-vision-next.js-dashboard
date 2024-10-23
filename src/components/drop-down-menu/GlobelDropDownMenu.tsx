@@ -7,10 +7,20 @@ import React, { useState, type MouseEvent } from 'react'
 import Menu from '@mui/material/Menu'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
+import { IconButton } from '@mui/material'
 
 export default function GlobelDropDownMenu(props: PropsType) {
   // ** declare and define component state abd variables
-  const { btnTitle, btnLoadingTitle = 'جاري...', buttons, disabled = false, btnColor = 'primary' } = props
+  const {
+    btnTitle,
+    btnLoadingTitle = 'جاري...',
+    buttons,
+    disabled = false,
+    btnColor = 'primary',
+    iconButon = false,
+    icon
+  } = props
+
   const [loading, setLoading] = useState(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
@@ -42,17 +52,29 @@ export default function GlobelDropDownMenu(props: PropsType) {
   // ** return ui
   return (
     <>
-      <Button
-        endIcon={<i className='ri-arrow-down-s-line'></i>}
-        variant='contained'
-        aria-controls='basic-menu'
-        aria-haspopup='true'
-        color={loading ? 'inherit' : btnColor}
-        onClick={handleClick}
-        disabled={loading || disabled}
-      >
-        {loading ? btnLoadingTitle : btnTitle}
-      </Button>
+      {iconButon ? (
+        <IconButton
+          aria-controls='basic-menu'
+          aria-haspopup='true'
+          color={loading ? 'inherit' : btnColor}
+          onClick={handleClick}
+          disabled={loading || disabled}
+        >
+          <i className={icon ?? ''}></i>
+        </IconButton>
+      ) : (
+        <Button
+          endIcon={<i className='ri-arrow-down-s-line'></i>}
+          variant='contained'
+          aria-controls='basic-menu'
+          aria-haspopup='true'
+          color={loading ? 'inherit' : btnColor}
+          onClick={handleClick}
+          disabled={loading || disabled}
+        >
+          {loading ? btnLoadingTitle : btnTitle}
+        </Button>
+      )}
 
       <Menu keepMounted id='basic-menu' anchorEl={anchorEl} onClose={handleClose} open={Boolean(anchorEl)}>
         {buttons?.map(btn => (
@@ -76,6 +98,8 @@ type PropsType = {
   btnTitle: string
   btnLoadingTitle?: string
   buttons: GenericMenuButton[]
+  iconButon?: boolean
+  icon?: string
   disabled?: boolean
   btnColor?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
 }

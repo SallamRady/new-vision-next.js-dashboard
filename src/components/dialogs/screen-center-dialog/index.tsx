@@ -10,12 +10,18 @@ import DialogTitle from '@mui/material/DialogTitle'
 
 const ScreenCenterDialog = (props: PropsType) => {
   // States
-  const { open, setOpen, title, dialogContent, dialogMaxWidth = 'sm' } = props
+  const { open, setOpen, title, dialogContent, dialogMaxWidth = 'sm', isFullWidth = false } = props
 
   const handleDialogClose = () => setOpen(false)
 
   return (
-    <Dialog maxWidth={dialogMaxWidth} onClose={handleDialogClose} aria-labelledby='screen-center-dialog' open={open}>
+    <Dialog
+      maxWidth={dialogMaxWidth}
+      fullWidth={isFullWidth}
+      onClose={handleDialogClose}
+      aria-labelledby='screen-center-dialog'
+      open={open}
+    >
       <DialogTitle id='screen-center-dialog-title'>{title}</DialogTitle>
       <DialogContent>{dialogContent}</DialogContent>
       <IconButton
@@ -37,6 +43,7 @@ type PropsType = {
   setOpen: React.Dispatch<SetStateAction<boolean>>
   title: React.ReactNode
   dialogContent: React.ReactNode
+  isFullWidth?: boolean
   dialogMaxWidth?: 'xs' | 'xl' | 'sm' | 'md' | 'lg'
 }
 

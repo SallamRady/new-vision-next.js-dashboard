@@ -23,6 +23,7 @@
     "@mui/material": "5.16.4",
     "@mui/material-nextjs": "5.16.4",
     "@mui/x-date-pickers": "^7.20.0",
+    "@react-google-maps/api": "^2.20.3",
     "@reduxjs/toolkit": "^2.2.7",
     "@szhsin/react-menu": "^4.2.2",
     "@tanstack/match-sorter-utils": "^8.19.4",

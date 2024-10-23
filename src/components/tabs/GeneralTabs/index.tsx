@@ -9,8 +9,7 @@ import Tab from '@mui/material/Tab'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
-import Typography from '@mui/material/Typography'
-import { Paper } from '@mui/material'
+import { Box, Paper } from '@mui/material'
 
 export default function GeneralTabsComponent(props: GeneralTabsComponentProps) {
   // extract data from props
@@ -37,15 +36,7 @@ export default function GeneralTabsComponent(props: GeneralTabsComponentProps) {
             <Tab
               key={`tab-label-${tabData.id}-${tabData.label}`}
               value={tabData.id.toString()}
-              label={
-                <Typography
-                  variant='body2'
-                  fontSize={'1rem'}
-                  color={value == tabData.id.toString() ? 'primary' : 'default'}
-                >
-                  {tabData?.label}
-                </Typography>
-              }
+              label={<Box color={value == tabData.id.toString() ? 'primary' : 'default'}>{tabData?.label}</Box>}
             />
           ))}
         </TabList>
