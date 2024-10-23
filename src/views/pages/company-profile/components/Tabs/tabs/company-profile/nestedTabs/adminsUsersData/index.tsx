@@ -106,7 +106,7 @@ export default function CompanyAdminsUsersData() {
           بيانات المستخدم الرئيسي
         </Typography>
       }
-      rightTitle={continueEditting ? null : <SettingBtnMenu setContinueEditting={setContinueEditting} />}
+      rightTitle={<SettingBtnMenu setContinueEditting={setContinueEditting} />}
     >
       <Stack m={2} p={2}>
         {continueEditting ? (
