@@ -1,19 +1,30 @@
 import React, { Suspense } from 'react'
 
-import { flexRender } from '@tanstack/react-table'
-import type { Table } from '@tanstack/react-table'
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 import classNames from 'classnames'
 
 import { LinearProgress } from '@mui/material'
 
 import tableStyles from '@core/styles/table.module.css'
+import { fuzzyFilter } from '@/utils/table/fuzzyFilter'
 
 // declare props type
 type Props<T> = {
-  table: Table<T>
+  columns: ColumnDef<T, any>[]
+  data?: T[]
 }
 
-export default function RenderTable<T>({ table }: Props<T>) {
+export default function RenderTable<T>({ columns, data }: Props<T>) {
+  const table = useReactTable<T>({
+    columns,
+    data: data || [],
+    filterFns: { fuzzy: fuzzyFilter },
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    globalFilterFn: fuzzyFilter
+  })
+
   return (
     <div className='overflow-x-auto'>
       <table className={tableStyles.table}>
