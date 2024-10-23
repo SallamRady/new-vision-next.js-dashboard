@@ -39,12 +39,22 @@ export default function SettingBtnMenu(props: PropsType) {
       <ScreenCenterDialog
         open={openSetUser}
         setOpen={setOpenSetUser}
+        dialogMaxWidth='md'
+        isFullWidth={true}
         title={
-          <Typography variant='body1' fontWeight={600} fontSize={19} mt={6} mb={2}>
+          <Typography
+            variant='body1'
+            fontWeight={600}
+            fontSize={21}
+            mt={6}
+            mb={2}
+            textAlign={'center'}
+            fontFamily={'sans-serif'}
+          >
             اضافة بيانات المستخدم الرئيسي
           </Typography>
         }
-        dialogContent={<SetUserDialog />}
+        dialogContent={<SetUserDialog setOpen={setOpenSetUser} />}
       />
     </>
   )
