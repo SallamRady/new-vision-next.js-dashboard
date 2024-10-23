@@ -1,10 +1,10 @@
 'use client'
 
+import { useMemo, useState } from 'react'
+
 import { Controller } from 'react-hook-form'
 
-import { Card, CardContent, Grid, MenuItem, TextField } from '@mui/material'
-
-import LoadingButton from '@mui/lab/LoadingButton'
+import { Grid, IconButton, MenuItem, Stack, TextField } from '@mui/material'
 
 import axios from 'axios'
 
@@ -16,10 +16,27 @@ import type { UserBankAccount } from '@/types/api/common/User'
 import { getClientAuthHeaders } from '@/libs/headers/clientHeaders'
 import { api } from '@/Constants/Api'
 import { SuccessMessage, errorMessage } from '@/utils/notificationsMessages'
+import CardWithFloatingActions from '@/components/cards/CardWithFloatingActions'
 
 const GridItem = getGridItem({ xs: 12, md: 6 })
 
+enum $FormMode {
+  CREATE,
+  NONE,
+  UPDATE
+}
+
 function SingleBankForm({ bankAccount, refresh }: Props) {
+  const [mode, setMode] = useState<$FormMode>($FormMode.NONE)
+
+  const acctualMode: $FormMode = useMemo(() => {
+    if (!bankAccount) {
+      return $FormMode.CREATE
+    }
+
+    return mode
+  }, [mode])
+
   // Initialize the form with react-hook-form and zodResolver for validation
   const {
     form: {
@@ -31,7 +48,7 @@ function SingleBankForm({ bankAccount, refresh }: Props) {
     query: { data: lookups }
   } = useHooks({ bankAccount })
 
-  console.log(errors)
+  const disabled = acctualMode === $FormMode.NONE || isSubmitting
 
   // Form submission handler
   const onSubmit = handleSubmit(async data => {
@@ -54,6 +71,7 @@ function SingleBankForm({ bankAccount, refresh }: Props) {
             })
       })
       SuccessMessage('تم الحفظ بنجاح')
+      setMode($FormMode.NONE)
       refresh()
     } catch (error) {
       errorMessage('تعذر في الحفظ')
@@ -61,174 +79,202 @@ function SingleBankForm({ bankAccount, refresh }: Props) {
   })
 
   return (
-    <Card variant='outlined'>
-      <CardContent>
-        <form onSubmit={onSubmit}>
-          <Grid container spacing={4}>
-            <GridItem>
-              <Controller
-                control={control}
-                name='country_id'
-                render={({ field, fieldState: { error } }) => (
-                  <TextField
-                    label='دولة البنك'
-                    fullWidth
-                    {...field}
-                    error={!!error?.message}
-                    helperText={error?.message}
-                    select
-                  >
-                    {lookups?.countries?.map(country => (
-                      <MenuItem key={country.id} value={country.id}>
-                        {country.name}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                )}
-              />
-            </GridItem>
-            <GridItem>
-              <Controller
-                control={control}
-                name='bank_id'
-                render={({ field, fieldState: { error } }) => (
-                  <TextField
-                    label='اسم البنك'
-                    fullWidth
-                    {...field}
-                    error={!!error?.message}
-                    helperText={error?.message}
-                    select
-                  >
-                    {lookups?.banks?.map(bank => (
-                      <MenuItem key={bank.id} value={bank.id}>
-                        {bank.official_name}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                )}
-              />
-            </GridItem>
+    <CardWithFloatingActions
+      component={'form'}
+      label={`${acctualMode === $FormMode.NONE ? '' : acctualMode === $FormMode.UPDATE ? 'تعديل' : 'انشاء'} حساب بنكي`}
+      {...{ noValidate: true as any }}
+      onSubmit={acctualMode !== $FormMode.NONE ? onSubmit : undefined}
+      actionsContent={
+        <Stack direction={'row'}>
+          {acctualMode === $FormMode.NONE ? (
+            <>
+              <IconButton key='2'>
+                <i className='ri-settings-3-fill' />
+              </IconButton>
+              <IconButton key='1' color='primary' onClick={() => setMode($FormMode.UPDATE)}>
+                <i className='ri-edit-2-line' />
+              </IconButton>
+            </>
+          ) : (
+            <>
+              <IconButton key='3' color='error' onClick={() => setMode($FormMode.NONE)}>
+                <i className='ri-close-line' />
+              </IconButton>
 
-            <GridItem>
-              <Controller
-                control={control}
-                name='tenant_id'
-                render={({ field, fieldState: { error } }) => (
-                  <TextField
-                    label='اسم الشركة'
-                    fullWidth
-                    {...field}
-                    error={!!error?.message}
-                    helperText={error?.message}
-                    select
-                  >
-                    {lookups?.tenants?.map(tenant => (
-                      <MenuItem key={tenant.id} value={tenant.id}>
-                        {tenant.name}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                )}
-              />
-            </GridItem>
-
-            <GridItem>
-              <Controller
-                control={control}
-                name='currency_id'
-                render={({ field, fieldState: { error } }) => (
-                  <TextField
-                    label='عملة الحساب'
-                    fullWidth
-                    {...field}
-                    error={!!error?.message}
-                    helperText={error?.message}
-                    select
-                  >
-                    {lookups?.currencies?.map(currency => (
-                      <MenuItem key={currency.id} value={currency.id}>
-                        {currency.name}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                )}
-              />
-            </GridItem>
-            <GridItem>
+              <IconButton key='4' disabled={isSubmitting} color='success' type='submit'>
+                <i className='ri-check-line' />
+              </IconButton>
+            </>
+          )}
+        </Stack>
+      }
+    >
+      <Grid container spacing={4}>
+        <GridItem>
+          <Controller
+            control={control}
+            name='country_id'
+            render={({ field, fieldState: { error } }) => (
               <TextField
-                label='اسم مالك الحساب "كما مكتوب علي البطاقة"'
-                type='text'
+                label='دولة البنك'
                 fullWidth
-                {...register('holder_name')}
-                error={!!errors.holder_name}
-                helperText={errors.holder_name?.message}
-              />
-            </GridItem>
-
-            <GridItem>
+                {...field}
+                error={!!error?.message}
+                helperText={error?.message}
+                disabled={disabled}
+                select
+              >
+                {lookups?.countries?.map(country => (
+                  <MenuItem key={country.id} value={country.id}>
+                    {country.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+          />
+        </GridItem>
+        <GridItem>
+          <Controller
+            control={control}
+            name='bank_id'
+            render={({ field, fieldState: { error } }) => (
               <TextField
-                label='IBAN'
-                type='text'
+                label='اسم البنك'
                 fullWidth
-                {...register('iban')}
-                error={!!errors.iban}
-                helperText={errors.iban?.message}
-              />
-            </GridItem>
-            <GridItem>
+                {...field}
+                error={!!error?.message}
+                helperText={error?.message}
+                disabled={disabled}
+                select
+              >
+                {lookups?.banks?.map(bank => (
+                  <MenuItem key={bank.id} value={bank.id}>
+                    {bank.official_name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+          />
+        </GridItem>
+
+        <GridItem>
+          <Controller
+            control={control}
+            name='tenant_id'
+            render={({ field, fieldState: { error } }) => (
               <TextField
-                label='رقم الحساب'
-                type='text'
+                label='اسم الشركة'
                 fullWidth
-                {...register('account_number')}
-                error={!!errors.account_number}
-                helperText={errors.account_number?.message}
-              />
-            </GridItem>
+                {...field}
+                error={!!error?.message}
+                helperText={error?.message}
+                disabled={disabled}
+                select
+              >
+                {lookups?.tenants?.map(tenant => (
+                  <MenuItem key={tenant.id} value={tenant.id}>
+                    {tenant.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+          />
+        </GridItem>
 
-            <GridItem>
+        <GridItem>
+          <Controller
+            control={control}
+            name='currency_id'
+            render={({ field, fieldState: { error } }) => (
               <TextField
-                label='رمز الـ SWIFT/BIC'
-                type='text'
+                label='عملة الحساب'
                 fullWidth
-                {...register('code_bic')}
-                error={!!errors.code_bic}
-                helperText={errors.code_bic?.message}
-              />
-            </GridItem>
+                {...field}
+                error={!!error?.message}
+                helperText={error?.message}
+                disabled={disabled}
+                select
+              >
+                {lookups?.currencies?.map(currency => (
+                  <MenuItem key={currency.id} value={currency.id}>
+                    {currency.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+          />
+        </GridItem>
+        <GridItem>
+          <TextField
+            label='اسم مالك الحساب "كما مكتوب علي البطاقة"'
+            type='text'
+            fullWidth
+            {...register('holder_name')}
+            error={!!errors.holder_name}
+            helperText={errors.holder_name?.message}
+            disabled={disabled}
+          />
+        </GridItem>
 
-            <GridItem>
-              <Controller
-                control={control}
-                name='status'
-                render={({ field }) => (
-                  <TextField
-                    select
-                    label='Status'
-                    fullWidth
-                    {...field}
-                    error={!!errors.status}
-                    helperText={errors.status?.message}
-                  >
-                    <MenuItem value='-1'>Default</MenuItem>
-                    <MenuItem value='0'>Not Use</MenuItem>
-                    <MenuItem value='1'>Salaries</MenuItem>
-                    <MenuItem value='2'>Custody</MenuItem>
-                  </TextField>
-                )}
-              />
-            </GridItem>
+        <GridItem>
+          <TextField
+            label='IBAN'
+            type='text'
+            fullWidth
+            {...register('iban')}
+            error={!!errors.iban}
+            helperText={errors.iban?.message}
+            disabled={disabled}
+          />
+        </GridItem>
+        <GridItem>
+          <TextField
+            label='رقم الحساب'
+            type='text'
+            fullWidth
+            {...register('account_number')}
+            error={!!errors.account_number}
+            helperText={errors.account_number?.message}
+            disabled={disabled}
+          />
+        </GridItem>
 
-            <Grid item xs={12}>
-              <LoadingButton loading={isSubmitting} fullWidth type='submit' variant='contained' color='primary'>
-                Submit
-              </LoadingButton>
-            </Grid>
-          </Grid>
-        </form>
-      </CardContent>
-    </Card>
+        <GridItem>
+          <TextField
+            label='رمز الـ SWIFT/BIC'
+            type='text'
+            fullWidth
+            {...register('code_bic')}
+            error={!!errors.code_bic}
+            helperText={errors.code_bic?.message}
+            disabled={disabled}
+          />
+        </GridItem>
+
+        <GridItem>
+          <Controller
+            control={control}
+            name='status'
+            render={({ field }) => (
+              <TextField
+                select
+                label='Status'
+                fullWidth
+                {...field}
+                error={!!errors.status}
+                helperText={errors.status?.message}
+                disabled={disabled}
+              >
+                <MenuItem value='-1'>Default</MenuItem>
+                <MenuItem value='0'>Not Use</MenuItem>
+                <MenuItem value='1'>Salaries</MenuItem>
+                <MenuItem value='2'>Custody</MenuItem>
+              </TextField>
+            )}
+          />
+        </GridItem>
+      </Grid>
+    </CardWithFloatingActions>
   )
 }
 

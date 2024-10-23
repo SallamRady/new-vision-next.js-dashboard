@@ -26,7 +26,7 @@ function BankInfo() {
       <Backdrop open={isLoading}>
         <CircularProgress />
       </Backdrop>
-      <Stack spacing={4}>
+      <Stack spacing={14}>
         {bankAccounts?.map(bankAccount => (
           <SingleBankForm key={bankAccount.id} refresh={refetch} bankAccount={bankAccount} />
         ))}
