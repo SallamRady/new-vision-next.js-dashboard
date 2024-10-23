@@ -3,6 +3,8 @@
 // import packages
 import { useContext, useMemo } from 'react'
 
+import { useRouter } from 'next/navigation'
+
 import { Avatar, Box, Button, Checkbox, Chip, Typography } from '@mui/material'
 import { createColumnHelper } from '@tanstack/react-table'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -25,6 +27,7 @@ const columnHelper = createColumnHelper<Tenant>()
 
 export function useHooks() {
   const companiesContextV2 = useContext(CompaniesContext)
+  const router = useRouter()
 
   const {
     query: { data, refetch }
@@ -89,7 +92,18 @@ export function useHooks() {
       columnHelper.accessor('name', {
         header: 'الشركة',
         cell: ({ row }) => (
-          <Box sx={{ borderRight: '2px solid transparent', borderRightColor: 'text.primary', pr: 1, width: 1 }}>
+          <Box
+            sx={{
+              borderRight: '2px solid transparent',
+              borderRightColor: 'text.primary',
+              pr: 1,
+              width: 1,
+              cursor: 'pointer'
+            }}
+            onClick={() => {
+              router.push(`/companies/${row.original.id}`)
+            }}
+          >
             <div className='flex gap-2'>
               <Avatar src={row.original.media?.[0]?.original_url}>{row.original.name?.slice(0, 2)}</Avatar>
               <div>
