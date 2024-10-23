@@ -28,7 +28,11 @@ function BankInfo() {
       </Backdrop>
       <Stack spacing={14}>
         {bankAccounts?.map(bankAccount => (
-          <SingleBankForm key={bankAccount.id} refresh={refetch} bankAccount={bankAccount} />
+          <SingleBankForm
+            key={[bankAccount.id, bankAccount.active].join()}
+            refresh={refetch}
+            bankAccount={bankAccount}
+          />
         ))}
         <SingleBankForm key={`${bankAccounts?.length}-create`} refresh={refetch} />
       </Stack>

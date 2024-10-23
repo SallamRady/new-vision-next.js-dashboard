@@ -8,6 +8,8 @@ import type { MouseEvent } from 'react'
 import { useRouter } from 'next/navigation'
 
 // MUI Imports
+import Link from 'next/link'
+
 import { styled } from '@mui/material/styles'
 import Badge from '@mui/material/Badge'
 import Avatar from '@mui/material/Avatar'
@@ -123,7 +125,12 @@ const UserDropdown = () => {
                     </div>
                   </div>
                   <Divider className='mlb-1' />
-                  <MenuItem className='gap-3 pli-4' onClick={e => handleDropdownClose(e)}>
+                  <MenuItem
+                    className='gap-3 pli-4'
+                    onClick={e => handleDropdownClose(e)}
+                    component={Link}
+                    href='/user/profile'
+                  >
                     <i className='ri-user-3-line' />
                     <Typography color='text.primary'>الملف الشخصي</Typography>
                   </MenuItem>
