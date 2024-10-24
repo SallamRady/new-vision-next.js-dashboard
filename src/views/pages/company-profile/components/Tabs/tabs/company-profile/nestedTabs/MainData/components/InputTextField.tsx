@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material'
+import { TextField, Tooltip } from '@mui/material'
 
 export default function InputTextField(props: InputTextFieldProps) {
   const { disabled = false, label, value = '', error = false } = props
@@ -13,7 +13,13 @@ export default function InputTextField(props: InputTextFieldProps) {
         value={value}
         label={label}
         InputProps={{
-          endAdornment: !error ? <></> : <i className='ri-error-warning-line text-warning'></i>
+          endAdornment: !error ? (
+            <></>
+          ) : (
+            <Tooltip title='لتعديل هذا ال field قم بطلب لتعديل' placement='top'>
+              <i className='ri-error-warning-line text-warning'></i>
+            </Tooltip>
+          )
         }}
       />
     </>
