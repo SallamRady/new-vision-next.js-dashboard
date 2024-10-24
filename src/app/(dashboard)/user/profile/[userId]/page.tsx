@@ -17,6 +17,7 @@ import { getProfileData } from '@/app/server/actions'
 import ContractView from '@/views/pages/user-profile/contract'
 import { getMe } from '@/utils/api/user/get-me'
 import { getAuthHeaders } from '@/libs/headers/headerServices'
+import type { ParamsType } from '@/types/ParamsType'
 
 const ProfileTab = dynamic(() => import('@views/pages/user-profile/profile'))
 const TeamsTab = dynamic(() => import('@views/pages/user-profile/teams'))
@@ -24,7 +25,7 @@ const ProjectsTab = dynamic(() => import('@views/pages/user-profile/projects'))
 const ConnectionsTab = dynamic(() => import('@views/pages/user-profile/connections'))
 
 // Vars
-const tabContentList = (data?: Data): { [key: string]: ReactElement } => ({
+export const tabContentList = (data?: Data): { [key: string]: ReactElement } => ({
   profile: <ProfileTab data={data?.users.profile} />,
   contract: <ContractView />,
   teams: <TeamsTab data={data?.users.teams} />,
@@ -50,11 +51,11 @@ const tabContentList = (data?: Data): { [key: string]: ReactElement } => ({
   return res.json()
 } */
 
-const ProfilePage = async () => {
+const ProfilePage = async ({ params: { userId } }: ParamsType) => {
   // Vars
   const data = await getProfileData()
   const headers = await getAuthHeaders()
-  const user = await getMe(headers)
+  const user = await getMe(headers, userId)
 
   if (!user) notFound()
 

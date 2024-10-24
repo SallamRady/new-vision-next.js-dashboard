@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from 'react'
 
+import { useParams } from 'next/navigation'
+
 import { Controller } from 'react-hook-form'
 
 import { Button, Grid, IconButton, MenuItem, Stack, Switch, TextField } from '@mui/material'
@@ -57,6 +59,8 @@ function SingleBankForm({ bankAccount, refresh }: Props) {
 
   const disabled = acctualMode === $FormMode.NONE || isSubmitting
 
+  const { userId } = useParams()
+
   // Form submission handler
   const onSubmit = handleSubmit(async data => {
     try {
@@ -64,7 +68,7 @@ function SingleBankForm({ bankAccount, refresh }: Props) {
 
       await axios.request({
         headers,
-        data,
+        data: { ...data, global_id: userId },
         ...(bankAccount
           ? {
               // Edit
@@ -269,29 +273,6 @@ function SingleBankForm({ bankAccount, refresh }: Props) {
             error={!!errors.code_bic}
             helperText={errors.code_bic?.message}
             disabled={disabled}
-          />
-        </GridItem>
-
-        <GridItem>
-          <Controller
-            control={control}
-            name='status'
-            render={({ field }) => (
-              <TextField
-                select
-                label='Status'
-                fullWidth
-                {...field}
-                error={!!errors.status}
-                helperText={errors.status?.message}
-                disabled={disabled}
-              >
-                <MenuItem value='-1'>Default</MenuItem>
-                <MenuItem value='0'>Not Use</MenuItem>
-                <MenuItem value='1'>Salaries</MenuItem>
-                <MenuItem value='2'>Custody</MenuItem>
-              </TextField>
-            )}
           />
         </GridItem>
       </Grid>

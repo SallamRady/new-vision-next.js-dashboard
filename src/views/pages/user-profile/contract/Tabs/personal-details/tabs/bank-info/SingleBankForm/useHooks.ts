@@ -20,7 +20,7 @@ const addBankSchema = z
     status: z.union([z.string(), z.number()]).refine(val => ['-1', '0', '1', '2'].includes(String(val)), {
       message: 'Status must be one of -1 (default), 0 (not use), 1 (salaries), or 2 (custody)'
     }),
-    active: z.number().min(0).max(1)
+    active: z.number().min(0).max(1).optional()
   })
   .transform(data => {
     return {
