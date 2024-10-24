@@ -89,32 +89,32 @@ export default function CompanyDetailsProfileMainInformation() {
           />
         </GridItem>
         <GridItem>
-          <InputTextField label='كيان الشركة' disabled={true} value={companyData?.type?.name ?? '_'} error={false} />
+          <InputTextField label='كيان الشركة' disabled={true} value={companyData?.type?.name ?? '_'} error={true} />
         </GridItem>
         <GridItem>
           <InputTextField
             label='دولة المركز الرئيسي'
             disabled={true}
             value={companyData?.country?.name_ar ?? '_'}
-            error={false}
+            error={true}
           />
         </GridItem>
         <GridItem>
-          <InputTextField label='مجال الشركة' disabled={true} value={companyData?.field?.name ?? '_'} error={false} />
+          <InputTextField label='مجال الشركة' disabled={true} value={companyData?.field?.name ?? '_'} error={true} />
         </GridItem>
         <GridItem>
           <InputTextField
             label='رقم الجوال'
             disabled={true}
             value={companyData?.phone + ` ` + companyData?.country?.phonecode + '+'}
-            error={false}
+            error={true}
           />
         </GridItem>
         <GridItem>
-          <InputTextField label='البريد الالكتروني' disabled={true} value={companyData?.email ?? ''} error={false} />
+          <InputTextField label='البريد الالكتروني' disabled={true} value={companyData?.email ?? ''} error={true} />
         </GridItem>
         <GridItem>
-          <InputTextField label='الباقة' disabled={true} value={companyData?.package?.name ?? ''} error={false} />
+          <InputTextField label='الباقة' disabled={true} value={companyData?.package?.name ?? ''} error={true} />
         </GridItem>
       </Grid>
     </FieldSet>
