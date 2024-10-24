@@ -24,7 +24,7 @@ export default function FieldSet(props: FieldSetProps) {
         {leftTitle}
         {Boolean(rightTitle) && (
           <>
-            <Divider flexItem variant={'middle'} sx={{ mx: 4, flexGrow: 1, mb: '10px' }} />
+            <Divider flexItem variant={'middle'} sx={{ mx: 4, flexGrow: 1, my: '20px' }} />
             {rightTitle}
           </>
         )}
