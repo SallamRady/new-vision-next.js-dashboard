@@ -1,6 +1,8 @@
 'use client'
 
 // MUI Imports
+import { useContext } from 'react'
+
 import { useRouter } from 'next/navigation'
 
 import Card from '@mui/material/Card'
@@ -17,12 +19,21 @@ import VisuallyHiddenInput from '@/components/ViduallyHiddenInput'
 
 import { api } from '@/Constants/Api'
 import { getClientAuthHeaders } from '@/libs/headers/clientHeaders'
+import { CompanyDetailsCxt } from '../../context/CompanyDetailsCxt'
 
 const CompanyProfileHeader = () => {
   // ** declare and define component state and variables
+  const { companyData } = useContext(CompanyDetailsCxt)
+
   // ** declare and define component helper methods
-  const profileImage = ''
   const router = useRouter()
+  const profileImage = companyData?.media?.[0]?.original_url ?? ''
+
+  const joinnedDate = new Date(companyData?.created_at ?? '')?.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  })
 
   // ** return component ui
   return (
@@ -68,7 +79,7 @@ const CompanyProfileHeader = () => {
         <div className='flex is-full flex-wrap justify-start flex-col items-center sm:flex-row sm:justify-between sm:items-end gap-5'>
           <div className='flex flex-col items-center sm:items-start gap-2'>
             <Typography variant='h4' fontSize={28} fontWeight={700}>
-              ابعاد الرؤية للاستشارات الهندسية
+              {companyData?.name ?? 'أسم الشركة'}
             </Typography>
             <div className='flex flex-wrap gap-6 gap-y-3 justify-center sm:justify-normal min-bs-[38px]'>
               <div className='flex items-center gap-2'>
@@ -81,7 +92,7 @@ const CompanyProfileHeader = () => {
                 <Typography className='font-medium'>
                   تاريخ الانظمام
                   <br />
-                  <b>04/05/2024</b>
+                  <b>{joinnedDate}</b>
                 </Typography>
               </div>
             </div>

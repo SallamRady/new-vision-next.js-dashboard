@@ -1,3 +1,7 @@
+'use client'
+
+import { useContext } from 'react'
+
 import {
   Button,
   Chip,
@@ -11,7 +15,14 @@ import {
   Typography
 } from '@mui/material'
 
+import { CompanyDetailsCxt } from '../../context/CompanyDetailsCxt'
+
 export default function CompanyPackageCard() {
+  // ** declare and define component state and variables
+  const { companyData } = useContext(CompanyDetailsCxt)
+
+  console.log('company package ::', companyData?.package)
+
   return (
     <Stack
       spacing={2}

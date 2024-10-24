@@ -24,6 +24,7 @@ export type CompaniesLookUpsType = {
 export type TenantType = {
   id: number
   name: string
+  name_en: string
   description: string
   responsibility: string
   partner_number: string
@@ -51,7 +52,9 @@ export type TenantType = {
   user_id: number
   website_url: string
   email: string
+  phone: string
   package: PackageType
+  field?: TenantTypeFieldType
 }
 
 export type RegistrationType = {
