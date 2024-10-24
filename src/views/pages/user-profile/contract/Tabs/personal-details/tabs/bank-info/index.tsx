@@ -1,3 +1,7 @@
+'use client'
+
+import { useParams } from 'next/navigation'
+
 import { useQuery } from '@tanstack/react-query'
 
 import { Backdrop, CircularProgress, Stack } from '@mui/material'
@@ -7,6 +11,8 @@ import { getAuthHeaders } from '@/libs/headers/headerServices'
 import { getUserBankAccounts } from '@/utils/api/user/get-user-bank-accounts'
 
 function BankInfo() {
+  const { userId } = useParams()
+
   const {
     data: bankAccounts,
     isLoading,
@@ -15,7 +21,7 @@ function BankInfo() {
     queryKey: ['Bank Info'],
     async queryFn() {
       const headers = await getAuthHeaders()
-      const data = await getUserBankAccounts(headers)
+      const data = await getUserBankAccounts(headers, userId)
 
       return data
     }
